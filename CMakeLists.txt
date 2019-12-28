@@ -68,6 +68,7 @@ endif()
 ########################################################################
 # library
 add_library(concrete INTERFACE)
+add_library(Deeplex::concrete ALIAS concrete)
 target_include_directories(concrete INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
@@ -83,6 +84,10 @@ target_compile_features(concrete INTERFACE cxx_std_17)
 # library test project
 if (BUILD_TESTING)
     add_executable(concrete-tests)
+    set_target_properties(concrete-tests PROPERTIES
+        OUTPUT_NAME concrete-tests-$<CONFIG>
+        CXX_EXTENSIONS OFF
+    )
     target_sources(concrete-tests PRIVATE
         tests/concrete-tests.main.cpp
         tests/boost-test.hpp
@@ -102,13 +107,40 @@ if (BUILD_TESTING)
     endif()
 
     target_link_libraries(concrete-tests PRIVATE
-        concrete
+        Deeplex::concrete
 
         Boost::unit_test_framework
     )
     target_compile_options(concrete-tests PRIVATE ${CNCR_ADDITIONAL_OPTIONS})
     target_compile_definitions(concrete-tests PRIVATE ${CNCR_ADDITIONAL_DEFINITIONS})
-    set_target_properties(concrete-tests PROPERTIES CXX_EXTENSIONS OFF)
 
     add_test(NAME concrete-tests COMMAND concrete-tests)
 endif()
+
+########################################################################
+# cmake install
+include(GNUInstallDirs)
+
+install(DIRECTORY include/ TYPE INCLUDE)
+install(TARGETS concrete EXPORT concrete-targets)
+install(EXPORT concrete-targets
+    NAMESPACE Deeplex::
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/concrete"
+)
+
+include(CMakePackageConfigHelpers)
+configure_file(tools/concrete-config.cmake
+    "${CMAKE_CURRENT_BINARY_DIR}/concrete-config.cmake"
+    COPYONLY
+)
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/concrete-config-version.cmake"
+    COMPATIBILITY ExactVersion
+)
+
+install(FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/concrete-config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/concrete-config-version.cmake"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/concrete"
+)
+
