@@ -23,6 +23,7 @@ add_custom_command(
     MAIN_DEPENDENCY "${CMAKE_CURRENT_LIST_DIR}/conf.py"
     DEPENDS
         "${CMAKE_CURRENT_LIST_DIR}/index.rst"
+        "${CMAKE_CURRENT_LIST_DIR}/modules/misc.rst"
     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
     COMMENT "Compiling project documentation"
 )

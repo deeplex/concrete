@@ -10,6 +10,8 @@ Welcome to concrete's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   modules/misc.rst
+
 Indices and tables
 ==================
 
