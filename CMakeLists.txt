@@ -42,6 +42,12 @@ find_package(Boost 1.71 REQUIRED COMPONENTS
     unit_test_framework
 )
 
+# the documentation generator
+find_package(Sphinx)
+if (Sphinx_FOUND)
+    option(BUILD_DOCS "Build the documentation using sphinx" ON)
+endif()
+
 ########################################################################
 # additional compiler options
 if (CL_COMPATIBLE)
@@ -79,6 +85,9 @@ target_sources(concrete INTERFACE
 )
 
 target_compile_features(concrete INTERFACE cxx_std_17)
+if (CL_COMPATIBLE)
+    target_compile_options(concrete INTERFACE /Zc:__cplusplus)
+endif()
 
 ########################################################################
 # library test project
@@ -115,6 +124,12 @@ if (BUILD_TESTING)
     target_compile_definitions(concrete-tests PRIVATE ${CNCR_ADDITIONAL_DEFINITIONS})
 
     add_test(NAME concrete-tests COMMAND concrete-tests)
+endif()
+
+########################################################################
+# docs
+if (Sphinx_FOUND AND BUILD_DOCS)
+    add_subdirectory(docs)
 endif()
 
 ########################################################################
