@@ -79,3 +79,15 @@ Misc. functions
 
     :returns: :expr:`value != std::byte{}`
 
+.. struct:: template <typename T> \
+            remove_cvref
+
+    A backport of C++20 `std::remove_cvref <https://en.cppreference.com/w/cpp/types/remove_cvref>`_.
+
+    .. type:: type = std::remove_cv_t<std::remove_reference_t<T>>
+
+
+.. type:: template <typename T> \
+          remove_cvref_t = typename remove_cvref<T>::type
+
+    A backport of C++20 `std::remove_cvref <https://en.cppreference.com/w/cpp/types/remove_cvref>`_.

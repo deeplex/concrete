@@ -139,25 +139,14 @@ namespace dplx::cncr
             std::make_index_sequence<std::size(R{})>{}, args...);
     }
 
-    // #cpp_version_ODR_violation
-#if __cpp_lib_remove_cvref >= 201711L
-
-    template <typename T>
-    using remove_cvref = std::remove_cvref<T>;
-
-    template <typename T>
-    using remove_cvref_t = std::remove_cvref_t<T>;
-
-#else
-
     template <typename T>
     struct remove_cvref
     {
-        using type = std::remove_cv_t<std::remove_reference_t<T>>;
+        using type = typename std::remove_cv<
+            typename std::remove_reference<T>::type>::type;
     };
 
     template <typename T>
     using remove_cvref_t = typename remove_cvref<T>::type;
 
-#endif
 } // namespace dplx::cncr
