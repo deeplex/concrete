@@ -7,6 +7,7 @@
    :maxdepth: 2
    :caption: Contents:
 
+   modules/bit.rst
    modules/misc.rst
    modules/overloaded.rst
    modules/scope_guard.rst
