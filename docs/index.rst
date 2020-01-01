@@ -8,6 +8,7 @@
    :caption: Contents:
 
    modules/misc.rst
+   modules/overloaded.rst
    modules/scope_guard.rst
 
 
