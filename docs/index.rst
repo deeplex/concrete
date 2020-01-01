@@ -1,10 +1,7 @@
-.. concrete documentation master file, created by
-   sphinx-quickstart on Sun Dec 29 11:05:22 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
-Welcome to concrete's documentation!
-====================================
+======================================
+ Welcome to concrete's documentation!
+======================================
 
 .. toctree::
    :maxdepth: 2
@@ -13,9 +10,10 @@ Welcome to concrete's documentation!
    modules/misc.rst
    modules/scope_guard.rst
 
-Indices and tables
-==================
+
+--------------------
+ Indices and tables
+--------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
