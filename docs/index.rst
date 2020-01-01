@@ -11,6 +11,7 @@ Welcome to concrete's documentation!
    :caption: Contents:
 
    modules/misc.rst
+   modules/scope_guard.rst
 
 Indices and tables
 ==================

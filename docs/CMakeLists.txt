@@ -24,6 +24,7 @@ add_custom_command(
     DEPENDS
         "${CMAKE_CURRENT_LIST_DIR}/index.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/misc.rst"
+        "${CMAKE_CURRENT_LIST_DIR}/modules/scope_guard.rst"
     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
     COMMENT "Compiling project documentation"
 )
