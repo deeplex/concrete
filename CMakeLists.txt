@@ -83,6 +83,7 @@ set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/dplx")
 target_sources(concrete INTERFACE
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/bit.hpp>
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/misc.hpp>
+    $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/windows-proper.h>
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/overloaded.hpp>
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/scope_guard.hpp>
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/span.hpp>
