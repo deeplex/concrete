@@ -86,7 +86,6 @@ target_sources(concrete INTERFACE
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/windows-proper.h>
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/overloaded.hpp>
     $<BUILD_INTERFACE:${CNCR_INC_DIR}/scope_guard.hpp>
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/span.hpp>
 )
 
 target_compile_features(concrete INTERFACE cxx_std_17)
