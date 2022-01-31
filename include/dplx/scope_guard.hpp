@@ -12,40 +12,42 @@
 
 namespace dplx
 {
-    template <typename Fn>
-    struct scope_guard
+
+template <typename Fn>
+struct scope_guard
+{
+    inline scope_guard(Fn &&fn)
+        : mFn(std::forward<Fn>(fn))
     {
-        inline scope_guard(Fn &&fn)
-            : mFn(std::forward<Fn>(fn))
-        {
-        }
-        inline ~scope_guard() noexcept
+    }
+    inline ~scope_guard() noexcept
+    {
+        mFn();
+    }
+
+private:
+    Fn mFn;
+};
+
+template <typename Fn>
+struct exception_scope_guard
+{
+    inline exception_scope_guard(Fn &&fn)
+        : mFn(std::forward<Fn>(fn))
+        , mUncaughtExceptions(std::uncaught_exceptions())
+    {
+    }
+    inline ~exception_scope_guard() noexcept
+    {
+        if (mUncaughtExceptions < std::uncaught_exceptions())
         {
             mFn();
         }
+    }
 
-    private:
-        Fn mFn;
-    };
+private:
+    Fn mFn;
+    int mUncaughtExceptions;
+};
 
-    template <typename Fn>
-    struct exception_scope_guard
-    {
-        inline exception_scope_guard(Fn &&fn)
-            : mFn(std::forward<Fn>(fn))
-            , mUncaughtExceptions(std::uncaught_exceptions())
-        {
-        }
-        inline ~exception_scope_guard() noexcept
-        {
-            if (mUncaughtExceptions < std::uncaught_exceptions())
-            {
-                mFn();
-            }
-        }
-
-    private:
-        Fn mFn;
-        int mUncaughtExceptions;
-    };
-}
+} // namespace dplx
