@@ -20,7 +20,7 @@
 #if __cplusplus > 201703L && __cpp_lib_bitops >= 201907L
 #include <bit>
 
-#include <boost/predef.h>
+#include <dplx/predef/compiler.h>
 
 namespace dplx::cncr
 {
@@ -60,7 +60,7 @@ inline auto countl_zero(T x) noexcept -> int
         return limits::digits;
     }
 
-#if defined BOOST_COMP_MSVC_AVAILABLE
+#if defined DPLX_COMP_MSVC_AVAILABLE
 
     unsigned long result;
     if constexpr (sizeof(T) <= sizeof(unsigned long))
@@ -94,7 +94,7 @@ inline auto countl_zero(T x) noexcept -> int
     }
     return static_cast<int>(result);
 
-#elif defined BOOST_COMP_GCC_AVAILABLE || defined BOOST_COMP_CLANG_AVAILABLE
+#elif defined DPLX_COMP_GCC_AVAILABLE || defined DPLX_COMP_CLANG_AVAILABLE
 
     int result;
     if constexpr (sizeof(T) <= sizeof(unsigned int))
@@ -133,7 +133,7 @@ inline auto countr_zero(T x) noexcept -> int
         return limits::digits;
     }
 
-#if defined BOOST_COMP_MSVC_AVAILABLE
+#if defined DPLX_COMP_MSVC_AVAILABLE
 
     unsigned long result;
     if constexpr (sizeof(T) <= sizeof(unsigned long))
@@ -162,7 +162,7 @@ inline auto countr_zero(T x) noexcept -> int
     }
     return static_cast<int>(result);
 
-#elif defined BOOST_COMP_GCC_AVAILABLE || defined BOOST_COMP_CLANG_AVAILABLE
+#elif defined DPLX_COMP_GCC_AVAILABLE || defined DPLX_COMP_CLANG_AVAILABLE
 
     int result;
     if constexpr (sizeof(T) <= sizeof(unsigned int))
