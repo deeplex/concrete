@@ -33,4 +33,9 @@ add_custom_command(
 
 add_custom_target(docs ALL DEPENDS "${DOCS_OUTPUT_DIR}/index.html")
 
-install(DIRECTORY "${DOCS_OUTPUT_DIR}" TYPE DOC)
+include(GNUInstallDirs)
+install(DIRECTORY
+    "${DOCS_OUTPUT_DIR}/"
+
+    DESTINATION "${CMAKE_INSTALL_DOCDIR}"
+)

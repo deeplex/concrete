@@ -99,6 +99,7 @@ add_library(concrete INTERFACE)
 add_library(Deeplex::concrete ALIAS concrete)
 target_include_directories(concrete INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/predef/include>
     $<INSTALL_INTERFACE:include>
 )
 set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/dplx")
@@ -163,6 +164,7 @@ endif()
 include(GNUInstallDirs)
 
 install(DIRECTORY include/ TYPE INCLUDE)
+install(DIRECTORY external/predef/include/ TYPE INCLUDE)
 install(TARGETS concrete EXPORT concrete-targets)
 install(EXPORT concrete-targets
     NAMESPACE Deeplex::
