@@ -10,7 +10,32 @@
 #     http://creativecommons.org/publicdomain/zero/1.0/
 #
 ########################################################################
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.16)
+
+########################################################################
+# configure vcpkg from environment vars if possible
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            CACHE STRING "")
+endif()
+
+if(DEFINED ENV{VCPKG_DEFAULT_TRIPLET} AND NOT DEFINED VCPKG_TARGET_TRIPLET)
+    set(VCPKG_TARGET_TRIPLET "$ENV{VCPKG_DEFAULT_TRIPLET}" CACHE STRING "")
+endif()
+
+if(NOT DEFINED VCPKG_FEATURE_FLAGS)
+    set(VCPKG_FEATURE_FLAGS "registries" CACHE STRING "")
+endif()
+if(NOT DEFINED VCPKG_OVERLAY_TRIPLETS)
+    set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_SOURCE_DIR}/tools/triplets" CACHE STRING "")
+endif()
+
+option(BUILD_TESTING "Add test targets" OFF)
+if (BUILD_TESTING)
+    list(APPEND VCPKG_MANIFEST_FEATURES "tests")
+endif()
+
+########################################################################
 project(concrete VERSION 0.0.0 LANGUAGES CXX)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
@@ -31,9 +56,6 @@ endif()
 
 ########################################################################
 # options
-if (BUILD_TESTING)
-    option(BUILD_TESTING "Add test targets" BUILD_TESTING)
-endif()
 
 ########################################################################
 # dependencies
