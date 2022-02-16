@@ -109,6 +109,7 @@ set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/dplx")
 foreach (header IN ITEMS
     cncr/bit.hpp
     cncr/misc.hpp
+    cncr/mp_lite.hpp
     cncr/windows-proper.h
     cncr/workaround.h
     overloaded.hpp

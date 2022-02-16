@@ -1,0 +1,11 @@
+concrete
+Copyright
+- 2020, 2022 Henrik S. Gaßmann
+
+This project uses and distributes the source of Peter Dimov's mp11 library
+under the terms of the Boost Software License (http://www.boost.org/LICENSE_1_0.txt).
+- include/dplx/cncr/mp_lite.hpp
+
+This project uses and distributes the source of Rene Ferdinand Rivera Morell's Predef library
+under the terms of the Boost Software License (http://www.boost.org/LICENSE_1_0.txt).
+- external/predef/
