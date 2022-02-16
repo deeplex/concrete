@@ -30,29 +30,22 @@ if(NOT DEFINED VCPKG_OVERLAY_TRIPLETS)
     set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_SOURCE_DIR}/tools/triplets" CACHE STRING "")
 endif()
 
-option(BUILD_TESTING "Add test targets" OFF)
-if (BUILD_TESTING)
+if (BUILD_TESTING OR NOT DEFINED BUILD_TESTING)
     list(APPEND VCPKG_MANIFEST_FEATURES "tests")
 endif()
 
 ########################################################################
-project(concrete VERSION 0.0.0 LANGUAGES CXX)
+project(concrete VERSION 0.0.0.0 LANGUAGES CXX)
 
-if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
-    message(FATAL_ERROR "in-source builds are not supported!")
-endif()
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/tools/cmake/")
+include(EnforceOutOfSourceBuilds)
+include(CMakeDependentOption)
+include(CMakePackageConfigHelpers)
+include(FeatureSummary)
+include(GNUInstallDirs)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/tools/cmake/")
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
-    OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC"))
-    set(GXX_COMPATIBLE 1)
-endif()
-
-if(MSVC OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC"))
-    set(CL_COMPATIBLE 1)
-endif()
 
 ########################################################################
 # options
@@ -60,57 +53,71 @@ endif()
 ########################################################################
 # dependencies
 
-find_package(Catch2 CONFIG REQUIRED)
+find_package(Catch2 CONFIG)
+cmake_dependent_option(BUILD_TESTING "Build the documentation using sphinx" ON Catch2_FOUND OFF)
+set_package_properties(Catch2 PROPERTIES
+    TYPE OPTIONAL
+    PURPOSE "Allows to build the test suite"
+)
 
-# the documentation generator
 find_package(Sphinx)
-if (Sphinx_FOUND)
-    option(BUILD_DOCS "Build the documentation using sphinx" ON)
-endif()
+cmake_dependent_option(BUILD_DOCS "Build the documentation using sphinx" ON Sphinx_FOUND OFF)
+set_package_properties(Sphinx PROPERTIES
+    TYPE OPTIONAL
+    PURPOSE "Allows to build the documentation"
+)
+
 
 ########################################################################
 # warning configuration
 include(CompilerWarnings)
 
+
 ########################################################################
 # additional compiler options
-if (CL_COMPATIBLE)
-    set(CNCR_ADDITIONAL_OPTIONS
+set(CMAKE_CXX_EXTENSIONS OFF CACHE STRING "" FORCE)
+
+add_library(compiler_settings INTERFACE)
+add_library(Deeplex::concrete_compiler_settings ALIAS compiler_settings)
+set_target_properties(compiler_settings PROPERTIES
+    EXPORT_NAME concrete_compiler_settings
+)
+
+target_compile_features(compiler_settings INTERFACE cxx_std_20)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(compiler_settings INTERFACE
         /utf-8 # all sources are utf-8 encoded
-        /permissive- # TPL, disables many MSVC leniencies
+        /Zc:__cplusplus # correctly define the __cplusplus macro
     )
-    set(CNCR_ADDITIONAL_DEFINITIONS
-        -D_WIN32_WINNT=0x0601 # WinSDK @ Windows 7
-        -DUNICODE -D_UNICODE # force Unicode WinAPIs
-    )
-elseif (GXX_COMPATIBLE)
-    
 endif()
+
 
 ########################################################################
 # library
 add_library(concrete INTERFACE)
 add_library(Deeplex::concrete ALIAS concrete)
+
+target_link_libraries(concrete INTERFACE Deeplex::concrete_compiler_settings)
+
 target_include_directories(concrete INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/predef/include>
     $<INSTALL_INTERFACE:include>
 )
-set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/dplx")
-target_sources(concrete INTERFACE
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/bit.hpp>
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/misc.hpp>
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/windows-proper.h>
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/cncr/workaround.h>
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/overloaded.hpp>
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/predef/workaround.h>
-    $<BUILD_INTERFACE:${CNCR_INC_DIR}/scope_guard.hpp>
-)
 
-target_compile_features(concrete INTERFACE cxx_std_17)
-if (CL_COMPATIBLE)
-    target_compile_options(concrete INTERFACE /Zc:__cplusplus)
-endif()
+set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/dplx")
+foreach (header IN ITEMS
+    cncr/bit.hpp
+    cncr/misc.hpp
+    cncr/windows-proper.h
+    cncr/workaround.h
+    overloaded.hpp
+    predef/workaround.h
+    scope_guard.hpp
+)
+    target_sources(concrete INTERFACE $<BUILD_INTERFACE:${CNCR_INC_DIR}/${header}>)
+endforeach()
+
 
 ########################################################################
 # library test project
@@ -118,7 +125,6 @@ if (BUILD_TESTING)
     add_executable(concrete-tests)
     set_target_properties(concrete-tests PROPERTIES
         OUTPUT_NAME concrete-tests-$<CONFIG>
-        CXX_EXTENSIONS OFF
     )
     target_sources(concrete-tests PRIVATE
         tests/test_utils.hpp
@@ -131,43 +137,42 @@ if (BUILD_TESTING)
 
         Catch2::Catch2 Catch2::Catch2WithMain
     )
-    target_compile_options(concrete-tests PRIVATE ${CNCR_ADDITIONAL_OPTIONS})
-    target_compile_definitions(concrete-tests PRIVATE ${CNCR_ADDITIONAL_DEFINITIONS})
 
     add_test(NAME concrete-tests COMMAND concrete-tests)
 endif()
 
 ########################################################################
 # docs
-if (Sphinx_FOUND AND BUILD_DOCS)
+if (BUILD_DOCS)
     add_subdirectory(docs)
 endif()
 
 ########################################################################
 # cmake install
-include(GNUInstallDirs)
-
 install(DIRECTORY include/ TYPE INCLUDE)
 install(DIRECTORY external/predef/include/ TYPE INCLUDE)
-install(TARGETS concrete EXPORT concrete-targets)
+
+install(TARGETS concrete compiler_settings EXPORT concrete-targets)
 install(EXPORT concrete-targets
     NAMESPACE Deeplex::
-    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/concrete"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/concrete"
 )
 
-include(CMakePackageConfigHelpers)
-configure_file(tools/concrete-config.cmake
+configure_package_config_file(tools/concrete-config.cmake.in
     "${CMAKE_CURRENT_BINARY_DIR}/concrete-config.cmake"
-    COPYONLY
+    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/concrete"
 )
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/concrete-config-version.cmake"
-    COMPATIBILITY ExactVersion
+    COMPATIBILITY SameMinorVersion
 )
 
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/concrete-config.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/concrete-config-version.cmake"
-    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/concrete"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/concrete"
 )
 
+
+########################################################################
+feature_summary(WHAT PACKAGES_FOUND PACKAGES_NOT_FOUND)

@@ -33,7 +33,6 @@ add_custom_command(
 
 add_custom_target(docs ALL DEPENDS "${DOCS_OUTPUT_DIR}/index.html")
 
-include(GNUInstallDirs)
 install(DIRECTORY
     "${DOCS_OUTPUT_DIR}/"
 
