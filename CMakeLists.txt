@@ -69,26 +69,22 @@ if (Sphinx_FOUND)
 endif()
 
 ########################################################################
+# warning configuration
+include(CompilerWarnings)
+
+########################################################################
 # additional compiler options
 if (CL_COMPATIBLE)
     set(CNCR_ADDITIONAL_OPTIONS
         /utf-8 # all sources are utf-8 encoded
         /permissive- # TPL, disables many MSVC leniencies
-
-        /W4 # warning level 4
-        # with the following exceptions
     )
     set(CNCR_ADDITIONAL_DEFINITIONS
         -D_WIN32_WINNT=0x0601 # WinSDK @ Windows 7
         -DUNICODE -D_UNICODE # force Unicode WinAPIs
     )
 elseif (GXX_COMPATIBLE)
-    set(CNCR_ADDITIONAL_OPTIONS
-
-        -Wall -Wpedantic # enable all recommended warnings
-        # with the following exceptions
-        # -Wno-c++98-compat # do not warn about code incompatible with previous standards
-    )
+    
 endif()
 
 ########################################################################

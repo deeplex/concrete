@@ -66,8 +66,10 @@ constexpr auto mod(T k, U n) noexcept -> std::common_type_t<T, U>
         using ucommon_type = std::make_unsigned_t<common_type>;
 
         const auto needsAdjustment = r < 0;
-        const auto mask = -static_cast<ucommon_type>(needsAdjustment);
-        const auto adjustment = static_cast<common_type>(mask & n);
+        const auto mask
+                = ucommon_type{} - static_cast<ucommon_type>(needsAdjustment);
+        const auto adjustment
+                = static_cast<common_type>(mask & static_cast<ucommon_type>(n));
         return r + adjustment;
     }
     else
