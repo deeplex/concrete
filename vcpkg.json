@@ -8,7 +8,7 @@
     "features": {
         "tests": {
             "description": "Build the test suite",
-            "dependencies": [ "boost-test" ]
+            "dependencies": [ "catch2" ]
         }
     }
 }

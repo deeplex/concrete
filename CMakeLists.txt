@@ -60,9 +60,7 @@ endif()
 ########################################################################
 # dependencies
 
-find_package(Boost 1.71 REQUIRED COMPONENTS
-    unit_test_framework
-)
+find_package(Catch2 CONFIG REQUIRED)
 
 # the documentation generator
 find_package(Sphinx)
@@ -127,27 +125,15 @@ if (BUILD_TESTING)
         CXX_EXTENSIONS OFF
     )
     target_sources(concrete-tests PRIVATE
-        tests/concrete-tests.main.cpp
-        tests/boost-test.hpp
+        tests/test_utils.hpp
 
         tests/misc.test.cpp
     )
 
-    if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.16")
-        target_precompile_headers(concrete-tests PRIVATE
-            tests/boost-test.hpp
-        )
-        # we need to define the test suite name before including the unit
-        # test framework
-        set_source_files_properties(tests/concrete-tests.main.cpp PROPERTIES
-            SKIP_PRECOMPILE_HEADERS ON
-        )
-    endif()
-
     target_link_libraries(concrete-tests PRIVATE
         Deeplex::concrete
 
-        Boost::unit_test_framework
+        Catch2::Catch2 Catch2::Catch2WithMain
     )
     target_compile_options(concrete-tests PRIVATE ${CNCR_ADDITIONAL_OPTIONS})
     target_compile_definitions(concrete-tests PRIVATE ${CNCR_ADDITIONAL_DEFINITIONS})

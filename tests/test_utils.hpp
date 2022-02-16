@@ -5,5 +5,15 @@
 //         (See accompanying file LICENSE or copy at
 //           https://www.boost.org/LICENSE_1_0.txt)
 
-#define BOOST_TEST_MODULE concrete tests
-#include "boost-test.hpp"
+#pragma once
+
+namespace dplx
+{
+}
+
+namespace cncr_tests
+{
+
+using namespace dplx;
+
+}
