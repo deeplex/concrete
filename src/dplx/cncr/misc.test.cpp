@@ -6,11 +6,10 @@
 //           https://www.boost.org/LICENSE_1_0.txt)
 
 #include "dplx/cncr/misc.hpp"
-#include "dplx/cncr/mp_lite.hpp"
 
 #include <catch2/catch.hpp>
 
-#include "test_utils.hpp"
+#include "cncr_tests/test_utils.hpp"
 
 namespace cncr_tests
 {

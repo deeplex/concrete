@@ -100,12 +100,35 @@ add_library(Deeplex::concrete ALIAS concrete)
 target_link_libraries(concrete INTERFACE Deeplex::concrete_compiler_settings)
 
 target_include_directories(concrete INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/predef/include>
     $<INSTALL_INTERFACE:include>
 )
 
-set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/dplx")
+########################################################################
+# library test project
+if (BUILD_TESTING)
+    add_executable(concrete-tests)
+    target_sources(concrete-tests PRIVATE
+        src/cncr_tests/test_utils.hpp
+    )
+
+    target_link_libraries(concrete-tests PRIVATE
+        Deeplex::concrete
+
+        Catch2::Catch2 Catch2::Catch2WithMain
+    )
+
+    target_include_directories(concrete-tests PRIVATE
+        scr/cncr_tests
+    )
+
+    add_test(NAME concrete-tests COMMAND concrete-tests)
+endif()
+
+########################################################################
+# source files
+set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/dplx")
 foreach (header IN ITEMS
     cncr/bit.hpp
     cncr/misc.hpp
@@ -117,32 +140,15 @@ foreach (header IN ITEMS
     predef/workaround.h
     scope_guard.hpp
 )
-    target_sources(concrete INTERFACE $<BUILD_INTERFACE:${CNCR_INC_DIR}/${header}>)
+    set(_HDR_PATH ${CNCR_INC_DIR}/${header})
+    list(APPEND CNCR_HDRS $<BUILD_INTERFACE:${_HDR_PATH}>)
+    get_filename_component(_HDR_NAME ${_HDR_PATH} NAME_WLE)
+    get_filename_component(_HDR_DIR ${_HDR_PATH} DIRECTORY)
+    list(APPEND CNCR_TEST_SRCS ${_HDR_DIR}/${_HDR_NAME}.test.cpp)
 endforeach()
+target_sources(concrete INTERFACE ${CNCR_HDRS})
+target_sources(concrete-tests PRIVATE ${CNCR_TEST_SRCS})
 
-
-########################################################################
-# library test project
-if (BUILD_TESTING)
-    add_executable(concrete-tests)
-    set_target_properties(concrete-tests PROPERTIES
-        OUTPUT_NAME concrete-tests-$<CONFIG>
-    )
-    target_sources(concrete-tests PRIVATE
-        tests/test_utils.hpp
-
-        tests/misc.test.cpp
-        tests/pack_utils.test.cpp
-    )
-
-    target_link_libraries(concrete-tests PRIVATE
-        Deeplex::concrete
-
-        Catch2::Catch2 Catch2::Catch2WithMain
-    )
-
-    add_test(NAME concrete-tests COMMAND concrete-tests)
-endif()
 
 ########################################################################
 # docs
@@ -152,7 +158,11 @@ endif()
 
 ########################################################################
 # cmake install
-install(DIRECTORY include/ TYPE INCLUDE)
+install(DIRECTORY src/dplx
+    TYPE INCLUDE
+    FILES_MATCHING
+    REGEX ".*\\.h(pp)?"
+)
 install(DIRECTORY external/predef/include/ TYPE INCLUDE)
 
 install(TARGETS concrete compiler_settings EXPORT concrete-targets)

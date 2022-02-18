@@ -12,6 +12,5 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 #include <dplx/predef/other/endian.h>
 #include <dplx/predef/other/wordsize.h>
-#include <dplx/predef/other/workaround.h>
 
 #endif

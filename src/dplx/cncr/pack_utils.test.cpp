@@ -1,5 +1,5 @@
 
-// Copyright Henrik Steffen Gaßmann 2019
+// Copyright Henrik Steffen Gaßmann 2022
 //
 // Distributed under the Boost Software License, Version 1.0.
 //         (See accompanying file LICENSE or copy at
@@ -9,7 +9,7 @@
 
 #include <catch2/catch.hpp>
 
-#include "test_utils.hpp"
+#include "cncr_tests/test_utils.hpp"
 
 namespace cncr_tests
 {
