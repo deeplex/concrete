@@ -25,6 +25,7 @@ add_custom_command(
         "${CMAKE_CURRENT_LIST_DIR}/index.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/bit.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/misc.rst"
+        "${CMAKE_CURRENT_LIST_DIR}/modules/pack_utils.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/overloaded.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/scope_guard.rst"
     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"

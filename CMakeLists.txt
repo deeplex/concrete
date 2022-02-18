@@ -110,6 +110,7 @@ foreach (header IN ITEMS
     cncr/bit.hpp
     cncr/misc.hpp
     cncr/mp_lite.hpp
+    cncr/pack_utils.hpp
     cncr/windows-proper.h
     cncr/workaround.h
     overloaded.hpp
@@ -131,6 +132,7 @@ if (BUILD_TESTING)
         tests/test_utils.hpp
 
         tests/misc.test.cpp
+        tests/pack_utils.test.cpp
     )
 
     target_link_libraries(concrete-tests PRIVATE

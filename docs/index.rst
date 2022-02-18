@@ -9,6 +9,7 @@
 
    modules/bit.rst
    modules/misc.rst
+   modules/pack_utils.rst
    modules/overloaded.rst
    modules/scope_guard.rst
 
