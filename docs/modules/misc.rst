@@ -12,25 +12,6 @@
 .. namespace:: dplx::cncr
 
 
-.. function:: template <typename T, typename U> \
-              constexpr std::common_type_t<T, U> div_ceil(T dividend, U divisor) noexcept
-
-    :returns: :math:`\lceil dividend/divisor \rceil`
-
-
-.. function:: template <typename T, typename U> \
-              constexpr std::common_type_t<T, U> mod(T k, U n) noexcept
-
-    Maps k into the quotient ring :math:`Z / nZ`.
-
-    :param U n: must be > 0
-
-
-.. function:: constexpr std::uint64_t upow(std::uint64_t x, std::uint64_t e) noexcept
-
-    :returns: :math:`x^e`
-
-
 .. function:: template <typename... Ts> \
               constexpr std::array<std::byte, sizeof...(Ts)> make_byte_array(Ts... ts) noexcept
 
@@ -71,25 +52,22 @@
             }
         }
 
+.. struct:: is_null_byte_fn
 
+    .. function:: constexpr auto operator()(std::byte const value) const noexcept -> bool
 
-.. function:: constexpr bool is_null_byte(const std::byte value) noexcept
+        :returns: :expr:`value == std::byte{}`
+
+.. function:: constexpr auto is_null_byte(std::byte const value) noexcept -> bool
 
     :returns: :expr:`value == std::byte{}`
 
-.. function:: constexpr bool is_non_null_byte(const std::byte value) noexcept
+.. struct:: is_non_null_byte_fn
+
+    .. function:: constexpr auto operator()(std::byte const value) const noexcept -> bool
+
+        :returns: :expr:`value != std::byte{}`
+
+.. function:: constexpr auto is_non_null_byte(std::byte const value) noexcept -> bool
 
     :returns: :expr:`value != std::byte{}`
-
-.. struct:: template <typename T> \
-            remove_cvref
-
-    A backport of C++20 `std::remove_cvref <https://en.cppreference.com/w/cpp/types/remove_cvref>`_.
-
-    .. type:: type = std::remove_cv_t<std::remove_reference_t<T>>
-
-
-.. type:: template <typename T> \
-          remove_cvref_t = typename remove_cvref<T>::type
-
-    A backport of C++20 `std::remove_cvref <https://en.cppreference.com/w/cpp/types/remove_cvref>`_.

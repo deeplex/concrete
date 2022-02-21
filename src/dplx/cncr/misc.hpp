@@ -7,91 +7,15 @@
 
 #pragma once
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 
-#include <array>
-#include <exception>
 #include <functional>
-#include <iterator>
 #include <type_traits>
+#include <utility>
 
 namespace dplx::cncr
 {
-
-template <typename T>
-constexpr auto div_ceil(T dividend, T divisor) noexcept -> T
-{
-    static_assert(std::is_integral_v<T>);
-
-    if constexpr (std::is_unsigned_v<T>)
-    {
-        return dividend / divisor + (dividend % divisor != 0);
-    }
-    else
-    {
-        using unsigned_t = std::make_unsigned_t<T>;
-        // negative division results will round towards zero, i.e.
-        // they are already rounded correctly and we must not adjust them
-        // the XORed "sign bits" will force signComp to be non negative
-        // if the division result is non negative
-        // assuming signed integers are implemented with two's complement
-        // (which is guaranteed by C++20)
-        const auto signComp
-                = static_cast<T>(static_cast<unsigned_t>(dividend)
-                                 ^ static_cast<unsigned_t>(divisor));
-
-        return dividend / divisor + (signComp >= 0 && dividend % divisor != 0);
-    }
-}
-template <typename T, typename U>
-constexpr auto div_ceil(T dividend, U divisor) noexcept
-        -> std::common_type_t<T, U>
-{
-    using common_type = std::common_type_t<T, U>;
-    return cncr::div_ceil(static_cast<common_type>(dividend),
-                          static_cast<common_type>(divisor));
-}
-
-template <typename T, typename U>
-constexpr auto mod(T k, U n) noexcept -> std::common_type_t<T, U>
-{
-    assert(n > 0);
-
-    const auto r = k % n;
-    if constexpr (std::is_signed_v<T>)
-    {
-        using common_type = std::common_type_t<T, U>;
-        using ucommon_type = std::make_unsigned_t<common_type>;
-
-        const auto needsAdjustment = r < 0;
-        const auto mask
-                = ucommon_type{} - static_cast<ucommon_type>(needsAdjustment);
-        const auto adjustment
-                = static_cast<common_type>(mask & static_cast<ucommon_type>(n));
-        return r + adjustment;
-    }
-    else
-    {
-        return r;
-    }
-}
-
-constexpr auto upow(std::uint64_t x, std::uint64_t e) noexcept -> std::uint64_t
-{
-    std::uint64_t result = 1;
-    while (e)
-    {
-        if (e & 1)
-        {
-            result *= x;
-        }
-        e >>= 1;
-        x *= x;
-    }
-    return result;
-}
 
 template <typename... Ts>
 constexpr auto make_byte_array(Ts... ts) noexcept
@@ -101,17 +25,37 @@ constexpr auto make_byte_array(Ts... ts) noexcept
     return {static_cast<std::byte>(ts)...};
 }
 
-constexpr auto is_null_byte(const std::byte value) noexcept -> bool
+inline constexpr struct is_null_byte_fn
 {
-    return value == std::byte{};
-}
-constexpr auto is_non_null_byte(const std::byte value) noexcept -> bool
+    constexpr auto operator()(std::byte const value) const noexcept -> bool
+    {
+        return value == std::byte{};
+    }
+} is_null_byte{};
+
+inline constexpr struct is_non_null_byte_fn
 {
-    return !is_null_byte(value);
-}
+    constexpr auto operator()(std::byte const value) const noexcept -> bool
+    {
+        return value != std::byte{};
+    }
+} is_non_null_byte{};
 
 namespace detail
 {
+
+template <typename>
+struct sequence_init_impl;
+
+template <std::size_t... Is>
+struct sequence_init_impl<std::index_sequence<Is...>>
+{
+    template <typename R, typename Fn, typename... Args>
+    static auto create(Fn &&initFn, Args &&...args) -> R
+    {
+        return R{std::invoke(std::forward<Fn>(initFn), args..., is)...};
+    }
+};
 
 template <typename R, typename Fn, std::size_t... is, typename... Args>
 constexpr auto
@@ -130,26 +74,15 @@ sequence_init(Fn &&initFn, std::index_sequence<is...>, Args const &...args) -> R
 template <typename R, std::size_t N, typename Fn, typename... Args>
 constexpr auto sequence_init(Fn &&initFn, Args &&...args) -> R
 {
-    return detail::sequence_init<R>(std::forward<Fn>(initFn),
-                                    std::make_index_sequence<N>{}, args...);
+    return detail::sequence_init_impl<std::make_index_sequence<N>>::create<R>(
+            std::forward<Fn>(initFn), args...);
 }
 
 template <typename R, typename Fn, typename... Args>
 constexpr auto sequence_init(Fn &&initFn, Args &&...args) -> R
 {
-    return detail::sequence_init<R>(std::forward<Fn>(initFn),
-                                    std::make_index_sequence<std::size(R{})>{},
-                                    args...);
+    return detail::sequence_init_impl<std::make_index_sequence<std::size(
+            R{})>>::create<R>(std::forward<Fn>(initFn), args...);
 }
-
-template <typename T>
-struct remove_cvref
-{
-    using type = typename std::remove_cv<
-            typename std::remove_reference<T>::type>::type;
-};
-
-template <typename T>
-using remove_cvref_t = typename remove_cvref<T>::type;
 
 } // namespace dplx::cncr

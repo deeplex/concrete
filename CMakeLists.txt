@@ -131,6 +131,8 @@ endif()
 set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/dplx")
 foreach (header IN ITEMS
     cncr/bit.hpp
+    cncr/concepts.hpp
+    cncr/math_supplement.hpp
     cncr/misc.hpp
     cncr/mp_lite.hpp
     cncr/pack_utils.hpp
