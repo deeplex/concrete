@@ -22,12 +22,14 @@
     :returns: The underlying integer value with the deduced underlying type.
 
 
-.. function:: template <typename... Ts> \
-              constexpr std::array<std::byte, sizeof...(Ts)> make_byte_array(Ts... ts) noexcept
-
-    :returns: A byte array filled with the provided values.
+.. function:: template <std::size_t N, typename T> \
+              consteval auto make_byte_array(std::initializer_list<T> vs, T dv) noexcept \
+                      -> std::array<std::byte, N>
 
     Casts every provided value to :texpr:`std::byte` and returns a brace initialized array with the results.
+
+    :param T dv: a default value which is used in case of :expr:`vs.size() < N`
+    :returns: A byte array filled with the provided values.
 
 
 .. function:: template <typename R, std::size_t N, typename Fn, typename... Args> \

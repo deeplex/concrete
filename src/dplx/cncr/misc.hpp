@@ -10,6 +10,7 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <array>
 #include <functional>
 #include <type_traits>
 #include <utility>
@@ -25,12 +26,23 @@ constexpr auto to_underlying(Enum value) noexcept ->
     return static_cast<std::underlying_type_t<Enum>>(value);
 }
 
-template <typename... Ts>
-constexpr auto make_byte_array(Ts... ts) noexcept
-        -> std::array<std::byte, sizeof...(Ts)>
+template <std::size_t N, typename T>
+consteval auto make_byte_array(std::initializer_list<T> vs, T dv) noexcept
+        -> std::array<std::byte, N>
 {
-    static_assert((... && std::is_integral_v<Ts>));
-    return {static_cast<std::byte>(ts)...};
+    std::array<std::byte, N> cx{};
+    auto cxIt = std::begin(cx);
+    auto const cxEnd = std::end(cx);
+    for (auto it = vs.begin(), end = vs.end(); it != end; ++it, ++cxIt)
+    {
+        *cxIt = static_cast<std::byte>(*it);
+    }
+    for (; cxIt != cxEnd; ++cxIt)
+    {
+        *cxIt = static_cast<std::byte>(dv);
+    }
+
+    return cx;
 }
 
 inline constexpr struct is_null_byte_fn
