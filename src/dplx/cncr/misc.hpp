@@ -73,36 +73,25 @@ struct sequence_init_impl<std::index_sequence<Is...>>
     template <typename R, typename Fn, typename... Args>
     static auto create(Fn &&initFn, Args &&...args) -> R
     {
-        return R{std::invoke(std::forward<Fn>(initFn), args..., is)...};
+        return R{std::invoke(std::forward<Fn>(initFn), args...,
+                             std::integral_constant<std::size_t, Is>{})...};
     }
 };
-
-template <typename R, typename Fn, std::size_t... is, typename... Args>
-constexpr auto
-sequence_init(Fn &&initFn, std::index_sequence<is...>, Args const &...args) -> R
-{
-    // #cpp_version_ODR_violation
-#if __cpp_lib_constexpr_functional >= 201907L
-    return R{std::invoke(std::forward<Fn>(initFn), args..., is)...};
-#else
-    return R{initFn(args..., is)...};
-#endif
-}
 
 } // namespace detail
 
 template <typename R, std::size_t N, typename Fn, typename... Args>
 constexpr auto sequence_init(Fn &&initFn, Args &&...args) -> R
 {
-    return detail::sequence_init_impl<std::make_index_sequence<N>>::create<R>(
-            std::forward<Fn>(initFn), args...);
+    return detail::sequence_init_impl<std::make_index_sequence<N>>::
+            template create<R>(std::forward<Fn>(initFn), args...);
 }
 
 template <typename R, typename Fn, typename... Args>
 constexpr auto sequence_init(Fn &&initFn, Args &&...args) -> R
 {
     return detail::sequence_init_impl<std::make_index_sequence<std::size(
-            R{})>>::create<R>(std::forward<Fn>(initFn), args...);
+            R{})>>::template create<R>(std::forward<Fn>(initFn), args...);
 }
 
 } // namespace dplx::cncr

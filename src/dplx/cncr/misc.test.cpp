@@ -49,4 +49,28 @@ TEST_CASE("make byte array w default")
     CHECK(gen[3] == std::byte{5});
 }
 
+TEST_CASE("sequence init implicit simple")
+{
+    auto const gen = cncr::sequence_init<std::array<std::size_t, 5U>>(
+            [](std::size_t b, std::size_t i) { return b + i; }, 3U);
+
+    CHECK(gen[0] == 3U);
+    CHECK(gen[1] == 4U);
+    CHECK(gen[2] == 5U);
+    CHECK(gen[3] == 6U);
+    CHECK(gen[4] == 7U);
+}
+
+TEST_CASE("sequence init explicit simple")
+{
+    auto const gen = cncr::sequence_init<std::array<std::size_t, 5U>, 4U>(
+            [](std::size_t b, std::size_t i) { return b + i; }, 3U);
+
+    CHECK(gen[0] == 3U);
+    CHECK(gen[1] == 4U);
+    CHECK(gen[2] == 5U);
+    CHECK(gen[3] == 6U);
+    CHECK(gen[4] == 0U);
+}
+
 } // namespace cncr_tests

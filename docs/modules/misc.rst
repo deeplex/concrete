@@ -33,11 +33,11 @@
 
 
 .. function:: template <typename R, std::size_t N, typename Fn, typename... Args> \
-              constexpr R sequence_init(Fn &&initFn, Args &&... args)
+              constexpr auto sequence_init(Fn &&initFn, Args &&... args) -> R
 
     The return object is brace initialized by the results of :texpr:`N`
-    invocations of :expr:`std::invoke(initFn, args..., n)` where :texpr:`n`
-    is the current counter value starting at 0.
+    invocations of :expr:`std::invoke(initFn, args..., cncr::mp_size_t<n>{})`
+    where :texpr:`n` is the current counter value starting at 0.
 
     This helper function is mainly useful for constexpr initializing complex
     array class members::
@@ -63,6 +63,12 @@
             {
             }
         }
+
+.. function:: template <typename R, typename Fx, typename... Args> \
+              constexpr auto sequence_init(Fx &&initFn, Args &&... args) -> R
+
+    Invokes :func:`template \<typename R, std::size_t N, typename Fn, typename... Args> sequence_init`
+    with :expr:`N = std::size(R{})`.
 
 .. struct:: is_null_byte_fn
 
