@@ -12,20 +12,32 @@
 .. namespace:: dplx::cncr
 
 
-.. function:: template <typename... Ts> \
-              constexpr std::array<std::byte, sizeof...(Ts)> make_byte_array(Ts... ts) noexcept
+.. function:: template <typename Enum> \
+                  requires std::is_enum_v<Enum> \
+              constexpr auto to_underlying(Enum value) noexcept -> \
+                      typename std::underlying_type<Enum>::type
 
-    :returns: A byte array filled with the provided values.
+    A backport of C++23 `to_underlying(Enum value) <https://en.cppreference.com/w/cpp/utility/to_underlying>`_.
+
+    :returns: The underlying integer value with the deduced underlying type.
+
+
+.. function:: template <std::size_t N, typename T> \
+              consteval auto make_byte_array(std::initializer_list<T> vs, T dv) noexcept \
+                      -> std::array<std::byte, N>
 
     Casts every provided value to :texpr:`std::byte` and returns a brace initialized array with the results.
 
+    :param T dv: a default value which is used in case of :expr:`vs.size() < N`
+    :returns: A byte array filled with the provided values.
+
 
 .. function:: template <typename R, std::size_t N, typename Fn, typename... Args> \
-              constexpr R sequence_init(Fn &&initFn, Args &&... args)
+              constexpr auto sequence_init(Fn &&initFn, Args &&... args) -> R
 
     The return object is brace initialized by the results of :texpr:`N`
-    invocations of :expr:`std::invoke(initFn, args..., n)` where :texpr:`n`
-    is the current counter value starting at 0.
+    invocations of :expr:`std::invoke(initFn, args..., cncr::mp_size_t<n>{})`
+    where :texpr:`n` is the current counter value starting at 0.
 
     This helper function is mainly useful for constexpr initializing complex
     array class members::
@@ -51,6 +63,12 @@
             {
             }
         }
+
+.. function:: template <typename R, typename Fx, typename... Args> \
+              constexpr auto sequence_init(Fx &&initFn, Args &&... args) -> R
+
+    Invokes :func:`template \<typename R, std::size_t N, typename Fn, typename... Args> sequence_init`
+    with :expr:`N = std::size(R{})`.
 
 .. struct:: is_null_byte_fn
 
