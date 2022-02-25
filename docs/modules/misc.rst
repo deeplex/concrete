@@ -12,6 +12,16 @@
 .. namespace:: dplx::cncr
 
 
+.. function:: template <typename Enum> \
+                  requires std::is_enum_v<Enum> \
+              constexpr auto to_underlying(Enum value) noexcept -> \
+                      typename std::underlying_type<Enum>::type
+
+    A backport of C++23 `to_underlying(Enum value) <https://en.cppreference.com/w/cpp/utility/to_underlying>`_.
+
+    :returns: The underlying integer value with the deduced underlying type.
+
+
 .. function:: template <typename... Ts> \
               constexpr std::array<std::byte, sizeof...(Ts)> make_byte_array(Ts... ts) noexcept
 

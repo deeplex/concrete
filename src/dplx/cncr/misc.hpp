@@ -17,6 +17,14 @@
 namespace dplx::cncr
 {
 
+template <typename Enum>
+    requires std::is_enum_v<Enum>
+constexpr auto to_underlying(Enum value) noexcept ->
+        typename std::underlying_type<Enum>::type
+{
+    return static_cast<std::underlying_type_t<Enum>>(value);
+}
+
 template <typename... Ts>
 constexpr auto make_byte_array(Ts... ts) noexcept
         -> std::array<std::byte, sizeof...(Ts)>
