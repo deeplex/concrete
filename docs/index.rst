@@ -7,7 +7,6 @@
    :maxdepth: 2
    :caption: Contents:
 
-   modules/bit.rst
    modules/concepts.rst
    modules/misc.rst
    modules/math_supplement.rst
