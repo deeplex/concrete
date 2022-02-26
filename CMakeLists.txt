@@ -35,7 +35,7 @@ if (BUILD_TESTING OR NOT DEFINED BUILD_TESTING)
 endif()
 
 ########################################################################
-project(concrete VERSION 0.0.0.0 LANGUAGES CXX)
+project(concrete VERSION 0.0.0.1 LANGUAGES CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/tools/cmake/")
 include(EnforceOutOfSourceBuilds)
