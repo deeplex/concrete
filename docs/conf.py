@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'concrete'
-copyright = '2019, Henrik S. Gaßmann'
+copyright = '2019-2022, Henrik S. Gaßmann'
 author = 'Henrik S. Gaßmann'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.0'
+release = '0.0.0-alpha.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -63,7 +63,7 @@ smv_remote_whitelist = "^origin$"
 html_theme = 'furo'
 html_theme_options = {
     "light_css_variables": {
-        "font-stack--monospace": "Fira Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
+        "font-stack--monospace": "Fira Code, Cascadia Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
     },
 }
 
