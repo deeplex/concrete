@@ -148,7 +148,9 @@ foreach (header IN ITEMS
     list(APPEND CNCR_TEST_SRCS ${_HDR_DIR}/${_HDR_NAME}.test.cpp)
 endforeach()
 target_sources(concrete INTERFACE ${CNCR_HDRS})
-target_sources(concrete-tests PRIVATE ${CNCR_TEST_SRCS})
+if (BUILD_TESTING)
+    target_sources(concrete-tests PRIVATE ${CNCR_TEST_SRCS})
+endif()
 
 
 ########################################################################
