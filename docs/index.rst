@@ -10,9 +10,10 @@
    modules/concepts.rst
    modules/misc.rst
    modules/math_supplement.rst
-   modules/pack_utils.rst
    modules/overloaded.rst
+   modules/pack_utils.rst
    modules/scope_guard.rst
+   modules/tag_invoke.rst
 
 
 --------------------

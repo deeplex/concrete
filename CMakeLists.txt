@@ -135,6 +135,8 @@ foreach (header IN ITEMS
     cncr/misc.hpp
     cncr/mp_lite.hpp
     cncr/pack_utils.hpp
+    cncr/tag_invoke.hpp
+    cncr/type_utils.hpp
     cncr/windows-proper.h
     cncr/workaround.h
     overloaded.hpp
