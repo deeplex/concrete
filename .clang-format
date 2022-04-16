@@ -30,8 +30,6 @@ AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: Yes
 AttributeMacros:
   - __capability
-  - DPLX_ATTR_LIKELY
-  - DPLX_ATTR_UNLIKELY
 BinPackArguments: true
 BinPackParameters: false
 BraceWrapping:
@@ -84,9 +82,6 @@ ForEachMacros:
 IfMacros:
 IncludeBlocks:   Regroup
 IncludeCategories:
-  - Regex:           '^<c[[:alpha:]]*>$'
-    Priority:        1
-    CaseSensitive:   false
   - Regex:           '^<[[:alpha:]_]*>$'
     Priority:        2
     CaseSensitive:   false
@@ -177,4 +172,3 @@ WhitespaceSensitiveMacros:
   - PP_STRINGIZE
   - BOOST_PP_STRINGIZE
 ...
-

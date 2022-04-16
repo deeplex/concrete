@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'concrete'
-copyright = '2019-2022, Henrik S. Gaßmann'
-author = 'Henrik S. Gaßmann'
+copyright = '2022, Henrik Steffen Gaßmann'
+author = 'Henrik Steffen Gaßmann'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.0-alpha.2'
@@ -36,8 +36,7 @@ extensions = [
 primary_domain = 'cpp'
 highlight_language = 'cpp'
 cpp_index_common_prefix = [
-    'dplx::cncr::',
-    'dplx::',
+    'dplx::cncr',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -63,6 +62,9 @@ smv_remote_whitelist = "^origin$"
 html_theme = 'furo'
 html_theme_options = {
     "light_css_variables": {
+        "font-stack--monospace": "Fira Code, Cascadia Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
+    },
+    "dark_css_variables": {
         "font-stack--monospace": "Fira Code, Cascadia Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
     },
 }

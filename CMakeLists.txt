@@ -35,7 +35,10 @@ if (BUILD_TESTING OR NOT DEFINED BUILD_TESTING)
 endif()
 
 ########################################################################
-project(concrete VERSION 0.0.0.1 LANGUAGES CXX)
+project(concrete
+    VERSION 0.0.0.1
+    LANGUAGES CXX
+)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/tools/cmake/")
 include(EnforceOutOfSourceBuilds)
@@ -101,7 +104,6 @@ target_link_libraries(concrete INTERFACE Deeplex::concrete_compiler_settings)
 
 target_include_directories(concrete INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/predef/include>
     $<INSTALL_INTERFACE:include>
 )
 
@@ -128,30 +130,19 @@ endif()
 
 ########################################################################
 # source files
-set(CNCR_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/dplx")
-foreach (header IN ITEMS
-    cncr/concepts.hpp
-    cncr/math_supplement.hpp
-    cncr/misc.hpp
-    cncr/mp_lite.hpp
-    cncr/pack_utils.hpp
-    cncr/tag_invoke.hpp
-    cncr/type_utils.hpp
-    cncr/windows-proper.h
-    cncr/workaround.h
-    overloaded.hpp
-    predef/workaround.h
-    scope_guard.hpp
-)
-    set(_HDR_PATH ${CNCR_INC_DIR}/${header})
-    list(APPEND CNCR_HDRS $<BUILD_INTERFACE:${_HDR_PATH}>)
-    get_filename_component(_HDR_NAME ${_HDR_PATH} NAME_WLE)
-    get_filename_component(_HDR_DIR ${_HDR_PATH} DIRECTORY)
-    list(APPEND CNCR_TEST_SRCS ${_HDR_DIR}/${_HDR_NAME}.test.cpp)
+include(sources.cmake)
+
+set(_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/dplx")
+foreach (header IN LISTS _SOURCES)
+    set(_SRC_PATH ${_INC_DIR}/${header})
+    get_filename_component(_SRC_NAME ${_SRC_PATH} NAME_WLE)
+    get_filename_component(_SRC_DIR ${_SRC_PATH} DIRECTORY)
+    list(APPEND _ALL_SRCS $<BUILD_INTERFACE:${_SRC_PATH}>)
+    list(APPEND _TEST_SRCS ${_SRC_DIR}/${_SRC_NAME}.test.cpp)
 endforeach()
-target_sources(concrete INTERFACE ${CNCR_HDRS})
+target_sources(concrete INTERFACE ${_ALL_SRCS})
 if (BUILD_TESTING)
-    target_sources(concrete-tests PRIVATE ${CNCR_TEST_SRCS})
+    target_sources(concrete-tests PRIVATE ${_TEST_SRCS})
 endif()
 
 
@@ -168,7 +159,6 @@ install(DIRECTORY src/dplx
     FILES_MATCHING
     REGEX ".*\\.h(pp)?"
 )
-install(DIRECTORY external/predef/include/ TYPE INCLUDE)
 
 install(TARGETS concrete compiler_settings EXPORT concrete-targets)
 install(EXPORT concrete-targets
