@@ -159,6 +159,7 @@ install(DIRECTORY src/dplx
     FILES_MATCHING
     REGEX ".*\\.h(pp)?"
 )
+install(DIRECTORY external/predef/include/ TYPE INCLUDE)
 
 install(TARGETS concrete compiler_settings EXPORT concrete-targets)
 install(EXPORT concrete-targets
