@@ -19,20 +19,17 @@
   body {
     --color-code-background: #f8f8f8;
   --color-code-foreground: black;
-  --font-stack--monospace: Fira Code, Cascadia Code, "SFMono-Regular", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   
   }
   body[data-theme="dark"] {
     --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
-  --font-stack--monospace: Fira Code, Cascadia Code, "SFMono-Regular", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   
   }
   @media (prefers-color-scheme: dark) {
     body:not([data-theme="light"]) {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
-  --font-stack--monospace: Fira Code, Cascadia Code, "SFMono-Regular", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   
     }
   }
@@ -156,8 +153,9 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules/concepts.html">Concept utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/misc.html">Misc. functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">intrusive_ptr</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/math_supplement.html">Supplemental math functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/misc.html">Misc. functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/overloaded.html">overloaded</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/pack_utils.html">Template Parameter Pack utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/scope_guard.html">Scope Guard</a></li>
@@ -207,8 +205,15 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules/concepts.html">Concept utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/misc.html">Misc. functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">intrusive_ptr</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#concepts">concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#customization-points">customization points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#factory-functions">factory functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#types">types</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules/math_supplement.html">Supplemental math functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/misc.html">Misc. functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/overloaded.html">overloaded</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/pack_utils.html">Template Parameter Pack utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/scope_guard.html">Scope Guard</a></li>
