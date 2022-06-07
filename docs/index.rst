@@ -8,8 +8,9 @@
    :caption: Contents:
 
    modules/concepts.rst
-   modules/misc.rst
+   modules/intrusive_ptr.rst
    modules/math_supplement.rst
+   modules/misc.rst
    modules/overloaded.rst
    modules/pack_utils.rst
    modules/scope_guard.rst

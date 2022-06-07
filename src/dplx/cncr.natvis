@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+    <Type Name="dplx::cncr::intrusive_ptr&lt;void,void&gt;">
+        <DisplayString Condition="mPtr != 0">{mPtr} {{ vtable = {mVTable} }}</DisplayString>
+        <DisplayString Condition="mPtr == 0">nullptr</DisplayString>
+        <Expand HideRawView="true">
+            <Item Name="[handle]" Condition="mPtr != 0">mPtr</Item>
+            <Item Name="[vtable]" Condition="mPtr != 0">mVTable</Item>
+        </Expand>
+    </Type>
+    <Type Name="dplx::cncr::intrusive_ptr&lt;*,*&gt;" Priority="MediumLow">
+        <SmartPointer Usage="Minimal">mPtr</SmartPointer>
+    </Type>
+    <Type Name="dplx::cncr::intrusive_ptr&lt;*,*&gt;">
+        <SmartPointer Usage="Minimal">mPtr</SmartPointer>
+        <DisplayString Condition="mHandle.mPtr == 0">nullptr</DisplayString>
+        <Expand HideRawView="true">
+            <Item Name="[ptr]">mPtr</Item>
+            <Item Name="[handle]">mHandle</Item>
+        </Expand>
+    </Type>
+</AutoVisualizer>
