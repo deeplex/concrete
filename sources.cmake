@@ -1,5 +1,6 @@
 set(_SOURCES
     cncr/concepts.hpp
+    cncr/intrusive_ptr.hpp
     cncr/math_supplement.hpp
     cncr/misc.hpp
     cncr/mp_lite.hpp

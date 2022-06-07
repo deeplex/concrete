@@ -61,12 +61,12 @@ smv_remote_whitelist = "^origin$"
 #
 html_theme = 'furo'
 html_theme_options = {
-    "light_css_variables": {
-        "font-stack--monospace": "Fira Code, Cascadia Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
-    },
-    "dark_css_variables": {
-        "font-stack--monospace": "Fira Code, Cascadia Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
-    },
+    # "light_css_variables": {
+    #     "font-stack--monospace": "Fira Code, Cascadia Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
+    # },
+    # "dark_css_variables": {
+    #     "font-stack--monospace": "Fira Code, Cascadia Code, \"SFMono-Regular\", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace",
+    # },
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
