@@ -48,6 +48,7 @@ include(FeatureSummary)
 include(GNUInstallDirs)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+enable_testing()
 
 
 ########################################################################
