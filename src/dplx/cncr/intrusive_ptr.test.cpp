@@ -7,7 +7,7 @@
 
 #include "dplx/cncr/intrusive_ptr.hpp"
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <dplx/cncr/workaround.h>
 #include <dplx/predef/compiler.h>
 
