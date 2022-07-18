@@ -7,11 +7,13 @@
 
 #pragma once
 
+// NOLINTBEGIN(cppcoreguidelines-macro-usage)
+
 #if __has_include(<SDKDDKVer.h>) && (_WIN32 || _WIN32_WINNT)
 // _WIN32_WINNT is defined per compiler flag
 #include <SDKDDKVer.h>
 
-#define VC_EXTRALEAN 1
+#define VC_EXTRALEAN        1
 #define WIN32_LEAN_AND_MEAN 1
 
 #define NOMINMAX 1
@@ -19,3 +21,5 @@
 #include <windows.h>
 
 #endif
+
+// NOLINTEND(cppcoreguidelines-macro-usage)

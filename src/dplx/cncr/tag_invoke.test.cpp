@@ -7,9 +7,11 @@
 
 #include "dplx/cncr/tag_invoke.hpp"
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include "cncr_tests/test_utils.hpp"
+
+// NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
 namespace cncr_tests
 {
@@ -18,7 +20,7 @@ inline constexpr struct ti_test_cp_fn
 {
     template <typename T>
         requires cncr::tag_invocable<ti_test_cp_fn, T &, std::size_t>
-    constexpr decltype(auto) operator()(T &self, std::size_t n) const
+    constexpr auto operator()(T &self, std::size_t n) const -> decltype(auto)
     {
         return cncr::tag_invoke(*this, self, n);
     }
@@ -78,7 +80,7 @@ inline constexpr struct ti_test_cp_fn
 {
     template <typename T>
         requires cncr::tag_invocable<ti_test_cp_fn, T &, std::size_t>
-    constexpr decltype(auto) operator()(T &self, std::size_t n) const
+    constexpr auto operator()(T &self, std::size_t n) const -> decltype(auto)
     {
         return cncr::tag_invoke(*this, self, n);
     }
@@ -118,3 +120,5 @@ TEST_CASE("tag_invoke should dispatch to cncr namespace declarations")
 }
 
 } // namespace cncr_tests
+
+// NOLINTEND(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)

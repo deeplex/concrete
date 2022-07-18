@@ -7,7 +7,7 @@
 
 #include "dplx/cncr/intrusive_ptr.hpp"
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <dplx/cncr/workaround.h>
 #include <dplx/predef/compiler.h>
 
@@ -170,6 +170,7 @@ TEST_CASE("intrusive_ptr instance")
 
     SECTION("should be copy constructible and add a new reference")
     {
+        // NOLINTNEXTLINE(performance-unnecessary-copy-initialization)
         test_intrusive_ptr copy = subject;
 
         CHECK(subject.get() == &counted);
@@ -192,6 +193,7 @@ TEST_CASE("intrusive_ptr instance")
     {
         test_intrusive_ptr copy = std::move(subject);
 
+        // NOLINTNEXTLINE(clang-analyzer-cplusplus.Move,bugprone-use-after-move)
         CHECK(subject.get() == nullptr);
         CHECK(copy.get() == &counted);
         CHECK(counted.reference_count() == 1);
@@ -203,6 +205,7 @@ TEST_CASE("intrusive_ptr instance")
         auto &&assignmentResult = (copy = std::move(subject));
 
         CHECK(&assignmentResult == &copy);
+        // NOLINTNEXTLINE(clang-analyzer-cplusplus.Move,bugprone-use-after-move)
         CHECK(subject.get() == nullptr);
         CHECK(copy.get() == &counted);
         CHECK(counted.reference_count() == 1);
@@ -259,6 +262,7 @@ TEST_CASE("intrusive_ptr instance")
     {
         cncr::intrusive_ptr<void> copy = std::move(subject);
 
+        // NOLINTNEXTLINE(clang-analyzer-cplusplus.Move,bugprone-use-after-move)
         CHECK(subject.get() == nullptr);
         CHECK(copy.get() == &counted);
         CHECK(counted.reference_count() == 1);
@@ -365,6 +369,7 @@ TEST_CASE("intrusive_ptr<void> instance")
 
     SECTION("should be copy constructible and add a new reference")
     {
+        // NOLINTNEXTLINE(performance-unnecessary-copy-initialization)
         cncr::intrusive_ptr<void> copy = subject;
 
         CHECK(subject.get() == &counted);
@@ -387,6 +392,7 @@ TEST_CASE("intrusive_ptr<void> instance")
     {
         cncr::intrusive_ptr<void> copy = std::move(subject);
 
+        // NOLINTNEXTLINE(clang-analyzer-cplusplus.Move,bugprone-use-after-move)
         CHECK(subject.get() == nullptr);
         CHECK(copy.get() == &counted);
         CHECK(counted.reference_count() == 1);
@@ -398,6 +404,7 @@ TEST_CASE("intrusive_ptr<void> instance")
         auto &&assignmentResult = (copy = std::move(subject));
 
         CHECK(&assignmentResult == &copy);
+        // NOLINTNEXTLINE(clang-analyzer-cplusplus.Move,bugprone-use-after-move)
         CHECK(subject.get() == nullptr);
         CHECK(copy.get() == &counted);
         CHECK(counted.reference_count() == 1);

@@ -40,7 +40,7 @@ concept inspectable_ref_counted = ref_counted<RC> && requires(RC &v)
 namespace detail
 {
 
-    // clang-format off
+// clang-format off
 template <typename RC>
 concept dplx_ref_counted = requires(RC const &obj)
 {
@@ -48,7 +48,7 @@ concept dplx_ref_counted = requires(RC const &obj)
     { obj.release() } noexcept;
     { obj.reference_count() } noexcept;
 };
-    // clang-format on
+// clang-format on
 
 } // namespace detail
 
@@ -164,16 +164,17 @@ public:
             traits::add_reference(*mPtr);
         }
     }
+    // NOLINTNEXTLINE(bugprone-unhandled-self-assignment): we took care
     constexpr auto operator=(intrusive_ptr const &other) noexcept
             -> intrusive_ptr &
     {
-        if (mPtr)
-        {
-            traits::release(*mPtr);
-        }
         if (other.mPtr)
         {
             traits::add_reference(*other.mPtr);
+        }
+        if (mPtr)
+        {
+            traits::release(*mPtr);
         }
         mPtr = other.mPtr;
         return *this;
@@ -350,18 +351,19 @@ public:
         }
     }
 
+    // NOLINTNEXTLINE(bugprone-unhandled-self-assignment): we took care
     auto operator=(intrusive_ptr const &other) noexcept -> intrusive_ptr &
     {
+        if (other.mPtr != nullptr)
+        {
+            other.mVTable->add_reference(other.mPtr);
+        }
         if (mPtr != nullptr)
         {
             mVTable->release(mPtr);
         }
         mVTable = other.mVTable;
         mPtr = other.mPtr;
-        if (mPtr)
-        {
-            mVTable->add_reference(mPtr);
-        }
 
         return *this;
     }
@@ -403,7 +405,7 @@ public:
     {
         if (toBeBound == nullptr)
         {
-            return intrusive_ptr();
+            return {};
         }
         return intrusive_ptr(&detail::ref_ops_vtable_of<U>, toBeBound);
     }
@@ -412,7 +414,7 @@ public:
     {
         if (toBeBound == nullptr)
         {
-            return intrusive_ptr();
+            return {};
         }
         reference_counted_traits<U>::add_reference(*toBeBound);
         return intrusive_ptr(&detail::ref_ops_vtable_of<U>, toBeBound);
@@ -450,11 +452,11 @@ public:
     }
 
     /// @brief Returns a pointer to the bound object or nullptr if empty.
-    auto get() const noexcept -> void *
+    [[nodiscard]] auto get() const noexcept -> void *
     {
         return mPtr;
     }
-    auto get_handle() const noexcept -> intrusive_ptr<void>
+    [[nodiscard]] auto get_handle() const noexcept -> intrusive_ptr<void>
     {
         return *this;
     }
@@ -632,12 +634,14 @@ template <ref_counted T, ref_counted U>
 inline auto const_pointer_cast(intrusive_ptr<U> const &ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     return intrusive_ptr<T>::acquire(const_cast<T *>(ptr.get()));
 }
 template <ref_counted T, ref_counted U>
 inline auto const_pointer_cast(intrusive_ptr<U> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     return intrusive_ptr<T>::import(const_cast<T *>(ptr.release()));
 }
 
@@ -646,12 +650,14 @@ template <typename T, typename U>
 inline auto reinterpret_pointer_cast(intrusive_ptr<U> const &ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     return intrusive_ptr<T>::acquire(reinterpret_cast<T *>(ptr.get()));
 }
 template <typename T, ref_counted U>
 inline auto reinterpret_pointer_cast(intrusive_ptr<U> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     return intrusive_ptr<T>::import(reinterpret_cast<T *>(ptr.release()));
 }
 template <typename T>
