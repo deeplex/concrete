@@ -13,8 +13,8 @@
 // but offer library specific configuration knobs
 
 // guard for bugs which have been resolved by a known (compiler) version
-#define DPLX_XDEF_WORKAROUND(disable, symbol, comp, major, minor, patch)        \
-    (!disable) && ((symbol) >= DPLX_VERSION_NUMBER_AVAILABLE)                  \
+#define DPLX_XDEF_WORKAROUND(disable, symbol, comp, major, minor, patch)       \
+    (!(disable)) && ((symbol) >= DPLX_VERSION_NUMBER_AVAILABLE)                \
             && ((symbol)comp(DPLX_VERSION_NUMBER((major), (minor), (patch))))
 
 // guard for bugs which have _not_ been resolved by a known (compiler) version
