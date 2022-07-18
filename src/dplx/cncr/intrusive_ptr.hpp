@@ -452,11 +452,11 @@ public:
     }
 
     /// @brief Returns a pointer to the bound object or nullptr if empty.
-    auto get() const noexcept -> void *
+    [[nodiscard]] auto get() const noexcept -> void *
     {
         return mPtr;
     }
-    auto get_handle() const noexcept -> intrusive_ptr<void>
+    [[nodiscard]] auto get_handle() const noexcept -> intrusive_ptr<void>
     {
         return *this;
     }
