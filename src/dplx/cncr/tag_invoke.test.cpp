@@ -11,6 +11,8 @@
 
 #include "cncr_tests/test_utils.hpp"
 
+// NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+
 namespace cncr_tests
 {
 
@@ -118,3 +120,5 @@ TEST_CASE("tag_invoke should dispatch to cncr namespace declarations")
 }
 
 } // namespace cncr_tests
+
+// NOLINTEND(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
