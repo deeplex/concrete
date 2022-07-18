@@ -1,15 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Scope Guard" href="scope_guard.html" /><link rel="prev" title="overloaded" href="overloaded.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.02.14.1"/>
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
         <title>Template Parameter Pack utils - concrete 0.0.0-alpha.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=a8f031f701c6af50c9919b48f173a5785af06fac" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     
     
@@ -21,24 +22,28 @@
   --color-code-foreground: black;
   
   }
-  body[data-theme="dark"] {
-    --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
-  
-  }
-  @media (prefers-color-scheme: dark) {
-    body:not([data-theme="light"]) {
+  @media not print {
+    body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
   
     }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -185,7 +190,14 @@
   <div class="main">
     <div class="content">
       <div class="article-container">
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -200,30 +212,33 @@
         </div>
         <article role="main">
           <section id="template-parameter-pack-utils">
-<h1>Template Parameter Pack utils<a class="headerlink" href="#template-parameter-pack-utils" title="Permalink to this headline">#</a></h1>
+<h1>Template Parameter Pack utils<a class="headerlink" href="#template-parameter-pack-utils" title="Permalink to this heading">#</a></h1>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/pack_utils.hpp&gt;</span><span class="cp"></span>
 <span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts">
-<span id="_CPPv3I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDpRR2Ts"></span><span id="_CPPv2I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDpRR2Ts"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ts</span></span></span><span class="p"><span class="pre">&gt;</span></span><br/><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">auto</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nth_param</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts" title="dplx::cncr::nth_param::Ts"><span class="n"><span class="pre">Ts</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts" title="Permalink to this definition">#</a><br/></dt>
+<span id="_CPPv3I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDpRR2Ts"></span><span id="_CPPv2I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDpRR2Ts"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ts</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">auto</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nth_param</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts" title="dplx::cncr::nth_param::Ts"><span class="n"><span class="pre">Ts</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the perfectly forwarded <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts" title="dplx::cncr::nth_param::N"><span class="n">N</span></a></span> th value from <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts" title="dplx::cncr::nth_param::vs"><span class="n">vs</span></a></span> (zero indexed)</p>
 </dd>
 </dl>
 </dd></dl>
+
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE">
-<span id="_CPPv3I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE"></span><span id="_CPPv2I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ts</span></span></span><span class="p"><span class="pre">&gt;</span></span><br/><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nth_param_t</span></span></span><a class="headerlink" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE" title="Permalink to this definition">#</a><br/></dt>
+<span id="_CPPv3I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE"></span><span id="_CPPv2I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ts</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nth_param_t</span></span></span><a class="headerlink" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Selects the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE" title="dplx::cncr::nth_param_t::N"><span class="n">N</span></a></span> th type from <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE" title="dplx::cncr::nth_param_t::Ts"><span class="n">Ts</span></a></span> (zero indexed).</p>
 </dd></dl>
+
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE">
-<span id="_CPPv3I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE"></span><span id="_CPPv2I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">auto</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Vs</span></span></span><span class="p"><span class="pre">&gt;</span></span><br/><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nth_param_v</span></span></span><a class="headerlink" href="#_CPPv4I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE" title="Permalink to this definition">#</a><br/></dt>
+<span id="_CPPv3I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE"></span><span id="_CPPv2I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">auto</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Vs</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nth_param_v</span></span></span><a class="headerlink" href="#_CPPv4I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Selects the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE" title="dplx::cncr::nth_param_v::N"><span class="n">N</span></a></span> th value from <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE" title="dplx::cncr::nth_param_v::Vs"><span class="n">Vs</span></a></span> (zero indexed).</p>
 </dd></dl>
+
 </section>
 
         </article>
@@ -280,7 +295,10 @@
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
     </body>
 </html>
