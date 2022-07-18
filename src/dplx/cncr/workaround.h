@@ -9,10 +9,10 @@
 #include <dplx/predef/workaround.h>
 
 #define DPLX_CNCR_WORKAROUND(symbol, comp, major, minor, patch)                \
-    DPLX_XDEF_WORKAROUND(DPLX_CNCR_DISABLE_WORKAROUNDS, symbol, comp, major,    \
-                        minor, patch)
+    DPLX_XDEF_WORKAROUND(DPLX_CNCR_DISABLE_WORKAROUNDS, symbol, comp, major,   \
+                         minor, patch)
 
 #define DPLX_CNCR_WORKAROUND_TESTED_AT(symbol, major, minor, patch)            \
-    DPLX_XDEF_WORKAROUND_TESTED_AT(DPLX_CNCR_DISABLE_WORKAROUNDS,               \
-                                  DPLX_CNCR_FLAG_OUTDATED_WORKAROUNDS, symbol, \
-                                  major, minor, patch)
+    DPLX_XDEF_WORKAROUND_TESTED_AT(DPLX_CNCR_DISABLE_WORKAROUNDS,              \
+                                   DPLX_CNCR_FLAG_OUTDATED_WORKAROUNDS,        \
+                                   symbol, major, minor, patch)

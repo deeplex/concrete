@@ -20,8 +20,8 @@
 // guard for bugs which have _not_ been resolved by a known (compiler) version
 // i.e. we need to periodically test whether they have been resolved
 // after which we can move them in the upper category
-#define DPLX_XDEF_WORKAROUND_TESTED_AT(disable, flagOutdated, symbol, major,    \
-                                      minor, patch)                            \
+#define DPLX_XDEF_WORKAROUND_TESTED_AT(disable, flagOutdated, symbol, major,   \
+                                       minor, patch)                           \
     !(disable) && ((symbol) >= DPLX_VERSION_NUMBER_AVAILABLE)                  \
             && (!(flagOutdated)                                                \
                 || ((symbol) <= DPLX_VERSION_NUMBER((major), (minor), (patch)) \
