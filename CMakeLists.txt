@@ -10,25 +10,12 @@
 #     http://creativecommons.org/publicdomain/zero/1.0/
 #
 ########################################################################
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.20)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/tools/cmake/")
 
 ########################################################################
 # configure vcpkg from environment vars if possible
-if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-            CACHE STRING "")
-endif()
-
-if(DEFINED ENV{VCPKG_DEFAULT_TRIPLET} AND NOT DEFINED VCPKG_TARGET_TRIPLET)
-    set(VCPKG_TARGET_TRIPLET "$ENV{VCPKG_DEFAULT_TRIPLET}" CACHE STRING "")
-endif()
-
-if(NOT DEFINED VCPKG_FEATURE_FLAGS)
-    set(VCPKG_FEATURE_FLAGS "registries" CACHE STRING "")
-endif()
-if(NOT DEFINED VCPKG_OVERLAY_TRIPLETS)
-    set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_SOURCE_DIR}/tools/triplets" CACHE STRING "")
-endif()
+include(VcpkgDefaults)
 
 if (BUILD_TESTING OR NOT DEFINED BUILD_TESTING)
     list(APPEND VCPKG_MANIFEST_FEATURES "tests")
@@ -40,14 +27,16 @@ project(concrete
     LANGUAGES CXX
 )
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/tools/cmake/")
 include(EnforceOutOfSourceBuilds)
 include(CMakeDependentOption)
 include(CMakePackageConfigHelpers)
 include(FeatureSummary)
 include(GNUInstallDirs)
 
+include(SourceHelpers)
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+enable_testing()
 
 
 ########################################################################
@@ -111,9 +100,7 @@ target_include_directories(concrete INTERFACE
 # library test project
 if (BUILD_TESTING)
     add_executable(concrete-tests)
-    target_sources(concrete-tests PRIVATE
-        src/cncr_tests/test_utils.hpp
-    )
+    source_group(TREE cncr_tests PREFIX test_utils)
 
     target_link_libraries(concrete-tests PRIVATE
         Deeplex::concrete
@@ -131,19 +118,7 @@ endif()
 ########################################################################
 # source files
 include(sources.cmake)
-
-set(_INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/dplx")
-foreach (header IN LISTS _SOURCES)
-    set(_SRC_PATH ${_INC_DIR}/${header})
-    get_filename_component(_SRC_NAME ${_SRC_PATH} NAME_WLE)
-    get_filename_component(_SRC_DIR ${_SRC_PATH} DIRECTORY)
-    list(APPEND _ALL_SRCS $<BUILD_INTERFACE:${_SRC_PATH}>)
-    list(APPEND _TEST_SRCS ${_SRC_DIR}/${_SRC_NAME}.test.cpp)
-endforeach()
-target_sources(concrete INTERFACE ${_ALL_SRCS})
-if (BUILD_TESTING)
-    target_sources(concrete-tests PRIVATE ${_TEST_SRCS})
-endif()
+source_group(TREE src/dplx)
 
 
 ########################################################################
