@@ -8,7 +8,6 @@
 #pragma once
 
 #include <cstddef>
-
 #include <type_traits>
 #include <utility>
 
@@ -55,7 +54,7 @@ struct nth_param_value_impl<std::index_sequence<Is...>>
     }
 };
 
-}
+} // namespace dplx::cncr::detail
 
 namespace dplx::cncr
 {

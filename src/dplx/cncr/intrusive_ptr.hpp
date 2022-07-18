@@ -40,7 +40,7 @@ concept inspectable_ref_counted = ref_counted<RC> && requires(RC &v)
 namespace detail
 {
 
-    // clang-format off
+// clang-format off
 template <typename RC>
 concept dplx_ref_counted = requires(RC const &obj)
 {
@@ -48,7 +48,7 @@ concept dplx_ref_counted = requires(RC const &obj)
     { obj.release() } noexcept;
     { obj.reference_count() } noexcept;
 };
-    // clang-format on
+// clang-format on
 
 } // namespace detail
 
