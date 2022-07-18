@@ -164,16 +164,17 @@ public:
             traits::add_reference(*mPtr);
         }
     }
+    // NOLINTNEXTLINE(bugprone-unhandled-self-assignment): we took care
     constexpr auto operator=(intrusive_ptr const &other) noexcept
             -> intrusive_ptr &
     {
-        if (mPtr)
-        {
-            traits::release(*mPtr);
-        }
         if (other.mPtr)
         {
             traits::add_reference(*other.mPtr);
+        }
+        if (mPtr)
+        {
+            traits::release(*mPtr);
         }
         mPtr = other.mPtr;
         return *this;
@@ -350,18 +351,19 @@ public:
         }
     }
 
+    // NOLINTNEXTLINE(bugprone-unhandled-self-assignment): we took care
     auto operator=(intrusive_ptr const &other) noexcept -> intrusive_ptr &
     {
+        if (other.mPtr != nullptr)
+        {
+            other.mVTable->add_reference(other.mPtr);
+        }
         if (mPtr != nullptr)
         {
             mVTable->release(mPtr);
         }
         mVTable = other.mVTable;
         mPtr = other.mPtr;
-        if (mPtr)
-        {
-            mVTable->add_reference(mPtr);
-        }
 
         return *this;
     }
