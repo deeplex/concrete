@@ -18,7 +18,7 @@ inline constexpr struct ti_test_cp_fn
 {
     template <typename T>
         requires cncr::tag_invocable<ti_test_cp_fn, T &, std::size_t>
-    constexpr decltype(auto) operator()(T &self, std::size_t n) const
+    constexpr auto operator()(T &self, std::size_t n) const -> decltype(auto)
     {
         return cncr::tag_invoke(*this, self, n);
     }
@@ -78,7 +78,7 @@ inline constexpr struct ti_test_cp_fn
 {
     template <typename T>
         requires cncr::tag_invocable<ti_test_cp_fn, T &, std::size_t>
-    constexpr decltype(auto) operator()(T &self, std::size_t n) const
+    constexpr auto operator()(T &self, std::size_t n) const -> decltype(auto)
     {
         return cncr::tag_invoke(*this, self, n);
     }

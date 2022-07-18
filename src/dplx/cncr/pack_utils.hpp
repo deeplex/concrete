@@ -25,8 +25,9 @@ template <std::size_t... Is>
 struct nth_param_type_impl<std::index_sequence<Is...>>
 {
     template <typename T>
-    static T
-    deduce(decltype(detail::mp_value_to<void *, std::size_t>(Is))..., T *, ...);
+    static auto
+    deduce(decltype(detail::mp_value_to<void *, std::size_t>(Is))..., T *, ...)
+            -> T;
 };
 
 struct discarder
@@ -44,10 +45,10 @@ template <std::size_t... Is>
 struct nth_param_value_impl<std::index_sequence<Is...>>
 {
     template <typename T>
-    static constexpr decltype(auto)
+    static constexpr auto
     access(decltype(detail::mp_value_to<discarder, std::size_t>(Is))...,
            T &&t,
-           ...) noexcept
+           ...) noexcept -> decltype(auto)
     {
         return static_cast<T &&>(t);
     }
@@ -74,7 +75,7 @@ template <std::size_t N>
 struct nth_param_fn
 {
     template <typename... Ts>
-    constexpr decltype(auto) operator()(Ts &&...vs) const noexcept
+    constexpr auto operator()(Ts &&...vs) const noexcept -> decltype(auto)
     {
         return detail::nth_param_value_impl<
                 std::make_index_sequence<N>>::access(static_cast<Ts &&>(vs)...);
