@@ -405,7 +405,7 @@ public:
     {
         if (toBeBound == nullptr)
         {
-            return intrusive_ptr();
+            return {};
         }
         return intrusive_ptr(&detail::ref_ops_vtable_of<U>, toBeBound);
     }
@@ -414,7 +414,7 @@ public:
     {
         if (toBeBound == nullptr)
         {
-            return intrusive_ptr();
+            return {};
         }
         reference_counted_traits<U>::add_reference(*toBeBound);
         return intrusive_ptr(&detail::ref_ops_vtable_of<U>, toBeBound);
