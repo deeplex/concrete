@@ -33,6 +33,7 @@ struct nth_param_type_impl<std::index_sequence<Is...>>
 struct discarder
 {
     template <typename T>
+    // NOLINTNEXTLINE(bugprone-forwarding-reference-overload)
     constexpr discarder(T &&) noexcept
     {
     }

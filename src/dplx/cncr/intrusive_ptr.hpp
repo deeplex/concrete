@@ -634,12 +634,14 @@ template <ref_counted T, ref_counted U>
 inline auto const_pointer_cast(intrusive_ptr<U> const &ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     return intrusive_ptr<T>::acquire(const_cast<T *>(ptr.get()));
 }
 template <ref_counted T, ref_counted U>
 inline auto const_pointer_cast(intrusive_ptr<U> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     return intrusive_ptr<T>::import(const_cast<T *>(ptr.release()));
 }
 
@@ -648,12 +650,14 @@ template <typename T, typename U>
 inline auto reinterpret_pointer_cast(intrusive_ptr<U> const &ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     return intrusive_ptr<T>::acquire(reinterpret_cast<T *>(ptr.get()));
 }
 template <typename T, ref_counted U>
 inline auto reinterpret_pointer_cast(intrusive_ptr<U> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     return intrusive_ptr<T>::import(reinterpret_cast<T *>(ptr.release()));
 }
 template <typename T>

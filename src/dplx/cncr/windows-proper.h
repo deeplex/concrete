@@ -7,6 +7,8 @@
 
 #pragma once
 
+// NOLINTBEGIN(cppcoreguidelines-macro-usage)
+
 #if __has_include(<SDKDDKVer.h>) && (_WIN32 || _WIN32_WINNT)
 // _WIN32_WINNT is defined per compiler flag
 #include <SDKDDKVer.h>
@@ -19,3 +21,5 @@
 #include <windows.h>
 
 #endif
+
+// NOLINTEND(cppcoreguidelines-macro-usage)

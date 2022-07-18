@@ -117,6 +117,7 @@ constexpr auto mod(T const k, U const n) noexcept -> std::common_type_t<T, U>
     return static_cast<std::common_type_t<T, U>>(k % n);
 }
 
+// NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
 constexpr auto upow(unsigned long long x, unsigned long long e) noexcept
         -> unsigned long long
 {
