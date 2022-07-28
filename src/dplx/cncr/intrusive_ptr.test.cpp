@@ -444,3 +444,4 @@ TEST_CASE("aliasing ref ptr type deduction")
 } // namespace cncr_tests
 
 template class dplx::cncr::intrusive_ptr<cncr_tests::test_ref_counted>;
+template class dplx::cncr::intrusive_ptr<int, cncr_tests::test_ref_counted>;

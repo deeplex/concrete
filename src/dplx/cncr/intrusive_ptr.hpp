@@ -523,27 +523,29 @@ public:
     }
 
     constexpr intrusive_ptr(intrusive_ptr<RC> const &handle, T *ptr) noexcept
-        : mPtr{handle ? ptr : nullptr}
-        , mHandle{handle}
+        : mPtr{handle && ptr ? ptr : nullptr}
+        , mHandle{handle && ptr ? handle : nullptr}
     {
     }
     template <ref_counted U>
         requires std::constructible_from<intrusive_ptr<RC>, intrusive_ptr<U>>
     constexpr intrusive_ptr(intrusive_ptr<U> const &handle, T *ptr) noexcept
-        : mPtr{handle ? ptr : nullptr}
-        , mHandle{handle}
+        : mPtr{handle && ptr ? ptr : nullptr}
+        , mHandle{handle && ptr ? handle : nullptr}
     {
     }
     constexpr intrusive_ptr(intrusive_ptr<RC> &&handle, T *ptr) noexcept
-        : mPtr{handle ? ptr : nullptr}
-        , mHandle{static_cast<intrusive_ptr<RC> &&>(handle)}
+        : mPtr{handle && ptr ? ptr : nullptr}
+        , mHandle{handle && ptr ? static_cast<intrusive_ptr<RC> &&>(handle)
+                                : intrusive_ptr<RC>{}}
     {
     }
     template <ref_counted U>
         requires std::constructible_from<intrusive_ptr<RC>, intrusive_ptr<U>>
     constexpr intrusive_ptr(intrusive_ptr<U> &&handle, T *ptr) noexcept
-        : mPtr{handle ? ptr : nullptr}
-        , mHandle{static_cast<intrusive_ptr<RC> &&>(handle)}
+        : mPtr{handle && ptr ? ptr : nullptr}
+        , mHandle{handle && ptr ? static_cast<intrusive_ptr<U> &&>(handle)
+                                : intrusive_ptr<U>{}}
     {
     }
 
@@ -552,7 +554,7 @@ public:
 
     explicit operator bool() const noexcept
     {
-        return mHandle.operator bool();
+        return mPtr != nullptr;
     }
 
     constexpr auto operator*() const noexcept -> T &
@@ -563,6 +565,10 @@ public:
     {
         return mPtr;
     }
+
+    friend constexpr auto operator==(intrusive_ptr const &,
+                                     intrusive_ptr const &) noexcept -> bool
+            = default;
 
     constexpr auto get() const noexcept -> T *
     {
