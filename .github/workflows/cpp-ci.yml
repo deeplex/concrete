@@ -39,7 +39,7 @@ jobs:
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
           vcpkgGitCommitId: 8b62d95a81afcb9efe74bebeb62f04c1e0e2a003
-          appendedCacheKey: r01
+          appendedCacheKey: r02
 
       - if: matrix.os == 'windows-2022'
         name: Add MSVC to PATH
