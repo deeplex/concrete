@@ -106,8 +106,10 @@ inline constexpr ref_ops_vtable ref_ops_vtable_of{
 
 } // namespace detail
 
-template <typename T, typename RC = T>
-    requires std::same_as<RC, void> || ref_counted<RC>
+template <typename RC>
+concept erased_or_ref_counted = std::same_as<RC, void> || ref_counted<RC>;
+
+template <typename T, erased_or_ref_counted RC = T>
 class intrusive_ptr;
 
 constexpr inline struct intrusive_ptr_import_fn
@@ -135,8 +137,7 @@ constexpr inline struct intrusive_ptr_acquire_fn
 ///
 /// The API is drop-in compatible with std::shared_ptr except weak references.
 ///
-template <typename RC>
-    requires std::same_as<RC, void> || ref_counted<RC>
+template <erased_or_ref_counted RC>
 class intrusive_ptr<RC, RC> final
 {
     using traits = reference_counted_traits<RC>;
@@ -480,8 +481,7 @@ public:
     }
 };
 
-template <typename T, typename RC>
-    requires std::same_as<RC, void> || ref_counted<RC>
+template <typename T, erased_or_ref_counted RC>
 class intrusive_ptr
 {
     T *mPtr;
@@ -527,7 +527,7 @@ public:
         , mHandle{handle && ptr ? handle : nullptr}
     {
     }
-    template <ref_counted U>
+    template <erased_or_ref_counted U>
         requires std::constructible_from<intrusive_ptr<RC>, intrusive_ptr<U>>
     constexpr intrusive_ptr(intrusive_ptr<U> const &handle, T *ptr) noexcept
         : mPtr{handle && ptr ? ptr : nullptr}
@@ -540,7 +540,7 @@ public:
                                 : intrusive_ptr<RC>{}}
     {
     }
-    template <ref_counted U>
+    template <erased_or_ref_counted U>
         requires std::constructible_from<intrusive_ptr<RC>, intrusive_ptr<U>>
     constexpr intrusive_ptr(intrusive_ptr<U> &&handle, T *ptr) noexcept
         : mPtr{handle && ptr ? ptr : nullptr}
@@ -574,7 +574,12 @@ public:
     {
         return mPtr;
     }
-    constexpr auto get_handle() const noexcept -> intrusive_ptr<RC>
+    constexpr auto get_handle() &&noexcept -> intrusive_ptr<RC>
+    {
+        mPtr = nullptr;
+        return std::move(mHandle);
+    }
+    constexpr auto get_handle() const &noexcept -> intrusive_ptr<RC> const &
     {
         return mHandle;
     }
@@ -603,24 +608,38 @@ public:
     }
 };
 
-template <typename T, typename U>
-    requires std::same_as<U, void> || ref_counted<U>
+template <erased_or_ref_counted T, erased_or_ref_counted U>
 inline auto static_pointer_cast(intrusive_ptr<U> const &ptr) noexcept
         -> intrusive_ptr<T>
 {
     return intrusive_ptr<T>::acquire(static_cast<T *>(ptr.get()));
 }
-template <typename T, ref_counted U>
+template <erased_or_ref_counted T, ref_counted U>
 inline auto static_pointer_cast(intrusive_ptr<U> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
     return intrusive_ptr<T>::import(static_cast<T *>(ptr.release()));
 }
-template <typename T>
+template <erased_or_ref_counted T>
 inline auto static_pointer_cast(intrusive_ptr<void> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
     return intrusive_ptr<T>::import(ptr.template release_as<T>());
+}
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto static_pointer_cast(intrusive_ptr<From, RC> const &ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    return intrusive_ptr<To, RC>{ptr.get_handle(),
+                                 static_cast<To *>(ptr.get())};
+}
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto static_pointer_cast(intrusive_ptr<From, RC> &&ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    auto *const alias = static_cast<To *>(ptr.get());
+    return intrusive_ptr<To, RC>{
+            static_cast<intrusive_ptr<From, RC> &&>(ptr).get_handle(), alias};
 }
 
 template <ref_counted T, ref_counted U>
@@ -634,6 +653,21 @@ inline auto dynamic_pointer_cast(intrusive_ptr<U> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
     return intrusive_ptr<T>::import(dynamic_cast<T *>(ptr.release()));
+}
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto dynamic_pointer_cast(intrusive_ptr<From, RC> const &ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    return intrusive_ptr<To, RC>{ptr.get_handle(),
+                                 dynamic_cast<To *>(ptr.get())};
+}
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto dynamic_pointer_cast(intrusive_ptr<From, RC> &&ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    auto *const alias = dynamic_cast<To *>(ptr.get());
+    return intrusive_ptr<To, RC>{
+            static_cast<intrusive_ptr<From, RC> &&>(ptr).get_handle(), alias};
 }
 
 template <ref_counted T, ref_counted U>
@@ -650,9 +684,24 @@ inline auto const_pointer_cast(intrusive_ptr<U> &&ptr) noexcept
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
     return intrusive_ptr<T>::import(const_cast<T *>(ptr.release()));
 }
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto const_pointer_cast(intrusive_ptr<From, RC> const &ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    return intrusive_ptr<To, RC>{ptr.get_handle(), const_cast<To *>(ptr.get())};
+}
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto const_pointer_cast(intrusive_ptr<From, RC> &&ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    auto *const alias = const_cast<To *>(ptr.get());
+    return intrusive_ptr<To, RC>{
+            static_cast<intrusive_ptr<From, RC> &&>(ptr).get_handle(), alias};
+}
 
-template <typename T, typename U>
-    requires std::same_as<U, void> || ref_counted<U>
+template <typename T, erased_or_ref_counted U>
 inline auto reinterpret_pointer_cast(intrusive_ptr<U> const &ptr) noexcept
         -> intrusive_ptr<T>
 {
@@ -671,6 +720,25 @@ inline auto reinterpret_pointer_cast(intrusive_ptr<void> &&ptr) noexcept
         -> intrusive_ptr<T>
 {
     return intrusive_ptr<T>::import(ptr.template release_as<T>());
+}
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto
+reinterpret_pointer_cast(intrusive_ptr<From, RC> const &ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    return intrusive_ptr<To, RC>{
+            ptr.get_handle(),
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            reinterpret_cast<To *>(ptr.get())};
+}
+template <typename To, typename From, erased_or_ref_counted RC>
+inline auto reinterpret_pointer_cast(intrusive_ptr<From, RC> &&ptr) noexcept
+        -> intrusive_ptr<To, RC>
+{
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    auto *const alias = reinterpret_cast<To *>(ptr.get());
+    return intrusive_ptr<To, RC>{
+            static_cast<intrusive_ptr<From, RC> &&>(ptr).get_handle(), alias};
 }
 
 } // namespace dplx::cncr

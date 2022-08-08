@@ -82,6 +82,17 @@ public:
 static_assert(cncr::detail::dplx_ref_counted<test_ref_counted>);
 static_assert(cncr::ref_counted<test_ref_counted>);
 
+struct derived_ref_counted : test_ref_counted
+{
+};
+
+struct base_value
+{
+};
+struct derived_value : base_value
+{
+};
+
 using test_intrusive_ptr = cncr::intrusive_ptr<test_ref_counted>;
 
 TEST_CASE("intrusive_ptr should be default constructible and empty")
@@ -439,6 +450,95 @@ TEST_CASE("aliasing ref ptr type deduction")
     CHECK(synth);
     CHECK(synth.get() == &x);
     CHECK(synth.get_handle() == orig);
+}
+
+TEST_CASE("intrusive_ptr static_cast const ref")
+{
+    derived_ref_counted subject;
+
+    auto const basePtr = test_intrusive_ptr::import(&subject);
+    CHECK(basePtr);
+    CHECK(subject.reference_count() == 1);
+
+    auto const downcasted = static_pointer_cast<derived_ref_counted>(basePtr);
+    CHECK(downcasted);
+    CHECK(downcasted.get() == &subject);
+    CHECK(subject.reference_count() == 2);
+}
+TEST_CASE("intrusive_ptr static_cast erased const ref")
+{
+    derived_ref_counted subject;
+
+    auto const basePtr = cncr::intrusive_ptr<void>::import(&subject);
+    CHECK(basePtr);
+    CHECK(subject.reference_count() == 1);
+
+    auto const downcasted = static_pointer_cast<derived_ref_counted>(basePtr);
+    CHECK(downcasted);
+    CHECK(downcasted.get() == &subject);
+    CHECK(subject.reference_count() == 2);
+}
+TEST_CASE("intrusive_ptr static_cast rvalue ref")
+{
+    derived_ref_counted subject;
+
+    auto basePtr = test_intrusive_ptr::import(&subject);
+    CHECK(basePtr);
+    CHECK(subject.reference_count() == 1);
+
+    auto const downcasted
+            = static_pointer_cast<derived_ref_counted>(std::move(basePtr));
+    CHECK(downcasted);
+    CHECK(downcasted.get() == &subject);
+    CHECK(!basePtr); // NOLINT(bugprone-use-after-move)
+    CHECK(subject.reference_count() == 1);
+}
+TEST_CASE("intrusive_ptr static_cast erased rvalue ref")
+{
+    derived_ref_counted subject;
+
+    auto basePtr = cncr::intrusive_ptr<void>::import(&subject);
+    CHECK(basePtr);
+    CHECK(subject.reference_count() == 1);
+
+    auto const downcasted
+            = static_pointer_cast<derived_ref_counted>(std::move(basePtr));
+    CHECK(downcasted);
+    CHECK(downcasted.get() == &subject);
+    CHECK(!basePtr); // NOLINT(bugprone-use-after-move)
+    CHECK(subject.reference_count() == 1);
+}
+TEST_CASE("intrusive_ptr static_cast aliasing const ref")
+{
+    derived_value x{};
+    derived_ref_counted subject;
+
+    cncr::intrusive_ptr const basePtr{test_intrusive_ptr::import(&subject),
+                                      static_cast<base_value *>(&x)};
+    CHECK(basePtr);
+    CHECK(subject.reference_count() == 1);
+
+    auto const downcasted = static_pointer_cast<derived_value>(basePtr);
+    CHECK(downcasted);
+    CHECK(downcasted.get() == &x);
+    CHECK(subject.reference_count() == 2);
+}
+TEST_CASE("intrusive_ptr static_cast aliasing rvalue ref")
+{
+    derived_value x{};
+    derived_ref_counted subject;
+
+    cncr::intrusive_ptr basePtr{test_intrusive_ptr::import(&subject),
+                                static_cast<base_value *>(&x)};
+    CHECK(basePtr);
+    CHECK(subject.reference_count() == 1);
+
+    auto const downcasted
+            = static_pointer_cast<derived_value>(std::move(basePtr));
+    CHECK(downcasted);
+    CHECK(downcasted.get() == &x);
+    CHECK(!basePtr); // NOLINT(bugprone-use-after-move)
+    CHECK(subject.reference_count() == 1);
 }
 
 } // namespace cncr_tests
