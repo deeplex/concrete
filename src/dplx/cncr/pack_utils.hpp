@@ -77,6 +77,8 @@ struct nth_param_fn
     template <typename... Ts>
     constexpr auto operator()(Ts &&...vs) const noexcept -> decltype(auto)
     {
+        // we don't care, because the varargs are not accessed but discarded
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
         return detail::nth_param_value_impl<
                 std::make_index_sequence<N>>::access(static_cast<Ts &&>(vs)...);
     }
