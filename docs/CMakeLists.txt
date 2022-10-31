@@ -24,6 +24,7 @@ add_custom_command(
     DEPENDS
         "${CMAKE_CURRENT_LIST_DIR}/index.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/concepts.rst"
+        "${CMAKE_CURRENT_LIST_DIR}/modules/data_defined_status_domain.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/math_supplement.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/misc.rst"
         "${CMAKE_CURRENT_LIST_DIR}/modules/overloaded.rst"

@@ -5,6 +5,7 @@ dplx_target_sources(concrete
 
     PUBLIC
         cncr/concepts
+        cncr/data_defined_status_domain
         cncr/intrusive_ptr
         cncr/math_supplement
         cncr/misc

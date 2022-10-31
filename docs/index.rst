@@ -8,6 +8,7 @@
    :caption: Contents:
 
    modules/concepts.rst
+   modules/data_defined_status_domain.rst
    modules/intrusive_ptr.rst
    modules/math_supplement.rst
    modules/misc.rst

@@ -38,8 +38,8 @@ jobs:
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 8b62d95a81afcb9efe74bebeb62f04c1e0e2a003
-          appendedCacheKey: r02
+          vcpkgGitCommitId: 6ca56aeb457f033d344a7106cb3f9f1abf8f4e98
+          #appendedCacheKey: r00
 
       - if: matrix.os == 'windows-2022'
         name: Add MSVC to PATH
@@ -69,18 +69,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v3
-      - name: Install the linter driver python package
-        run: python3 -m pip install git+https://github.com/cpp-linter/cpp-linter-action@v1
-
       - uses: lukka/get-cmake@v3.22.2
 
       - name: Initialize vcpkg
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 8b62d95a81afcb9efe74bebeb62f04c1e0e2a003
-          appendedCacheKey: r01
+          vcpkgGitCommitId: 6ca56aeb457f033d344a7106cb3f9f1abf8f4e98
+          #appendedCacheKey: r01
 
       - name: Configure x64-linux-clang preset
         uses: lukka/run-cmake@v10
@@ -89,16 +85,19 @@ jobs:
         with:
           configurePreset: x64-linux-clang
 
-      - name: Lint with clang-format and clang-tidy
+      - uses: cpp-linter/cpp-linter-action@v2
+        name: Lint with clang-format and clang-tidy
         id: linter
-        run: |
-          cpp-linter \
-          --version=14 \
-          --style=file \
-          --tidy-checks='' \
-          --files-changed-only=false \
-          --ignore='build|external' \
-          --database=${{ github.event.repository.name }}/build/x64-linux-clang
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            version: 14
+            style: file # use .clang-format settings
+            tidy-checks: '' # use .clang-tidy settings
+            extensions: cpp,hpp
+            ignore: '.github|build|external'
+            files-changed-only: false
+            database: build/x64-linux-clang
 
       - name: Fail if issues have been raised
         if: steps.linter.outputs.checks-failed > 0

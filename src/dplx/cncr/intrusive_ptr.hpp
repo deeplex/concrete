@@ -110,7 +110,7 @@ template <typename RC>
 concept erased_or_ref_counted = std::same_as<RC, void> || ref_counted<RC>;
 
 template <typename T, erased_or_ref_counted RC = T>
-class intrusive_ptr;
+class [[nodiscard]] intrusive_ptr;
 
 constexpr inline struct intrusive_ptr_import_fn
 {
@@ -138,7 +138,7 @@ constexpr inline struct intrusive_ptr_acquire_fn
 /// The API is drop-in compatible with std::shared_ptr except weak references.
 ///
 template <erased_or_ref_counted RC>
-class intrusive_ptr<RC, RC> final
+class [[nodiscard]] intrusive_ptr<RC, RC> final
 {
     using traits = reference_counted_traits<RC>;
 
@@ -263,19 +263,20 @@ public:
     }
 
     /// @brief Returns a pointer to the bound object or nullptr if empty.
-    constexpr auto get() const noexcept -> RC *
+    [[nodiscard]] constexpr auto get() const noexcept -> RC *
     {
         return mPtr;
     }
-    constexpr auto get_handle() const noexcept -> intrusive_ptr<RC>
+    [[nodiscard]] constexpr auto get_handle() const noexcept
+            -> intrusive_ptr<RC>
     {
         return *this;
     }
-    constexpr auto operator*() const noexcept -> RC &
+    [[nodiscard]] constexpr auto operator*() const noexcept -> RC &
     {
         return *mPtr;
     }
-    constexpr auto operator->() const noexcept -> RC *
+    [[nodiscard]] constexpr auto operator->() const noexcept -> RC *
     {
         return mPtr;
     }
@@ -285,7 +286,7 @@ public:
     ///        be stable in multi-threaded environments is ``1``. This API
     ///        behaves the same as @ref reference_count and exists for
     ///        std::shared_ptr compatibility.
-    constexpr auto use_count() const noexcept ->
+    [[nodiscard]] constexpr auto use_count() const noexcept ->
             typename traits::counter_type requires inspectable_ref_counted<RC>
 
     {
@@ -294,7 +295,7 @@ public:
     /// @brief If T satisfies inspectable_ref_counted it returns the
     ///        (approximate) number of references. The only value guaranteed to
     ///        be stable in multi-threaded environments is ``1``.
-    constexpr auto reference_count() const noexcept ->
+    [[nodiscard]] constexpr auto reference_count() const noexcept ->
             typename traits::counter_type requires inspectable_ref_counted<RC>
 
     {
@@ -303,7 +304,7 @@ public:
 
     /// @brief Returns the bound object after unbinding this without
     ///        decrementing the reference counter.
-    constexpr auto release() noexcept -> RC *
+    [[nodiscard]] constexpr auto release() noexcept -> RC *
     {
         return std::exchange(mPtr, nullptr);
     }
@@ -314,16 +315,17 @@ public:
         *this = acquire(toBeBound);
     }
 
-    friend inline auto operator==(intrusive_ptr const &,
-                                  intrusive_ptr const &) noexcept -> bool
+    [[nodiscard]] friend inline auto operator==(intrusive_ptr const &,
+                                                intrusive_ptr const &) noexcept
+            -> bool
             = default;
-    friend inline auto operator<=>(intrusive_ptr const &,
-                                   intrusive_ptr const &) noexcept
+    [[nodiscard]] friend inline auto operator<=>(intrusive_ptr const &,
+                                                 intrusive_ptr const &) noexcept
             -> std::strong_ordering = default;
 };
 
 template <>
-class intrusive_ptr<void, void> final
+class [[nodiscard]] intrusive_ptr<void, void> final
 {
     detail::ref_ops_vtable const *mVTable;
     void *mPtr;
@@ -402,7 +404,7 @@ private:
 
 public:
     template <ref_counted U>
-    static auto import(U *toBeBound) noexcept -> intrusive_ptr
+    [[nodiscard]] static auto import(U *toBeBound) noexcept -> intrusive_ptr
     {
         if (toBeBound == nullptr)
         {
@@ -411,7 +413,7 @@ public:
         return intrusive_ptr(&detail::ref_ops_vtable_of<U>, toBeBound);
     }
     template <ref_counted U>
-    static auto acquire(U *toBeBound) noexcept -> intrusive_ptr
+    [[nodiscard]] static auto acquire(U *toBeBound) noexcept -> intrusive_ptr
     {
         if (toBeBound == nullptr)
         {
@@ -462,19 +464,20 @@ public:
         return *this;
     }
     template <ref_counted U>
-    auto release_as() noexcept -> U *
+    [[nodiscard]] auto release_as() noexcept -> U *
     {
         mVTable = nullptr;
         return static_cast<U *>(std::exchange(mPtr, nullptr));
     }
 
-    friend inline auto operator==(intrusive_ptr const &lhs,
-                                  intrusive_ptr const &rhs) noexcept -> bool
+    [[nodiscard]] friend inline auto
+    operator==(intrusive_ptr const &lhs, intrusive_ptr const &rhs) noexcept
+            -> bool
     {
         return lhs.mPtr == rhs.mPtr;
     }
-    friend inline auto operator<=>(intrusive_ptr const &lhs,
-                                   intrusive_ptr const &rhs) noexcept
+    [[nodiscard]] friend inline auto
+    operator<=>(intrusive_ptr const &lhs, intrusive_ptr const &rhs) noexcept
             -> std::strong_ordering
     {
         return lhs.mPtr <=> rhs.mPtr;
@@ -482,7 +485,7 @@ public:
 };
 
 template <typename T, erased_or_ref_counted RC>
-class intrusive_ptr
+class [[nodiscard]] intrusive_ptr
 {
     T *mPtr;
     intrusive_ptr<RC> mHandle;
@@ -557,29 +560,30 @@ public:
         return mPtr != nullptr;
     }
 
-    constexpr auto operator*() const noexcept -> T &
+    [[nodiscard]] constexpr auto operator*() const noexcept -> T &
     {
         return *mPtr;
     }
-    constexpr auto operator->() const noexcept -> T *
+    [[nodiscard]] constexpr auto operator->() const noexcept -> T *
     {
         return mPtr;
     }
 
-    friend constexpr auto operator==(intrusive_ptr const &,
-                                     intrusive_ptr const &) noexcept -> bool
+    [[nodiscard]] friend constexpr auto
+    operator==(intrusive_ptr const &, intrusive_ptr const &) noexcept -> bool
             = default;
 
-    constexpr auto get() const noexcept -> T *
+    [[nodiscard]] constexpr auto get() const noexcept -> T *
     {
         return mPtr;
     }
-    constexpr auto get_handle() &&noexcept -> intrusive_ptr<RC>
+    [[nodiscard]] constexpr auto get_handle() &&noexcept -> intrusive_ptr<RC>
     {
         mPtr = nullptr;
         return std::move(mHandle);
     }
-    constexpr auto get_handle() const &noexcept -> intrusive_ptr<RC> const &
+    [[nodiscard]] constexpr auto get_handle() const &noexcept
+            -> intrusive_ptr<RC> const &
     {
         return mHandle;
     }
@@ -589,7 +593,7 @@ public:
     ///        guaranteed to be stable even in multi-threaded environments. This
     ///        API behaves the same as @ref reference_count and exists for
     ///        std::shared_ptr compatibility.
-    constexpr auto use_count() const noexcept ->
+    [[nodiscard]] constexpr auto use_count() const noexcept ->
             typename reference_counted_traits<RC>::counter_type requires
             inspectable_ref_counted<RC>
 
@@ -599,7 +603,7 @@ public:
     /// @brief If T satisfies inspectable_ref_counted it returns the
     ///        (approximate) number of references. Only the value 1 is
     ///        guaranteed to be stable even in multi-threaded environments.
-    constexpr auto reference_count() const noexcept ->
+    [[nodiscard]] constexpr auto reference_count() const noexcept ->
             typename reference_counted_traits<RC>::counter_type requires
             inspectable_ref_counted<RC>
 

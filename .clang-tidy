@@ -5,15 +5,20 @@ Checks: >
   clang-analyzer-*,
   clang-diagnostic-*,
   cppcoreguidelines-*,
+    -cppcoreguidelines-avoid-c-arrays,
     -cppcoreguidelines-special-member-functions,
   modernize-*,
+    -modernize-avoid-c-arrays,
+    -modernize-use-default-member-init,
   performance-*,
   portability-*,
   readability-*,
     -readability-identifier-length,
-    -readability-named-parameter
+    -readability-named-parameter,
+    -readability-redundant-member-init,
+    -readability-static-accessed-through-instance
 WarningsAsErrors: true
-HeaderFilterRegex: ""
+HeaderFilterRegex: ".*/src/dplx/.*"
 FormatStyle: file
 CheckOptions:
   - key: modernize-use-override.AllowOverrideAndFinal
