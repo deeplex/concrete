@@ -1,0 +1,414 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="intrusive_ptr" href="intrusive_ptr.html" /><link rel="prev" title="Concept utils" href="concepts.html" />
+
+    <meta name="generator" content="sphinx-5.3.0, furo 2022.06.21"/>
+        <title>Data defined Status Domain - concrete 0.0.0-alpha.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">concrete 0.0.0-alpha.6 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">concrete 0.0.0-alpha.6 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concept utils</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Data defined Status Domain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intrusive_ptr.html">intrusive_ptr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math_supplement.html">Supplemental math functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc. functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overloaded.html">overloaded</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pack_utils.html">Template Parameter Pack utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scope_guard.html">Scope Guard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tag_invoke.html">tag_invoke</a></li>
+</ul>
+</div>
+
+<div class="sidebar-tree">
+    <p class="caption" role="heading">
+        <span class="caption-text">Versions:</span>
+    </p>
+    <ul>
+        <li class="toctree-l1">
+            <a class="reference interal" href="data_defined_status_domain.html"
+                >master</a
+            >
+        </li>
+    </ul>
+</div>
+
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="data-defined-status-domain">
+<h1>Data defined Status Domain<a class="headerlink" href="#data-defined-status-domain" title="Permalink to this heading">#</a></h1>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/data_defined_status_domain.hpp&gt;</span><span class="cp"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This module allows “generating” a <code class="docutils literal notranslate"><span class="pre">status_code_domain</span></code> (see the
+<a class="reference external" href="https://github.com/ned14/status-code">status-code</a> GitHub project) for a
+return code enumeration. In order to generate a <code class="docutils literal notranslate"><span class="pre">status_code_domain</span></code> one
+needs to specialize <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr22status_enum_definitionE" title="dplx::cncr::status_enum_definition"><span class="n">status_enum_definition</span></a></span> with the enumeration type,
+like so:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">test_errc</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">perm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">other_success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">not_implemented</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">dplx</span><span class="o">::</span><span class="n">cncr</span><span class="o">::</span><span class="n">status_enum_definition</span><span class="o">&lt;</span><span class="n">test_errc</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">status_enum_definition_defaults</span><span class="o">&lt;</span><span class="n">test_errc</span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">domain_id</span><span class="p">[]</span><span class="w"></span>
+<span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{09E0ECBF-A737-454D-8633-17E733CDE15F}&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">domain_name</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;test-domain&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">value_descriptor</span><span class="w"> </span><span class="n">values</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w">        </span><span class="n">code</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">       </span><span class="s">&quot;yay!&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w">           </span><span class="n">code</span><span class="o">::</span><span class="n">perm</span><span class="p">,</span><span class="w"> </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">permission_denied</span><span class="p">,</span><span class="w">      </span><span class="s">&quot;oh no&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w">  </span><span class="n">code</span><span class="o">::</span><span class="n">other_success</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">     </span><span class="s">&quot;oh kay&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="n">code</span><span class="o">::</span><span class="n">not_implemented</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">unknown</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;till later&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx4cncr11status_enumE">
+<span id="_CPPv3I0EN4dplx4cncr11status_enumE"></span><span id="_CPPv2I0EN4dplx4cncr11status_enumE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Enum</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status_enum</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx4cncr11status_enumE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><strong>Notation</strong></p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx4cncr11status_enum10definitionE">
+<span id="_CPPv3N4dplx4cncr11status_enum10definitionE"></span><span id="_CPPv2N4dplx4cncr11status_enum10definitionE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">definition</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr22status_enum_definitionE" title="dplx::cncr::status_enum_definition"><span class="n"><span class="pre">status_enum_definition</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr11status_enumE" title="dplx::cncr::status_enum::Enum"><span class="n"><span class="pre">Enum</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N4dplx4cncr11status_enum10definitionE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The specialization containing the domain name, id and value
+descriptions.</p>
+</dd></dl>
+
+<p><strong>Valid Expressions</strong></p>
+<ul class="simple">
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">string_view</span><span class="p">{</span><a class="reference internal" href="#_CPPv4N4dplx4cncr11status_enum10definitionE" title="dplx::cncr::status_enum::definition"><span class="n">definition</span></a><span class="p">::</span><span class="n">domain_name</span><span class="p">}</span></span>, the domain name
+specified can be constexpr converted to a <span class="cpp-texpr sig sig-inline cpp"><span class="n">string_view</span></span>.</p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">string_view</span><span class="p">{</span><a class="reference internal" href="#_CPPv4N4dplx4cncr11status_enum10definitionE" title="dplx::cncr::status_enum::definition"><span class="n">definition</span></a><span class="p">::</span><span class="n">domain_id</span><span class="p">}</span></span>, the domain uuid
+specified can be constexpr converted to a <span class="cpp-texpr sig sig-inline cpp"><span class="n">string_view</span></span>.</p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">span</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr28status_enum_value_descriptorE" title="dplx::cncr::status_enum_value_descriptor"><span class="n">status_enum_value_descriptor</span></a><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr11status_enumE" title="dplx::cncr::status_enum::Enum"><span class="n">Enum</span></a><span class="p">&gt;</span><span class="w"> </span><span class="k">const</span><span class="p">&gt;</span><span class="p">{</span><a class="reference internal" href="#_CPPv4N4dplx4cncr11status_enum10definitionE" title="dplx::cncr::status_enum::definition"><span class="n">definition</span></a><span class="p">::</span><span class="n">values</span><span class="p">}</span></span>
+the</p></li>
+</ul>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx4cncr28status_enum_value_descriptorE">
+<span id="_CPPv3I0EN4dplx4cncr28status_enum_value_descriptorE"></span><span id="_CPPv2I0EN4dplx4cncr28status_enum_value_descriptorE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Enum</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status_enum_value_descriptor</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx4cncr28status_enum_value_descriptorE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>A data first descriptor tuple which consists of a description and an
+equivalent code for a <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N4dplx4cncr28status_enum_value_descriptor5valueE" title="dplx::cncr::status_enum_value_descriptor::value"><span class="n">value</span></a></span>.</p>
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx4cncr28status_enum_value_descriptor5valueE">
+<span id="_CPPv3N4dplx4cncr28status_enum_value_descriptor5valueE"></span><span id="_CPPv2N4dplx4cncr28status_enum_value_descriptor5valueE"></span><span id="dplx::cncr::status_enum_value_descriptor::value__Enum"></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr28status_enum_value_descriptorE" title="dplx::cncr::status_enum_value_descriptor::Enum"><span class="n"><span class="pre">Enum</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><a class="headerlink" href="#_CPPv4N4dplx4cncr28status_enum_value_descriptor5valueE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The value to be described.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx4cncr28status_enum_value_descriptor10equivalentE">
+<span id="_CPPv3N4dplx4cncr28status_enum_value_descriptor10equivalentE"></span><span id="_CPPv2N4dplx4cncr28status_enum_value_descriptor10equivalentE"></span><span id="dplx::cncr::status_enum_value_descriptor::equivalent__system_error2::errc"></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">system_error2</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">errc</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">equivalent</span></span></span><a class="headerlink" href="#_CPPv4N4dplx4cncr28status_enum_value_descriptor10equivalentE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The generic code equivalent to <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N4dplx4cncr28status_enum_value_descriptor5valueE" title="dplx::cncr::status_enum_value_descriptor::value"><span class="n">value</span></a></span>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">::system_error2::errc::success</span></code> and
+<code class="docutils literal notranslate"><span class="pre">::system_error2::errc::unknown</span></code> values  indicate that <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N4dplx4cncr28status_enum_value_descriptor5valueE" title="dplx::cncr::status_enum_value_descriptor::value"><span class="n">value</span></a></span>
+is not an error or no equivalent generic code exists respectively.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx4cncr28status_enum_value_descriptor11descriptionE">
+<span id="_CPPv3N4dplx4cncr28status_enum_value_descriptor11descriptionE"></span><span id="_CPPv2N4dplx4cncr28status_enum_value_descriptor11descriptionE"></span><span id="dplx::cncr::status_enum_value_descriptor::description__std::string_view"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">description</span></span></span><a class="headerlink" href="#_CPPv4N4dplx4cncr28status_enum_value_descriptor11descriptionE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>A string describing the situation indicated by <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N4dplx4cncr28status_enum_value_descriptor5valueE" title="dplx::cncr::status_enum_value_descriptor::value"><span class="n">value</span></a></span>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx4cncr31status_enum_definition_defaultsE">
+<span id="_CPPv3I0EN4dplx4cncr31status_enum_definition_defaultsE"></span><span id="_CPPv2I0EN4dplx4cncr31status_enum_definition_defaultsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Enum</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status_enum_definition_defaults</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx4cncr31status_enum_definition_defaultsE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>A CRTP base class for <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr22status_enum_definitionE" title="dplx::cncr::status_enum_definition"><span class="n">status_enum_definition</span></a></span> specializiations which
+introduces a few type aliases allowing for terser definitions.</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx4cncr31status_enum_definition_defaults4codeE">
+<span id="_CPPv3N4dplx4cncr31status_enum_definition_defaults4codeE"></span><span id="_CPPv2N4dplx4cncr31status_enum_definition_defaults4codeE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">code</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr31status_enum_definition_defaultsE" title="dplx::cncr::status_enum_definition_defaults::Enum"><span class="n"><span class="pre">Enum</span></span></a><a class="headerlink" href="#_CPPv4N4dplx4cncr31status_enum_definition_defaults4codeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The enumeration type the status code is generated for.</p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx4cncr31status_enum_definition_defaults12generic_errcE">
+<span id="_CPPv3N4dplx4cncr31status_enum_definition_defaults12generic_errcE"></span><span id="_CPPv2N4dplx4cncr31status_enum_definition_defaults12generic_errcE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">generic_errc</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">system_error2</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">errc</span></span><a class="headerlink" href="#_CPPv4N4dplx4cncr31status_enum_definition_defaults12generic_errcE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The generic error enumeration from the status-code library.</p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx4cncr31status_enum_definition_defaults16value_descriptorE">
+<span id="_CPPv3N4dplx4cncr31status_enum_definition_defaults16value_descriptorE"></span><span id="_CPPv2N4dplx4cncr31status_enum_definition_defaults16value_descriptorE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value_descriptor</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr28status_enum_value_descriptorE" title="dplx::cncr::status_enum_value_descriptor"><span class="n"><span class="pre">status_enum_value_descriptor</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr31status_enum_definition_defaultsE" title="dplx::cncr::status_enum_definition_defaults::Enum"><span class="n"><span class="pre">Enum</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N4dplx4cncr31status_enum_definition_defaults16value_descriptorE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The value descriptor type for <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr31status_enum_definition_defaultsE" title="dplx::cncr::status_enum_definition_defaults::Enum"><span class="n">Enum</span></a></span>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4I_11status_enumEN4dplx4cncr26data_defined_status_domainE">
+<span id="_CPPv3I_11status_enumEN4dplx4cncr26data_defined_status_domainE"></span><span id="_CPPv2I_11status_enumEN4dplx4cncr26data_defined_status_domainE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr11status_enumE" title="dplx::cncr::status_enum"><span class="n"><span class="pre">status_enum</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Enum</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr31data_defined_status_domain_typeE" title="dplx::cncr::data_defined_status_domain_type"><span class="n"><span class="pre">data_defined_status_domain_type</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr26data_defined_status_domainE" title="dplx::cncr::data_defined_status_domain::Enum"><span class="n"><span class="pre">Enum</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data_defined_status_domain</span></span></span><a class="headerlink" href="#_CPPv4I_11status_enumEN4dplx4cncr26data_defined_status_domainE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The default status domain instance for data defined status enumerations.
+There shouldn’t be any need to reference it directly.</p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I_11status_enumEN4dplx4cncr31data_defined_status_domain_typeE">
+<span id="_CPPv3I_11status_enumEN4dplx4cncr31data_defined_status_domain_typeE"></span><span id="_CPPv2I_11status_enumEN4dplx4cncr31data_defined_status_domain_typeE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr11status_enumE" title="dplx::cncr::status_enum"><span class="n"><span class="pre">status_enum</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Enum</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data_defined_status_domain_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">SYSTEM_ERROR2_NAMESPACE</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">status_code_domain</span></span><a class="headerlink" href="#_CPPv4I_11status_enumEN4dplx4cncr31data_defined_status_domain_typeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The domain type template which implements a status domain based on the
+<span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr22status_enum_definitionE" title="dplx::cncr::status_enum_definition"><span class="n">status_enum_definition</span></a><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr31data_defined_status_domain_typeE" title="dplx::cncr::data_defined_status_domain_type::Enum"><span class="n">Enum</span></a><span class="p">&gt;</span></span>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The  <a class="reference external" href="https://ned14.github.io/status-code/doc_status_code_domain.html#standardese-system_error2__status_code_domain">base class documentation</a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I_11status_enumEN4dplx4cncr22status_enum_definitionE">
+<span id="_CPPv3I_11status_enumEN4dplx4cncr22status_enum_definitionE"></span><span id="_CPPv2I_11status_enumEN4dplx4cncr22status_enum_definitionE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr11status_enumE" title="dplx::cncr::status_enum"><span class="n"><span class="pre">status_enum</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Enum</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status_enum_definition</span></span></span><a class="headerlink" href="#_CPPv4I_11status_enumEN4dplx4cncr22status_enum_definitionE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>This template serves as the main customization point. There exists no main
+definition. See the example given at the top for a specialization example.</p>
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="intrusive_ptr.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">intrusive_ptr</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="concepts.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Concept utils</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Henrik Steffen Gaßmann
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    </body>
+</html>
