@@ -38,7 +38,7 @@ jobs:
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 6ca56aeb457f033d344a7106cb3f9f1abf8f4e98
+          vcpkgGitCommitId: 94ce0dab56f4d8ba6bd631ba59ed682b02d45c46
           #appendedCacheKey: r00
 
       - if: matrix.os == 'windows-2022'
@@ -75,7 +75,7 @@ jobs:
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 6ca56aeb457f033d344a7106cb3f9f1abf8f4e98
+          vcpkgGitCommitId: 94ce0dab56f4d8ba6bd631ba59ed682b02d45c46
           #appendedCacheKey: r01
 
       - name: Configure x64-linux-clang preset
