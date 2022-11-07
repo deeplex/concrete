@@ -32,7 +32,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: lukka/get-cmake@v3.22.2
+      - uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: 3.22.6
 
       - name: Initialize vcpkg
         uses: lukka/run-vcpkg@v10
@@ -69,7 +71,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: lukka/get-cmake@v3.22.2
+      - uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: 3.22.6
 
       - name: Initialize vcpkg
         uses: lukka/run-vcpkg@v10
