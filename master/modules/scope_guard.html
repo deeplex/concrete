@@ -220,13 +220,73 @@
 </pre></div>
 </div>
 <dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx10scope_exitE">
+<span id="_CPPv3I0EN4dplx10scope_exitE"></span><span id="_CPPv2I0EN4dplx10scope_exitE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EF</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scope_exit</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx10scope_exitE" title="Permalink to this definition">#</a><br /></dt>
+<dd><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>This class matches the <code class="docutils literal notranslate"><span class="pre">scope_exit</span></code> specified by the <a class="reference external" href="https://cplusplus.github.io/fundamentals-ts/v3.html#scopeguard.exit">Library Fundamentals TS v3</a>.</p>
+</div>
+<p>Utility class for executing a function at scope end, the execution order
+is determined by destruction order e.g.:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">scope_exit</span><span class="w"> </span><span class="n">cleanup1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;cleanup1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">scope_exit</span><span class="w"> </span><span class="n">cleanup2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;cleanup2</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="c1">// prints &quot;cleanup2\ncleanup1\n&quot; on early return</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/*...*/</span><span class="w"></span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// prints &quot;cleanup2\ncleanup1\n&quot; while destructing cleanup on scope end</span>
+</pre></div>
+</div>
+<p>In contrast to <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I0EN4dplx11scope_guardE" title="dplx::scope_guard"><span class="n">scope_guard</span></a><span class="p">&lt;</span><span class="n">Fn</span><span class="p">&gt;</span></span> it is possible to move “ownership”
+of the finalization or outright cancel it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The given functor will be executed during object destruction.
+If an exception escapes, <span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">terminate</span><span class="p">(</span><span class="p">)</span></span> will be invoked.</p>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx10scope_exit10scope_exitERR10scope_exit">
+<span id="_CPPv3N4dplx10scope_exit10scope_exitERR10scope_exit"></span><span id="_CPPv2N4dplx10scope_exit10scope_exitERR10scope_exit"></span><span id="dplx::scope_exit::scope_exit__scope_exitRR"></span><span class="sig-name descname"><span class="n"><span class="pre">scope_exit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4dplx10scope_exit10scope_exitERR10scope_exit" title="dplx::scope_exit::scope_exit"><span class="n"><span class="pre">scope_exit</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">__see_below__</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N4dplx10scope_exit10scope_exitERR10scope_exit" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Imports the finalization task from <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N4dplx10scope_exit10scope_exitERR10scope_exit" title="dplx::scope_exit::scope_exit::other"><span class="n">other</span></a></span>.</p>
+<p>This constructor is noexcept if <span class="cpp-expr sig sig-inline cpp"><span class="n">is_nothrow_move_constructible_v</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN4dplx10scope_exitE" title="dplx::scope_exit::EF"><span class="n">EF</span></a><span class="p">&gt;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">is_nothrow_copy_constructible_v</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN4dplx10scope_exitE" title="dplx::scope_exit::EF"><span class="n">EF</span></a><span class="p">&gt;</span></span> holds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scope_exit &amp;&amp;other</strong> – The instance to be moved into <span class="cpp-expr sig sig-inline cpp"><span class="k">this</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx10scope_exit10scope_exitERR2Fn">
+<span id="_CPPv3I0EN4dplx10scope_exit10scope_exitERR2Fn"></span><span id="_CPPv2I0EN4dplx10scope_exit10scope_exitERR2Fn"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Fn</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="sig-name descname"><span class="n"><span class="pre">scope_exit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN4dplx10scope_exit10scope_exitERR2Fn" title="dplx::scope_exit::scope_exit::Fn"><span class="n"><span class="pre">Fn</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fn</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">__see_below__</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4I0EN4dplx10scope_exit10scope_exitERR2Fn" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>This constructor is noexcept if <span class="cpp-expr sig sig-inline cpp"><span class="n">is_nothrow_constructible_v</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN4dplx10scope_exitE" title="dplx::scope_exit::EF"><span class="n">EF</span></a><span class="p">,</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4dplx10scope_exit10scope_exitERR2Fn" title="dplx::scope_exit::scope_exit::Fn"><span class="n">Fn</span></a><span class="p">&gt;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">is_nothrow_constructible_v</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN4dplx10scope_exitE" title="dplx::scope_exit::EF"><span class="n">EF</span></a><span class="p">,</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4dplx10scope_exit10scope_exitERR2Fn" title="dplx::scope_exit::scope_exit::Fn"><span class="n">Fn</span></a><span class="p">&amp;</span><span class="p">&gt;</span></span> holds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Fn &amp;&amp;fn</strong> – The function to be executed at destruction; usually a lambda.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4dplx10scope_exit7releaseEv">
+<span id="_CPPv3N4dplx10scope_exit7releaseEv"></span><span id="_CPPv2N4dplx10scope_exit7releaseEv"></span><span id="dplx::scope_exit::release"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">release</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4dplx10scope_exit7releaseEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Cancels execution of the attached finalization logic.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx11scope_guardE">
 <span id="_CPPv3I0EN4dplx11scope_guardE"></span><span id="_CPPv2I0EN4dplx11scope_guardE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Fn</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scope_guard</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx11scope_guardE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Utility class for executing a function at scope end, the execution order
 is determined by destruction order e.g.:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">scope_guard</span><span class="w"> </span><span class="n">cleanup1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;cleanup1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="n">scope_guard</span><span class="w"> </span><span class="n">cleanup2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;cleanup2</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">scope_guard</span><span class="w"> </span><span class="n">cleanup1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;cleanup1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">scope_guard</span><span class="w"> </span><span class="n">cleanup2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;cleanup2</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"></span>
@@ -239,14 +299,15 @@ is determined by destruction order e.g.:</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If the given function throws, <span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">terminate</span><span class="p">(</span><span class="p">)</span></span> will be invoked.</p>
+<p>The given functor will be executed during object destruction.
+If an exception escapes, <span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">terminate</span><span class="p">(</span><span class="p">)</span></span> will be invoked.</p>
 </div>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N4dplx11scope_guard11scope_guardERR2Fn">
 <span id="_CPPv3N4dplx11scope_guard11scope_guardERR2Fn"></span><span id="_CPPv2N4dplx11scope_guard11scope_guardERR2Fn"></span><span id="dplx::scope_guard::scope_guard__FnRR"></span><span class="sig-name descname"><span class="n"><span class="pre">scope_guard</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN4dplx11scope_guardE" title="dplx::scope_guard::Fn"><span class="n"><span class="pre">Fn</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fn</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4dplx11scope_guard11scope_guardERR2Fn" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Fn &amp;&amp;fn</strong> – The function to be executed at destruction; usually a lambda</p>
+<dd class="field-odd"><p><strong>Fn &amp;&amp;fn</strong> – The function to be executed at destruction; usually a lambda.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -255,7 +316,7 @@ is determined by destruction order e.g.:</p>
 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx21exception_scope_guardE">
-<span id="_CPPv3I0EN4dplx21exception_scope_guardE"></span><span id="_CPPv2I0EN4dplx21exception_scope_guardE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Fn</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exception_scope_guard</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx21exception_scope_guardE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3I0EN4dplx21exception_scope_guardE"></span><span id="_CPPv2I0EN4dplx21exception_scope_guardE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Fn</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="p"><span class="pre">[[</span></span><span class="pre">deprecated</span><span class="p"><span class="pre">]]</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exception_scope_guard</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx21exception_scope_guardE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Utility class for executing a function during stack unwinding, e.g.:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">exception_scope_guard</span><span class="w"> </span><span class="n">cleanup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;cleanup</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
@@ -271,7 +332,8 @@ is determined by destruction order e.g.:</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If the given function throws, <span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">terminate</span><span class="p">(</span><span class="p">)</span></span> will be invoked.</p>
+<p>The given functor will be executed during object destruction.
+If an exception escapes, <span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">terminate</span><span class="p">(</span><span class="p">)</span></span> will be invoked.</p>
 </div>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N4dplx21exception_scope_guard21exception_scope_guardERR2Fn">
