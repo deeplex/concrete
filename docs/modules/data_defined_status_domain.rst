@@ -1,6 +1,5 @@
-
 ============================
- Data defined Status Domain
+ Data Defined Status Domain
 ============================
 
 ::

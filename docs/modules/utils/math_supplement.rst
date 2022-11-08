@@ -1,6 +1,5 @@
-
 =============================
- Supplemental math functions
+ Supplemental Math Functions
 =============================
 
 ::

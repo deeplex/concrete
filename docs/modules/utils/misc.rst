@@ -1,6 +1,5 @@
-
 =================
- Misc. functions
+ Misc. Functions
 =================
 
 ::
@@ -10,16 +9,6 @@
 
 
 .. namespace:: dplx::cncr
-
-
-.. function:: template <typename Enum> \
-                  requires std::is_enum_v<Enum> \
-              constexpr auto to_underlying(Enum value) noexcept -> \
-                      typename std::underlying_type<Enum>::type
-
-    A backport of C++23 `to_underlying(Enum value) <https://en.cppreference.com/w/cpp/utility/to_underlying>`_.
-
-    :returns: The underlying integer value with the deduced underlying type.
 
 
 .. function:: template <std::size_t N, typename T> \
@@ -69,23 +58,3 @@
 
     Invokes :func:`template \<typename R, std::size_t N, typename Fn, typename... Args> sequence_init`
     with :expr:`N = std::size(R{})`.
-
-.. struct:: is_null_byte_fn
-
-    .. function:: constexpr auto operator()(std::byte const value) const noexcept -> bool
-
-        :returns: :expr:`value == std::byte{}`
-
-.. function:: constexpr auto is_null_byte(std::byte const value) noexcept -> bool
-
-    :returns: :expr:`value == std::byte{}`
-
-.. struct:: is_non_null_byte_fn
-
-    .. function:: constexpr auto operator()(std::byte const value) const noexcept -> bool
-
-        :returns: :expr:`value != std::byte{}`
-
-.. function:: constexpr auto is_non_null_byte(std::byte const value) noexcept -> bool
-
-    :returns: :expr:`value != std::byte{}`
