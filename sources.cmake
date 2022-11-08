@@ -11,6 +11,7 @@ dplx_target_sources(concrete
         cncr/misc
         cncr/mp_lite
         cncr/pack_utils
+        cncr/ranges
         cncr/tag_invoke
         cncr/type_utils
         cncr/utils

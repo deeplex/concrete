@@ -79,6 +79,56 @@ Generic Helpers
     .. seealso:: C++ Reference: `no_unique_address <https://en.cppreference.com/w/cpp/language/attributes/no_unique_address>`_
 
 
+Ranges Helpers
+--------------
+
+::
+
+    #include <dplx/cncr/ranges.hpp>
+    namespace dplx::cncr {}
+
+.. namespace:: dplx::cncr
+
+.. type:: template <std::input_or_output_iterator I> \
+          unbounded_range = std::ranges::subrange<I, unreachable_sentinel>
+
+    Models an unbounded (and therefore unsized) range that is a range which
+    does no bounds checking at all.
+
+    Use the various :expr:`as_unbounded_range` overloads to obtain an instance.
+
+    .. seealso:: C++ Reference: `subrange <https://en.cppreference.com/w/cpp/ranges/subrange>`_
+
+.. function:: template <std::input_or_output_iterator I> \
+              constexpr auto as_unbounded_range(I it) noexcept \
+                    -> unbounded_range<I>
+
+    Creates an :expr:`unbounded_range` from an iterator.
+
+.. function:: template <std::ranges::borrowed_range R>\
+              constexpr auto as_unbounded_range(R &&r) noexcept \
+                    -> unbounded_range<std::ranges::iterator_t<R>>
+
+    Creates an :expr:`unbounded_range` from some other range.
+
+.. function:: template <typename T, std::size_t N> \
+              constexpr auto as_unbounded_range(T (& arr)[N]) \
+                    -> unbounded_range<T *>
+
+    Creates an :expr:`unbounded_range` from an array.
+
+.. struct:: unreachable_sentinel
+
+    An empty struct which compares unequal with everything satisfying
+    ``std::weakly_incrementable``. It is therefore a valid sentinel type for
+    all iterators.
+
+.. function:: template <std::weakly_incrementable I> \
+              constexpr auto operator==(I const &, unreachable_sentinel) -> bool
+
+    Always returns false.
+
+
 Lambda Overloading
 ------------------
 
