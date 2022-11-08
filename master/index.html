@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Concept utils" href="modules/concepts.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="General Utilities" href="modules/utils/index.html" />
 
     <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>concrete 0.0.0-alpha.6 documentation</title>
@@ -157,15 +157,18 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules/concepts.html">Concept utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/data_defined_status_domain.html">Data defined Status Domain</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">intrusive_ptr</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/math_supplement.html">Supplemental math functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/misc.html">Misc. functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/overloaded.html">overloaded</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/pack_utils.html">Template Parameter Pack utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/scope_guard.html">Scope Guard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/tag_invoke.html">tag_invoke</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules/utils/index.html">General Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/misc.html">Misc. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/math_supplement.html">Supplemental Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/scope_guard.html">Scope Guard</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules/type_utils/index.html">Metaprogramming Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/type_utils/tag_invoke.html">tag_invoke</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/data_defined_status_domain.html">Data Defined Status Domain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">Intrusive Smart Pointer</a></li>
 </ul>
 </div>
 
@@ -218,28 +221,34 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules/concepts.html">Concept utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/data_defined_status_domain.html">Data defined Status Domain</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">intrusive_ptr</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#concepts">concepts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#customization-points">customization points</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#factory-functions">factory functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#types">types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/utils/index.html">General Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/misc.html">Misc. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/math_supplement.html">Supplemental Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/scope_guard.html">Scope Guard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/index.html#generic-helpers">Generic Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/index.html#lambda-overloading">Lambda Overloading</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/math_supplement.html">Supplemental math functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/misc.html">Misc. functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/overloaded.html">overloaded</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/pack_utils.html">Template Parameter Pack utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/scope_guard.html">Scope Guard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/tag_invoke.html">tag_invoke</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/type_utils/index.html">Metaprogramming Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/type_utils/tag_invoke.html">tag_invoke</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/type_utils/index.html#utility-concepts">Utility Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/type_utils/index.html#template-parameter-pack-utilities">Template Parameter Pack Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/data_defined_status_domain.html">Data Defined Status Domain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">Intrusive Smart Pointer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#customization-points">Customization Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#factory-functions">Factory Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/intrusive_ptr.html#types">Types</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <section id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -249,12 +258,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="modules/concepts.html">
+          <a class="next-page" href="modules/utils/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Concept utils</div>
+                <div class="title">General Utilities</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

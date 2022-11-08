@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Supplemental math functions" href="math_supplement.html" /><link rel="prev" title="Data defined Status Domain" href="data_defined_status_domain.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Data Defined Status Domain" href="data_defined_status_domain.html" />
 
     <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
-        <title>intrusive_ptr - concrete 0.0.0-alpha.6 documentation</title>
+        <title>Intrusive Smart Pointer - concrete 0.0.0-alpha.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -157,15 +157,18 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concept utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_defined_status_domain.html">Data defined Status Domain</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">intrusive_ptr</a></li>
-<li class="toctree-l1"><a class="reference internal" href="math_supplement.html">Supplemental math functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc. functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overloaded.html">overloaded</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pack_utils.html">Template Parameter Pack utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scope_guard.html">Scope Guard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tag_invoke.html">tag_invoke</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="utils/index.html">General Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils/misc.html">Misc. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils/math_supplement.html">Supplemental Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils/scope_guard.html">Scope Guard</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="type_utils/index.html">Metaprogramming Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="type_utils/tag_invoke.html">tag_invoke</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_defined_status_domain.html">Data Defined Status Domain</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Intrusive Smart Pointer</a></li>
 </ul>
 </div>
 
@@ -213,14 +216,14 @@
           </label>
         </div>
         <article role="main">
-          <section id="intrusive-ptr">
-<h1>intrusive_ptr<a class="headerlink" href="#intrusive-ptr" title="Permalink to this heading">#</a></h1>
+          <section id="intrusive-smart-pointer">
+<h1>Intrusive Smart Pointer<a class="headerlink" href="#intrusive-smart-pointer" title="Permalink to this heading">#</a></h1>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/intrusive_ptr.hpp&gt;</span><span class="cp"></span>
 <span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 </pre></div>
 </div>
 <section id="concepts">
-<h2>concepts<a class="headerlink" href="#concepts" title="Permalink to this heading">#</a></h2>
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this heading">#</a></h2>
 <dl class="cpp concept">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx4cncr11ref_countedE">
 <span id="_CPPv3I0EN4dplx4cncr11ref_countedE"></span><span id="_CPPv2I0EN4dplx4cncr11ref_countedE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RC</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ref_counted</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx4cncr11ref_countedE" title="Permalink to this definition">#</a><br /></dt>
@@ -298,7 +301,7 @@ reference count.</p></li>
 
 </section>
 <section id="customization-points">
-<h2>customization points<a class="headerlink" href="#customization-points" title="Permalink to this heading">#</a></h2>
+<h2>Customization Points<a class="headerlink" href="#customization-points" title="Permalink to this heading">#</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4dplx4cncr24reference_counted_traitsE">
 <span id="_CPPv3I0EN4dplx4cncr24reference_counted_traitsE"></span><span id="_CPPv2I0EN4dplx4cncr24reference_counted_traitsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RC</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reference_counted_traits</span></span></span><a class="headerlink" href="#_CPPv4I0EN4dplx4cncr24reference_counted_traitsE" title="Permalink to this definition">#</a><br /></dt>
@@ -317,7 +320,7 @@ for types satisfying <a class="reference internal" href="#_CPPv4I_11ref_countedE
 
 </section>
 <section id="factory-functions">
-<h2>factory functions<a class="headerlink" href="#factory-functions" title="Permalink to this heading">#</a></h2>
+<h2>Factory Functions<a class="headerlink" href="#factory-functions" title="Permalink to this heading">#</a></h2>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_11ref_countedEN4dplx4cncr20intrusive_ptr_importE13intrusive_ptrI2RCEP2RC">
 <span id="_CPPv3I_11ref_countedEN4dplx4cncr20intrusive_ptr_importEP2RC"></span><span id="_CPPv2I_11ref_countedEN4dplx4cncr20intrusive_ptr_importEP2RC"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr11ref_countedE" title="dplx::cncr::ref_counted"><span class="n"><span class="pre">ref_counted</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RC</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intrusive_ptr_import</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_11ref_countedEN4dplx4cncr20intrusive_ptr_importE13intrusive_ptrI2RCEP2RC" title="dplx::cncr::intrusive_ptr_import::RC"><span class="n"><span class="pre">RC</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">obj</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_11ref_countedEN4dplx4cncr13intrusive_ptrE" title="dplx::cncr::intrusive_ptr"><span class="n"><span class="pre">intrusive_ptr</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_11ref_countedEN4dplx4cncr20intrusive_ptr_importE13intrusive_ptrI2RCEP2RC" title="dplx::cncr::intrusive_ptr_import::RC"><span class="n"><span class="pre">RC</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_11ref_countedEN4dplx4cncr20intrusive_ptr_importE13intrusive_ptrI2RCEP2RC" title="Permalink to this definition">#</a><br /></dt>
@@ -336,7 +339,7 @@ by acquiring a new reference (i.e. it calls <code class="docutils literal notran
 
 </section>
 <section id="types">
-<h2>types<a class="headerlink" href="#types" title="Permalink to this heading">#</a></h2>
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this heading">#</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I_11ref_countedEN4dplx4cncr13intrusive_ptrI2RC2RCEE">
 <span id="_CPPv3I_11ref_countedEN4dplx4cncr13intrusive_ptrI2RC2RCEE"></span><span id="_CPPv2I_11ref_countedEN4dplx4cncr13intrusive_ptrI2RC2RCEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4dplx4cncr11ref_countedE" title="dplx::cncr::ref_counted"><span class="n"><span class="pre">ref_counted</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RC</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intrusive_ptr</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_11ref_countedEN4dplx4cncr13intrusive_ptrI2RC2RCEE" title="dplx::cncr::intrusive_ptr&lt;RC, RC&gt;::RC"><span class="n"><span class="pre">RC</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_11ref_countedEN4dplx4cncr13intrusive_ptrI2RC2RCEE" title="dplx::cncr::intrusive_ptr&lt;RC, RC&gt;::RC"><span class="n"><span class="pre">RC</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_11ref_countedEN4dplx4cncr13intrusive_ptrI2RC2RCEE" title="Permalink to this definition">#</a><br /></dt>
@@ -620,15 +623,7 @@ in multi-threaded environments is <code class="docutils literal notranslate"><sp
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="math_supplement.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Supplemental math functions</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
+          
           <a class="prev-page" href="data_defined_status_domain.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -636,7 +631,7 @@ in multi-threaded environments is <code class="docutils literal notranslate"><sp
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Data defined Status Domain</div>
+                <div class="title">Data Defined Status Domain</div>
                 
               </div>
             </a>
@@ -672,11 +667,11 @@ in multi-threaded environments is <code class="docutils literal notranslate"><sp
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">intrusive_ptr</a><ul>
-<li><a class="reference internal" href="#concepts">concepts</a></li>
-<li><a class="reference internal" href="#customization-points">customization points</a></li>
-<li><a class="reference internal" href="#factory-functions">factory functions</a></li>
-<li><a class="reference internal" href="#types">types</a></li>
+<li><a class="reference internal" href="#">Intrusive Smart Pointer</a><ul>
+<li><a class="reference internal" href="#concepts">Concepts</a></li>
+<li><a class="reference internal" href="#customization-points">Customization Points</a></li>
+<li><a class="reference internal" href="#factory-functions">Factory Functions</a></li>
+<li><a class="reference internal" href="#types">Types</a></li>
 </ul>
 </li>
 </ul>

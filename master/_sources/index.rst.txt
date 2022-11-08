@@ -7,15 +7,11 @@
    :maxdepth: 2
    :caption: Contents:
 
-   modules/concepts.rst
+   modules/utils/index.rst 
+   modules/type_utils/index.rst
+
    modules/data_defined_status_domain.rst
    modules/intrusive_ptr.rst
-   modules/math_supplement.rst
-   modules/misc.rst
-   modules/overloaded.rst
-   modules/pack_utils.rst
-   modules/scope_guard.rst
-   modules/tag_invoke.rst
 
 
 --------------------
@@ -23,4 +19,3 @@
 --------------------
 
 * :ref:`genindex`
-* :ref:`modindex`

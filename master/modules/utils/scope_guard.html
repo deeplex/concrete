@@ -3,15 +3,15 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="tag_invoke" href="tag_invoke.html" /><link rel="prev" title="Template Parameter Pack utils" href="pack_utils.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Metaprogramming Utilities" href="../type_utils/index.html" /><link rel="prev" title="Supplemental Math Functions" href="math_supplement.html" />
 
     <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Scope Guard - concrete 0.0.0-alpha.6 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
     
     
 
@@ -125,7 +125,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">concrete 0.0.0-alpha.6 documentation</div></a>
+      <a href="../../index.html"><div class="brand">concrete 0.0.0-alpha.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,27 +145,30 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
   <span class="sidebar-brand-text">concrete 0.0.0-alpha.6 documentation</span>
   
-</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concept utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_defined_status_domain.html">Data defined Status Domain</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intrusive_ptr.html">intrusive_ptr</a></li>
-<li class="toctree-l1"><a class="reference internal" href="math_supplement.html">Supplemental math functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc. functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overloaded.html">overloaded</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pack_utils.html">Template Parameter Pack utils</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Scope Guard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tag_invoke.html">tag_invoke</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">General Utilities</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="misc.html">Misc. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math_supplement.html">Supplemental Math Functions</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Scope Guard</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../type_utils/index.html">Metaprogramming Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../type_utils/tag_invoke.html">tag_invoke</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../data_defined_status_domain.html">Data Defined Status Domain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intrusive_ptr.html">Intrusive Smart Pointer</a></li>
 </ul>
 </div>
 
@@ -354,23 +357,23 @@ If an exception escapes, <span class="cpp-expr sig sig-inline cpp"><span class="
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="tag_invoke.html">
+          <a class="next-page" href="../type_utils/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">tag_invoke</div>
+                <div class="title">Metaprogramming Utilities</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="pack_utils.html">
+          <a class="prev-page" href="math_supplement.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Template Parameter Pack utils</div>
+                <div class="title">Supplemental Math Functions</div>
                 
               </div>
             </a>
@@ -400,14 +403,14 @@ If an exception escapes, <span class="cpp-expr sig sig-inline cpp"><span class="
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/scripts/furo.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     </body>
 </html>

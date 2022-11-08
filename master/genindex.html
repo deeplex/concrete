@@ -155,15 +155,18 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules/concepts.html">Concept utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/data_defined_status_domain.html">Data defined Status Domain</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">intrusive_ptr</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/math_supplement.html">Supplemental math functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/misc.html">Misc. functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/overloaded.html">overloaded</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/pack_utils.html">Template Parameter Pack utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/scope_guard.html">Scope Guard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/tag_invoke.html">tag_invoke</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules/utils/index.html">General Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/misc.html">Misc. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/math_supplement.html">Supplemental Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/utils/scope_guard.html">Scope Guard</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules/type_utils/index.html">Metaprogramming Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/type_utils/tag_invoke.html">tag_invoke</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/data_defined_status_domain.html">Data Defined Status Domain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/intrusive_ptr.html">Intrusive Smart Pointer</a></li>
 </ul>
 </div>
 
@@ -219,7 +222,7 @@
   <h2>Symbols</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="modules/concepts.html#_CPPv4I0DpEN4dplx4cncr6any_ofE">::any_of (C++ concept)</a>
+        <li><a href="modules/type_utils/index.html#_CPPv4I0DpEN4dplx4cncr6any_ofE">::any_of (C++ concept)</a>
 </li>
         <li><a href="modules/data_defined_status_domain.html#_CPPv4I_11status_enumEN4dplx4cncr26data_defined_status_domainE">::data_defined_status_domain (C++ member)</a>
 </li>
@@ -227,11 +230,11 @@
 </li>
         <li><a href="modules/intrusive_ptr.html#_CPPv4I_11ref_countedEN4dplx4cncr6detail16dplx_ref_countedE">::detail::dplx_ref_counted (C++ concept)</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I_14signed_integer_14signed_integerEN4dplx4cncr8div_ceilENSt13common_type_tI1T1UEEK1TK1U">::div_ceil (C++ function)</a>, <a href="modules/math_supplement.html#_CPPv4I_16unsigned_integer_16unsigned_integerEN4dplx4cncr8div_ceilENSt13common_type_tI1T1UEEK1TK1U">[1]</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I_14signed_integer_14signed_integerEN4dplx4cncr8div_ceilENSt13common_type_tI1T1UEEK1TK1U">::div_ceil (C++ function)</a>, <a href="modules/utils/math_supplement.html#_CPPv4I_16unsigned_integer_16unsigned_integerEN4dplx4cncr8div_ceilENSt13common_type_tI1T1UEEK1TK1U">[1]</a>
 </li>
         <li><a href="modules/intrusive_ptr.html#_CPPv4I0EN4dplx4cncr23inspectable_ref_countedE">::inspectable_ref_counted (C++ concept)</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I0EN4dplx4cncr7integerE">::integer (C++ concept)</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I0EN4dplx4cncr7integerE">::integer (C++ concept)</a>
 </li>
         <li><a href="modules/intrusive_ptr.html#_CPPv4I0_11ref_countedEN4dplx4cncr13intrusive_ptrE">::intrusive_ptr (C++ class)</a>
 </li>
@@ -293,49 +296,49 @@
 </li>
         <li><a href="modules/intrusive_ptr.html#_CPPv4I_11ref_countedEN4dplx4cncr21intrusive_ptr_acquireE13intrusive_ptrI2RCEP2RC">::intrusive_ptr_acquire (C++ function)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="modules/intrusive_ptr.html#_CPPv4I_11ref_countedEN4dplx4cncr20intrusive_ptr_importE13intrusive_ptrI2RCEP2RC">::intrusive_ptr_import (C++ function)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4N4dplx4cncr16is_non_null_byteEKNSt4byteE">::is_non_null_byte (C++ function)</a>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/utils/index.html#_CPPv4N4dplx4cncr16is_non_null_byteEKNSt4byteE">::is_non_null_byte (C++ function)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4N4dplx4cncr19is_non_null_byte_fnE">::is_non_null_byte_fn (C++ struct)</a>
+        <li><a href="modules/utils/index.html#_CPPv4N4dplx4cncr19is_non_null_byte_fnE">::is_non_null_byte_fn (C++ struct)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4NK4dplx4cncr19is_non_null_byte_fnclEKNSt4byteE">::is_non_null_byte_fn::operator() (C++ function)</a>
+        <li><a href="modules/utils/index.html#_CPPv4NK4dplx4cncr19is_non_null_byte_fnclEKNSt4byteE">::is_non_null_byte_fn::operator() (C++ function)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4N4dplx4cncr12is_null_byteEKNSt4byteE">::is_null_byte (C++ function)</a>
+        <li><a href="modules/utils/index.html#_CPPv4N4dplx4cncr12is_null_byteEKNSt4byteE">::is_null_byte (C++ function)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4N4dplx4cncr15is_null_byte_fnE">::is_null_byte_fn (C++ struct)</a>
+        <li><a href="modules/utils/index.html#_CPPv4N4dplx4cncr15is_null_byte_fnE">::is_null_byte_fn (C++ struct)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4NK4dplx4cncr15is_null_byte_fnclEKNSt4byteE">::is_null_byte_fn::operator() (C++ function)</a>
+        <li><a href="modules/utils/index.html#_CPPv4NK4dplx4cncr15is_null_byte_fnclEKNSt4byteE">::is_null_byte_fn::operator() (C++ function)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4I_NSt6size_tE0EN4dplx4cncr15make_byte_arrayENSt5arrayINSt4byteE1NEENSt16initializer_listI1TEE1T">::make_byte_array (C++ function)</a>
+        <li><a href="modules/utils/misc.html#_CPPv4I_NSt6size_tE0EN4dplx4cncr15make_byte_arrayENSt5arrayINSt4byteE1NEENSt16initializer_listI1TEE1T">::make_byte_array (C++ function)</a>
 </li>
-        <li><a href="modules/concepts.html#_CPPv4I0DpEN4dplx4cncr7none_ofE">::none_of (C++ concept)</a>
+        <li><a href="modules/type_utils/index.html#_CPPv4I0DpEN4dplx4cncr7none_ofE">::none_of (C++ concept)</a>
 </li>
-        <li><a href="modules/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr21nothrow_tag_invocableE">::nothrow_tag_invocable (C++ concept)</a>
+        <li><a href="modules/type_utils/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr21nothrow_tag_invocableE">::nothrow_tag_invocable (C++ concept)</a>
 </li>
-        <li><a href="modules/pack_utils.html#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts">::nth_param (C++ function)</a>
+        <li><a href="modules/type_utils/index.html#_CPPv4I_NSt6size_tEDpEN4dplx4cncr9nth_paramEDcDpRR2Ts">::nth_param (C++ function)</a>
 </li>
-        <li><a href="modules/pack_utils.html#_CPPv4I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE">::nth_param_t (C++ type)</a>
+        <li><a href="modules/type_utils/index.html#_CPPv4I_NSt6size_tEDpEN4dplx4cncr11nth_param_tE">::nth_param_t (C++ type)</a>
 </li>
-        <li><a href="modules/pack_utils.html#_CPPv4I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE">::nth_param_v (C++ member)</a>
+        <li><a href="modules/type_utils/index.html#_CPPv4I_NSt6size_tE_DpDcEN4dplx4cncr11nth_param_vE">::nth_param_v (C++ member)</a>
 </li>
         <li><a href="modules/intrusive_ptr.html#_CPPv4I0EN4dplx4cncr11ref_countedE">::ref_counted (C++ concept)</a>
 </li>
         <li><a href="modules/intrusive_ptr.html#_CPPv4I0EN4dplx4cncr24reference_counted_traitsE">::reference_counted_traits (C++ class)</a>, <a href="modules/intrusive_ptr.html#_CPPv4I_N6detail16dplx_ref_countedEEN4dplx4cncr24reference_counted_traitsE">[1]</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I_7integer_7integerEN4dplx4cncr10round_downENSt13common_type_tI1T1UEEK1TK1U">::round_down (C++ function)</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I_7integer_7integerEN4dplx4cncr10round_downENSt13common_type_tI1T1UEEK1TK1U">::round_down (C++ function)</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I_16unsigned_integer_16unsigned_integerEN4dplx4cncr13round_down_p2ENSt13common_type_tI1T1UEEK1TK1U">::round_down_p2 (C++ function)</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I_16unsigned_integer_16unsigned_integerEN4dplx4cncr13round_down_p2ENSt13common_type_tI1T1UEEK1TK1U">::round_down_p2 (C++ function)</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I_7integer_7integerEN4dplx4cncr8round_upENSt13common_type_tI1T1UEEK1TK1U">::round_up (C++ function)</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I_7integer_7integerEN4dplx4cncr8round_upENSt13common_type_tI1T1UEEK1TK1U">::round_up (C++ function)</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I_16unsigned_integer_16unsigned_integerEN4dplx4cncr11round_up_p2ENSt13common_type_tI1T1UEEK1TK1U">::round_up_p2 (C++ function)</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I_16unsigned_integer_16unsigned_integerEN4dplx4cncr11round_up_p2ENSt13common_type_tI1T1UEEK1TK1U">::round_up_p2 (C++ function)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4I00DpEN4dplx4cncr13sequence_initE1RRR2FxDpRR4Args">::sequence_init (C++ function)</a>, <a href="modules/misc.html#_CPPv4I0_NSt6size_tE0DpEN4dplx4cncr13sequence_initE1RRR2FnDpRR4Args">[1]</a>
+        <li><a href="modules/utils/misc.html#_CPPv4I00DpEN4dplx4cncr13sequence_initE1RRR2FxDpRR4Args">::sequence_init (C++ function)</a>, <a href="modules/utils/misc.html#_CPPv4I0_NSt6size_tE0DpEN4dplx4cncr13sequence_initE1RRR2FnDpRR4Args">[1]</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I0EN4dplx4cncr14signed_integerE">::signed_integer (C++ concept)</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I0EN4dplx4cncr14signed_integerE">::signed_integer (C++ concept)</a>
 </li>
         <li><a href="modules/data_defined_status_domain.html#_CPPv4I0EN4dplx4cncr11status_enumE">::status_enum (C++ concept)</a>
 </li>
@@ -357,19 +360,21 @@
 </li>
         <li><a href="modules/data_defined_status_domain.html#_CPPv4N4dplx4cncr28status_enum_value_descriptor5valueE">::status_enum_value_descriptor::value (C++ member)</a>
 </li>
-        <li><a href="modules/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr13tag_invocableE">::tag_invocable (C++ concept)</a>
+        <li><a href="modules/type_utils/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr13tag_invocableE">::tag_invocable (C++ concept)</a>
 </li>
-        <li><a href="modules/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr10tag_invokeEDc1TDpRR5TArgs">::tag_invoke (C++ function)</a>
+        <li><a href="modules/type_utils/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr10tag_invokeEDc1TDpRR5TArgs">::tag_invoke (C++ function)</a>
 </li>
-        <li><a href="modules/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr19tag_invoke_result_tE">::tag_invoke_result_t (C++ type)</a>
+        <li><a href="modules/type_utils/tag_invoke.html#_CPPv4I0DpEN4dplx4cncr19tag_invoke_result_tE">::tag_invoke_result_t (C++ type)</a>
 </li>
-        <li><a href="modules/tag_invoke.html#_CPPv4I_RDaEN4dplx4cncr5tag_tE">::tag_t (C++ type)</a>
+        <li><a href="modules/type_utils/tag_invoke.html#_CPPv4I_RDaEN4dplx4cncr5tag_tE">::tag_t (C++ type)</a>
 </li>
-        <li><a href="modules/misc.html#_CPPv4I0EIQNSt9is_enum_vI4EnumEEEN4dplx4cncr13to_underlyingENSt15underlying_typeI4EnumE4typeE4Enum">::to_underlying (C++ function)</a>
+        <li><a href="modules/utils/index.html#_CPPv4I0EIQNSt9is_enum_vI4EnumEEEN4dplx4cncr13to_underlyingENSt17underlying_type_tI4EnumEE4Enum">::to_underlying (C++ function)</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4I0EN4dplx4cncr16unsigned_integerE">::unsigned_integer (C++ concept)</a>
+        <li><a href="modules/utils/index.html#_CPPv4N4dplx4cncr11unreachableEv">::unreachable (C++ function)</a>
 </li>
-        <li><a href="modules/math_supplement.html#_CPPv4N4dplx4cncr4upowEyy">::upow (C++ function)</a>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4I0EN4dplx4cncr16unsigned_integerE">::unsigned_integer (C++ concept)</a>
+</li>
+        <li><a href="modules/utils/math_supplement.html#_CPPv4N4dplx4cncr4upowEyy">::upow (C++ function)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -379,23 +384,27 @@
   <h2>D</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="modules/scope_guard.html#_CPPv4I0EN4dplx21exception_scope_guardE">dplx::exception_scope_guard (C++ struct)</a>
+        <li><a href="modules/utils/scope_guard.html#_CPPv4I0EN4dplx21exception_scope_guardE">dplx::exception_scope_guard (C++ struct)</a>
 </li>
-        <li><a href="modules/scope_guard.html#_CPPv4N4dplx21exception_scope_guard21exception_scope_guardERR2Fn">dplx::exception_scope_guard::exception_scope_guard (C++ function)</a>
+        <li><a href="modules/utils/scope_guard.html#_CPPv4N4dplx21exception_scope_guard21exception_scope_guardERR2Fn">dplx::exception_scope_guard::exception_scope_guard (C++ function)</a>
 </li>
-        <li><a href="modules/overloaded.html#_CPPv4IDpEN4dplx10overloadedE">dplx::overloaded (C++ struct)</a>
+        <li><a href="modules/utils/index.html#_CPPv4IDpEN4dplx10overloadedE">dplx::overloaded (C++ struct)</a>
 </li>
-        <li><a href="modules/scope_guard.html#_CPPv4I0EN4dplx10scope_exitE">dplx::scope_exit (C++ struct)</a>
+        <li><a href="modules/utils/scope_guard.html#_CPPv4I0EN4dplx10scope_exitE">dplx::scope_exit (C++ struct)</a>
+</li>
+        <li><a href="modules/utils/scope_guard.html#_CPPv4N4dplx10scope_exit7releaseEv">dplx::scope_exit::release (C++ function)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="modules/scope_guard.html#_CPPv4N4dplx10scope_exit7releaseEv">dplx::scope_exit::release (C++ function)</a>
+        <li><a href="modules/utils/scope_guard.html#_CPPv4I0EN4dplx10scope_exit10scope_exitERR2Fn">dplx::scope_exit::scope_exit (C++ function)</a>, <a href="modules/utils/scope_guard.html#_CPPv4N4dplx10scope_exit10scope_exitERR10scope_exit">[1]</a>
 </li>
-        <li><a href="modules/scope_guard.html#_CPPv4I0EN4dplx10scope_exit10scope_exitERR2Fn">dplx::scope_exit::scope_exit (C++ function)</a>, <a href="modules/scope_guard.html#_CPPv4N4dplx10scope_exit10scope_exitERR10scope_exit">[1]</a>
+        <li><a href="modules/utils/scope_guard.html#_CPPv4I0EN4dplx11scope_guardE">dplx::scope_guard (C++ struct)</a>
 </li>
-        <li><a href="modules/scope_guard.html#_CPPv4I0EN4dplx11scope_guardE">dplx::scope_guard (C++ struct)</a>
+        <li><a href="modules/utils/scope_guard.html#_CPPv4N4dplx11scope_guard11scope_guardERR2Fn">dplx::scope_guard::scope_guard (C++ function)</a>
 </li>
-        <li><a href="modules/scope_guard.html#_CPPv4N4dplx11scope_guard11scope_guardERR2Fn">dplx::scope_guard::scope_guard (C++ function)</a>
+        <li><a href="modules/utils/index.html#c.DPLX_ATTR_FORCE_INLINE">DPLX_ATTR_FORCE_INLINE (C macro)</a>
+</li>
+        <li><a href="modules/utils/index.html#c.DPLX_ATTR_NO_UNIQUE_ADDRESS">DPLX_ATTR_NO_UNIQUE_ADDRESS (C macro)</a>
 </li>
     </ul></td>
   </tr></table>
