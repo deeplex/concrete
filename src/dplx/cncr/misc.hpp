@@ -9,33 +9,59 @@
 
 #include <array>
 #include <cstddef>
-#include <cstdint>
 #include <functional>
+#include <initializer_list>
 #include <type_traits>
 #include <utility>
+
+#include <dplx/cncr/mp_lite.hpp>
+#include <dplx/cncr/utils.hpp>
 
 namespace dplx::cncr
 {
 
-template <typename Enum>
-    requires std::is_enum_v<Enum>
-constexpr auto to_underlying(Enum value) noexcept ->
-        typename std::underlying_type<Enum>::type
+template <std::size_t N, typename T>
+consteval auto make_byte_array(std::initializer_list<T> vs)
+        -> std::array<std::byte, N>
 {
-    return static_cast<std::underlying_type_t<Enum>>(value);
-}
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
+    std::array<std::byte, N> cx;
+    auto *cxIt = cx.data();
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    auto const *const cxEnd = cxIt + N;
 
+    for (auto &&v : vs)
+    {
+        // no bounds checking here due to the fact that the compiler is required
+        // to flag it anyway during constant evaluation
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+        *(cxIt++) = static_cast<std::byte>(v);
+    }
+    if (cxIt != cxEnd)
+    {
+        throw "less than N array values have specified; use the overload with "
+              "an explicit default value if this is intended";
+    }
+    return cx;
+}
 template <std::size_t N, typename T>
 consteval auto make_byte_array(std::initializer_list<T> vs, T dv) noexcept
         -> std::array<std::byte, N>
 {
-    std::array<std::byte, N> cx{};
-    auto cxIt = std::begin(cx);
-    auto const cxEnd = std::end(cx);
-    for (auto it = vs.begin(), end = vs.end(); it != end; ++it, ++cxIt)
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
+    std::array<std::byte, N> cx;
+    auto *cxIt = cx.data();
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    auto const *const cxEnd = cxIt + N;
+
+    for (auto &&v : vs)
     {
-        *cxIt = static_cast<std::byte>(*it);
+        // no bounds checking here due to the fact that the compiler is required
+        // to flag it anyway during constant evaluation
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+        *(cxIt++) = static_cast<std::byte>(v);
     }
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     for (; cxIt != cxEnd; ++cxIt)
     {
         *cxIt = static_cast<std::byte>(dv);
@@ -43,22 +69,6 @@ consteval auto make_byte_array(std::initializer_list<T> vs, T dv) noexcept
 
     return cx;
 }
-
-inline constexpr struct is_null_byte_fn
-{
-    constexpr auto operator()(std::byte const value) const noexcept -> bool
-    {
-        return value == std::byte{};
-    }
-} is_null_byte{};
-
-inline constexpr struct is_non_null_byte_fn
-{
-    constexpr auto operator()(std::byte const value) const noexcept -> bool
-    {
-        return value != std::byte{};
-    }
-} is_non_null_byte{};
 
 namespace detail
 {
@@ -70,27 +80,36 @@ template <std::size_t... Is>
 struct sequence_init_impl<std::index_sequence<Is...>>
 {
     template <typename R, typename Fn, typename... Args>
-    static auto create(Fn &&initFn, Args &&...args) -> R
+    DPLX_ATTR_FORCE_INLINE static constexpr auto create(Fn &&initFn,
+                                                        Args const &...args)
+            -> R
     {
-        return R{std::invoke(std::forward<Fn>(initFn), args...,
-                             std::integral_constant<std::size_t, Is>{})...};
+        return R{std::invoke(static_cast<Fn &&>(initFn), args...,
+                             mp_size_t<Is>{})...};
     }
 };
 
 } // namespace detail
 
 template <typename R, std::size_t N, typename Fn, typename... Args>
-constexpr auto sequence_init(Fn &&initFn, Args &&...args) -> R
+DPLX_ATTR_FORCE_INLINE constexpr auto sequence_init(Fn &&initFn,
+                                                    Args const &...args) -> R
 {
-    return detail::sequence_init_impl<std::make_index_sequence<N>>::
-            template create<R>(std::forward<Fn>(initFn), args...);
+    using impl = detail::sequence_init_impl<std::make_index_sequence<N>>;
+
+    return impl::template create<R, Fn &&, Args...>(static_cast<Fn &&>(initFn),
+                                                    args...);
 }
 
 template <typename R, typename Fn, typename... Args>
-constexpr auto sequence_init(Fn &&initFn, Args &&...args) -> R
+DPLX_ATTR_FORCE_INLINE constexpr auto sequence_init(Fn &&initFn,
+                                                    Args const &...args) -> R
 {
-    return detail::sequence_init_impl<std::make_index_sequence<std::size(
-            R{})>>::template create<R>(std::forward<Fn>(initFn), args...);
+    using impl = detail::sequence_init_impl<
+            std::make_index_sequence<std::size(R{})>>;
+
+    return impl::template create<R, Fn &&, Args...>(static_cast<Fn &&>(initFn),
+                                                    args...);
 }
 
 } // namespace dplx::cncr

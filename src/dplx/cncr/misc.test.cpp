@@ -14,25 +14,9 @@
 namespace cncr_tests
 {
 
-TEST_CASE("to_underlying maps correctly")
-{
-    enum class ttype : unsigned short
-    {
-        zero,
-        one,
-    };
-    static_assert(std::same_as<decltype(cncr::to_underlying(ttype{})),
-                               unsigned short>);
-
-    CHECK(cncr::to_underlying(ttype::zero) == 0U);
-    unsigned short underlying = cncr::to_underlying(ttype::one);
-    CHECK(underlying == 1U);
-    CHECK(cncr::to_underlying(ttype{3U}) == 3U);
-}
-
 TEST_CASE("make byte array w/o default")
 {
-    auto const gen = cncr::make_byte_array<3>({2, 1, 0}, 0);
+    auto const gen = cncr::make_byte_array<3>({2, 1, 0});
     REQUIRE(gen.size() == 3);
     CHECK(gen[0] == std::byte{2});
     CHECK(gen[1] == std::byte{1});
