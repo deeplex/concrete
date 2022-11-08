@@ -1,7 +1,6 @@
-
-===============
- intrusive_ptr
-===============
+=========================
+ Intrusive Smart Pointer
+=========================
 
 ::
 
@@ -11,7 +10,7 @@
 .. namespace:: dplx::cncr
 
 
-concepts
+Concepts
 --------
 
 .. concept:: template <typename RC> \
@@ -86,7 +85,7 @@ concepts
     - :expr:`obj.reference_count()` retrieves the current (approximate) 
       reference count.
 
-customization points
+Customization Points
 --------------------
 
 .. class:: template <typename RC> \
@@ -106,7 +105,7 @@ customization points
     The specialization satisfies :concept:`inspectable_ref_counted`.
 
 
-factory functions
+Factory Functions
 -----------------
 
 .. function:: template <ref_counted RC> \
@@ -126,7 +125,7 @@ factory functions
     It is a type deducing wrapper around :expr:`intrusive_ptr<RC>::acquire`.
 
 
-types
+Types
 -----
 
 .. class:: template <ref_counted RC> \

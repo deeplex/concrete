@@ -13,6 +13,7 @@ dplx_target_sources(concrete
         cncr/pack_utils
         cncr/tag_invoke
         cncr/type_utils
+        cncr/utils
         overloaded
         scope_guard
 )
