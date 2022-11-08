@@ -4,6 +4,7 @@ dplx_target_sources(concrete
     BASE_DIR dplx
 
     PUBLIC
+        cncr/buffer
         cncr/concepts
         cncr/data_defined_status_domain
         cncr/intrusive_ptr
