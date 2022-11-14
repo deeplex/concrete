@@ -1,7 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
     "name": "concrete",
-    "version-semver": "0.0.0-alpha.6",
+    "version-semver": "0.0.0-alpha.7",
     "homepage": "https://github.com/deeplex/concrete",
     "dependencies": [
         "status-code"
