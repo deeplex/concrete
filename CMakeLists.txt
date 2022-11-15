@@ -109,7 +109,7 @@ if (BUILD_TESTING)
     )
 
     target_include_directories(concrete-tests PRIVATE
-        scr/cncr_tests
+        src/cncr_tests
     )
 
     add_test(NAME concrete-tests COMMAND concrete-tests)
