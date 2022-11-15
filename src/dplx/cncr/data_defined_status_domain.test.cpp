@@ -9,8 +9,9 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
-#include <cncr_tests/test_utils.hpp>
 #include <status-code/quick_status_code_from_enum.hpp>
+
+#include "test_utils.hpp"
 
 namespace cncr_tests
 {

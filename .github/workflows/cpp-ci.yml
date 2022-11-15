@@ -40,7 +40,8 @@ jobs:
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 94ce0dab56f4d8ba6bd631ba59ed682b02d45c46
+          vcpkgGitCommitId: 6f7ffeb18f99796233b958aaaf14ec7bd4fb64b2
+          prependedCacheKey: compiler=${{ matrix.compiler }}
           #appendedCacheKey: r00
 
       - if: matrix.os == 'windows-2022'
@@ -64,6 +65,13 @@ jobs:
           buildPreset: ${{ matrix.triplet }}-${{ matrix.compiler }}-release
           testPreset: ${{ matrix.triplet }}-${{ matrix.compiler }}-release
 
+      - name: Prevent uploading a corrupted vcpkg cache
+        if: ${{ failure() || cancelled() }}
+        run: |
+          echo "RUNVCPKG_NO_CACHE=1" >> $GITHUB_ENV
+        shell: bash
+
+
   check-format:
     name: clang-tidy & clang-format
     runs-on: ubuntu-22.04
@@ -79,8 +87,14 @@ jobs:
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 94ce0dab56f4d8ba6bd631ba59ed682b02d45c46
-          #appendedCacheKey: r01
+          vcpkgGitCommitId: 6f7ffeb18f99796233b958aaaf14ec7bd4fb64b2
+          prependedCacheKey: compiler=gcc
+          #appendedCacheKey: r00
+
+      - name: Disable vcpkg cache to prevent racing with the Test jobs
+        run: |
+          echo "RUNVCPKG_NO_CACHE=1" >> $GITHUB_ENV
+        shell: bash
 
       - name: Configure x64-linux-clang preset
         uses: lukka/run-cmake@v10

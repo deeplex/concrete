@@ -9,7 +9,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "cncr_tests/test_utils.hpp"
+#include "test_utils.hpp"
 
 // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
