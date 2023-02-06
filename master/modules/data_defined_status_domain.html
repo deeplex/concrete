@@ -218,8 +218,8 @@
         <article role="main">
           <section id="data-defined-status-domain">
 <h1>Data Defined Status Domain<a class="headerlink" href="#data-defined-status-domain" title="Permalink to this heading">#</a></h1>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/data_defined_status_domain.hpp&gt;</span><span class="cp"></span>
-<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/data_defined_status_domain.hpp&gt;</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
 <p>This module allows “generating” a <code class="docutils literal notranslate"><span class="pre">status_code_domain</span></code> (see the
@@ -227,29 +227,29 @@
 return code enumeration. In order to generate a <code class="docutils literal notranslate"><span class="pre">status_code_domain</span></code> one
 needs to specialize <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I_11status_enumEN4dplx4cncr22status_enum_definitionE" title="dplx::cncr::status_enum_definition"><span class="n">status_enum_definition</span></a></span> with the enumeration type,
 like so:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">test_errc</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">perm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">other_success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">not_implemented</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">test_errc</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">perm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">other_success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">    </span><span class="n">not_implemented</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="p">};</span>
 
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">dplx</span><span class="o">::</span><span class="n">cncr</span><span class="o">::</span><span class="n">status_enum_definition</span><span class="o">&lt;</span><span class="n">test_errc</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">status_enum_definition_defaults</span><span class="o">&lt;</span><span class="n">test_errc</span><span class="o">&gt;</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">domain_id</span><span class="p">[]</span><span class="w"></span>
-<span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{09E0ECBF-A737-454D-8633-17E733CDE15F}&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">domain_name</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;test-domain&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">dplx</span><span class="o">::</span><span class="n">cncr</span><span class="o">::</span><span class="n">status_enum_definition</span><span class="o">&lt;</span><span class="n">test_errc</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">status_enum_definition_defaults</span><span class="o">&lt;</span><span class="n">test_errc</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">domain_id</span><span class="p">[]</span>
+<span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{09E0ECBF-A737-454D-8633-17E733CDE15F}&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">domain_name</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;test-domain&quot;</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">value_descriptor</span><span class="w"> </span><span class="n">values</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w">        </span><span class="n">code</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">       </span><span class="s">&quot;yay!&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w">           </span><span class="n">code</span><span class="o">::</span><span class="n">perm</span><span class="p">,</span><span class="w"> </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">permission_denied</span><span class="p">,</span><span class="w">      </span><span class="s">&quot;oh no&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w">  </span><span class="n">code</span><span class="o">::</span><span class="n">other_success</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">     </span><span class="s">&quot;oh kay&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="n">code</span><span class="o">::</span><span class="n">not_implemented</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">unknown</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;till later&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="p">};</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">value_descriptor</span><span class="w"> </span><span class="n">values</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">{</span><span class="w">        </span><span class="n">code</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">       </span><span class="s">&quot;yay!&quot;</span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span><span class="w">           </span><span class="n">code</span><span class="o">::</span><span class="n">perm</span><span class="p">,</span><span class="w"> </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">permission_denied</span><span class="p">,</span><span class="w">      </span><span class="s">&quot;oh no&quot;</span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span><span class="w">  </span><span class="n">code</span><span class="o">::</span><span class="n">other_success</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">success</span><span class="p">,</span><span class="w">     </span><span class="s">&quot;oh kay&quot;</span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span><span class="n">code</span><span class="o">::</span><span class="n">not_implemented</span><span class="p">,</span><span class="w">           </span><span class="n">generic_errc</span><span class="o">::</span><span class="n">unknown</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;till later&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <dl class="cpp concept">
@@ -383,7 +383,7 @@ definition. See the example given at the top for a specialization example.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Henrik Steffen Gaßmann
+                Copyright &#169; 2022-2023, Henrik Steffen Gaßmann
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

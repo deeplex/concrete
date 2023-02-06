@@ -227,8 +227,8 @@
 </div>
 <section id="generic-helpers">
 <h2>Generic Helpers<a class="headerlink" href="#generic-helpers" title="Permalink to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/utils.hpp&gt;</span><span class="cp"></span>
-<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/utils.hpp&gt;</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
 <dl class="cpp function">
@@ -332,18 +332,18 @@ nothing if not supported by the current compiler.</p>
 </section>
 <section id="lambda-overloading">
 <h2>Lambda Overloading<a class="headerlink" href="#lambda-overloading" title="Permalink to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/overladed.hpp&gt;</span><span class="cp"></span>
-<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/overladed.hpp&gt;</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN4dplx10overloadedE">
 <span id="_CPPv3IDpEN4dplx10overloadedE"></span><span id="_CPPv2IDpEN4dplx10overloadedE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ts</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">overloaded</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN4dplx10overloadedE" title="dplx::overloaded::Ts"><span class="n"><span class="pre">Ts</span></span></a><span class="p"><span class="pre">...</span></span><a class="headerlink" href="#_CPPv4IDpEN4dplx10overloadedE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Utility class for merging multiple lambdas into one functor:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">overloadSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">overloaded</span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">[](</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;int&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="p">[](</span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;bool&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">overloadSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">overloaded</span><span class="p">{</span>
+<span class="w">    </span><span class="p">[](</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;int&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">[](</span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;bool&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
 <span class="n">overloadSet</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// prints bool</span>
 <span class="n">overloadSet</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// prints int</span>
 </pre></div>
@@ -382,7 +382,7 @@ nothing if not supported by the current compiler.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Henrik Steffen Gaßmann
+                Copyright &#169; 2022-2023, Henrik Steffen Gaßmann
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

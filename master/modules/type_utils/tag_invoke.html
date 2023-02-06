@@ -218,8 +218,8 @@
         <article role="main">
           <section id="tag-invoke">
 <h1>tag_invoke<a class="headerlink" href="#tag-invoke" title="Permalink to this heading">#</a></h1>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/tag_invoke.hpp&gt;</span><span class="cp"></span>
-<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/tag_invoke.hpp&gt;</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
 <dl class="cpp function">
@@ -240,61 +240,61 @@ forwards all arguments, the return value and noexcept specification.</p>
 <p>The original proposal <a class="reference external" href="https://wg21.link/p1895">P1895</a></p>
 </div>
 <p>Here is an example definition of a <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I0DpEN4dplx4cncr10tag_invokeEDc1TDpRR5TArgs" title="dplx::cncr::tag_invoke"><span class="n">tag_invoke</span></a></span> based CPO:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">write_fn</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Stream</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="k">requires</span><span class="w"> </span><span class="n">tag_invocable</span><span class="o">&lt;</span><span class="n">write_fn</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">bytes</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">numBytes</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"></span>
-<span class="w">            </span><span class="k">noexcept</span><span class="p">(</span><span class="n">nothrow_tag_invocable</span><span class="o">&lt;</span><span class="n">write_fn</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="o">&gt;</span><span class="p">)</span><span class="w"></span>
-<span class="w">                    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tag_invoke_result_t</span><span class="o">&lt;</span><span class="n">write_fn</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cncr</span><span class="o">::</span><span class="n">tag_invoke</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="n">numBytes</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">write</span><span class="p">{};</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">write_fn</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Stream</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="k">requires</span><span class="w"> </span><span class="n">tag_invocable</span><span class="o">&lt;</span><span class="n">write_fn</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">bytes</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">numBytes</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">            </span><span class="k">noexcept</span><span class="p">(</span><span class="n">nothrow_tag_invocable</span><span class="o">&lt;</span><span class="n">write_fn</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="w">                    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tag_invoke_result_t</span><span class="o">&lt;</span><span class="n">write_fn</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cncr</span><span class="o">::</span><span class="n">tag_invoke</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="n">numBytes</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="n">write</span><span class="p">{};</span>
 </pre></div>
 </div>
 <p>The above CPO could be specialized like so:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">some_stream</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/*...*/</span><span class="w"></span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="k">friend</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">tag_invoke</span><span class="p">(</span><span class="n">cncr</span><span class="o">::</span><span class="n">tag_t</span><span class="o">&lt;</span><span class="n">write</span><span class="o">&gt;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                  </span><span class="n">some_stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                  </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">bytes</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                  </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">numBytes</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="cm">/* the customized behavior */</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/*...*/</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">some_stream</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/*...*/</span>
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="k">friend</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">tag_invoke</span><span class="p">(</span><span class="n">cncr</span><span class="o">::</span><span class="n">tag_t</span><span class="o">&lt;</span><span class="n">write</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">some_stream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">bytes</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">numBytes</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* the customized behavior */</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/*...*/</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>As the CPO definition is quite involved, the following snippet might
 be of use:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__CPO_NAME___fn</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Stream</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="k">requires</span><span class="w"> </span><span class="n">tag_invocable</span><span class="o">&lt;</span><span class="n">__CPO_NAME___fn</span><span class="p">,</span><span class="w"></span>
-<span class="w">                            </span><span class="n">__CPO_TYPES__</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">__CPO_ARGS__</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"></span>
-<span class="w">            </span><span class="k">noexcept</span><span class="p">(</span><span class="n">nothrow_tag_invocable</span><span class="o">&lt;</span><span class="n">__CPO_NAME___fn</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">__CPO_TYPES__</span><span class="o">&gt;</span><span class="p">)</span><span class="w"></span>
-<span class="w">                    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tag_invoke_result_t</span><span class="o">&lt;</span><span class="n">__CPO_NAME___fn</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">__CPO_TYPES__</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cncr</span><span class="o">::</span><span class="n">tag_invoke</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">__CPO_ARG_NAMES__</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">__CPO_NAME__</span><span class="p">{};</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__CPO_NAME___fn</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Stream</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="k">requires</span><span class="w"> </span><span class="n">tag_invocable</span><span class="o">&lt;</span><span class="n">__CPO_NAME___fn</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">__CPO_TYPES__</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">__CPO_ARGS__</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">            </span><span class="k">noexcept</span><span class="p">(</span><span class="n">nothrow_tag_invocable</span><span class="o">&lt;</span><span class="n">__CPO_NAME___fn</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">__CPO_TYPES__</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="w">                    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tag_invoke_result_t</span><span class="o">&lt;</span><span class="n">__CPO_NAME___fn</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">__CPO_TYPES__</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cncr</span><span class="o">::</span><span class="n">tag_invoke</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">__CPO_ARG_NAMES__</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="n">__CPO_NAME__</span><span class="p">{};</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -358,7 +358,7 @@ building block for concepts which (partially) consist of CPO constraints.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Henrik Steffen Gaßmann
+                Copyright &#169; 2022-2023, Henrik Steffen Gaßmann
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

@@ -218,8 +218,8 @@
         <article role="main">
           <section id="misc-functions">
 <h1>Misc. Functions<a class="headerlink" href="#misc-functions" title="Permalink to this heading">#</a></h1>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/misc.hpp&gt;</span><span class="cp"></span>
-<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dplx/cncr/misc.hpp&gt;</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">dplx</span><span class="o">::</span><span class="nn">cncr</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
 <dl class="cpp function">
@@ -244,27 +244,27 @@ invocations of <span class="cpp-expr sig sig-inline cpp"><span class="n">std</sp
 where <span class="cpp-texpr sig sig-inline cpp"><span class="n">n</span></span> is the current counter value starting at 0.</p>
 <p>This helper function is mainly useful for constexpr initializing complex
 array class members:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">chunk_cfg</span><span class="p">;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">data_chunk</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">data_chunk</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">data_chunk</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">chunk_cfg</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">data_container</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">chunks_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">data_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">chunks_type</span><span class="w"> </span><span class="n">chunks</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">data_chunk</span><span class="w"> </span><span class="nf">init_chunk</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">chunk_cfg</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">,</span><span class="w"> </span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">data_chunk</span><span class="p">(</span><span class="n">cfg</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="n">data_container</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">chunk_cfg</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">chunks</span><span class="p">(</span><span class="n">dplx</span><span class="o">::</span><span class="n">cncr</span><span class="o">::</span><span class="n">sequence_init</span><span class="o">&lt;</span><span class="n">chunks_type</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">(</span><span class="n">init_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">cfg</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">chunk_cfg</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">data_chunk</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">data_chunk</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">data_chunk</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">chunk_cfg</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">data_container</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">chunks_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">data_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">chunks_type</span><span class="w"> </span><span class="n">chunks</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">data_chunk</span><span class="w"> </span><span class="nf">init_chunk</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">chunk_cfg</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">,</span><span class="w"> </span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">data_chunk</span><span class="p">(</span><span class="n">cfg</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="n">data_container</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">chunk_cfg</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cfg</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">chunks</span><span class="p">(</span><span class="n">dplx</span><span class="o">::</span><span class="n">cncr</span><span class="o">::</span><span class="n">sequence_init</span><span class="o">&lt;</span><span class="n">chunks_type</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">(</span><span class="n">init_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">cfg</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -307,7 +307,7 @@ with <span class="cpp-expr sig sig-inline cpp"><span class="n">N</span><span cla
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Henrik Steffen Gaßmann
+                Copyright &#169; 2022-2023, Henrik Steffen Gaßmann
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
