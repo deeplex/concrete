@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/master/docs/vcpkg.schema.json",
     "name": "concrete",
     "version-semver": "0.0.0-alpha.7",
     "homepage": "https://github.com/deeplex/concrete",

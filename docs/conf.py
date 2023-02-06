@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'concrete'
-copyright = '2022, Henrik Steffen Gaßmann'
+copyright = '2022-2023, Henrik Steffen Gaßmann'
 author = 'Henrik Steffen Gaßmann'
 
 # The full version, including alpha/beta/rc tags
