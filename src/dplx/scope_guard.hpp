@@ -35,8 +35,8 @@ public:
     {
         other.mActive = false;
     }
-    scope_exit(scope_exit &&other) noexcept requires
-            std::is_nothrow_move_constructible_v<EF>
+    scope_exit(scope_exit &&other) noexcept
+        requires std::is_nothrow_move_constructible_v<EF>
         : mExitFunction(static_cast<EF &&>(other.mExitFunction))
         , mActive(other.mActive)
     {
@@ -47,37 +47,33 @@ public:
     // NOLINTBEGIN(bugprone-forwarding-reference-overload)
 
     template <class Fn>
-        // clang-format off
-        requires (!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>
-                && std::is_constructible_v<EF, Fn>
-                && std::is_nothrow_constructible_v<EF, Fn>)
-    // clang-format on
-    scope_exit(Fn &&fn)
-    noexcept
+        requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>)
+                     && std::is_constructible_v<EF, Fn>
+                     && std::is_nothrow_constructible_v<EF, Fn>
+    scope_exit(Fn &&fn) noexcept
         : mExitFunction(static_cast<Fn &&>(fn))
         , mActive(true)
     {
     }
     template <class Fn>
-        // clang-format off
-        requires (!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>
-                && std::is_constructible_v<EF, Fn>   
-                && !std::is_nothrow_constructible_v<EF, Fn>  
-                && std::is_nothrow_constructible_v<EF, std::remove_reference_t<Fn> &>)
-    // clang-format on
-    scope_exit(Fn &&fn)
-    noexcept
+        requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>)
+                     && std::is_constructible_v<EF, Fn>
+                     && (!std::is_nothrow_constructible_v<EF, Fn>)
+                     && std::is_nothrow_constructible_v<
+                             EF,
+                             std::remove_reference_t<Fn> &>
+    scope_exit(Fn &&fn) noexcept
         : mExitFunction(fn)
         , mActive(true)
     {
     }
     template <class Fn>
-        // clang-format off
-        requires (!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>
-                && std::is_constructible_v<EF, Fn>
-                && !std::is_nothrow_constructible_v<EF, Fn> 
-                && !std::is_nothrow_constructible_v<EF, std::remove_reference_t<Fn> &>)
-    // clang-format on
+        requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>)
+             && std::is_constructible_v<EF, Fn>
+             && (!std::is_nothrow_constructible_v<EF, Fn>)
+             && (!std::is_nothrow_constructible_v<
+                     EF,
+                     std::remove_reference_t<Fn> &>)
     scope_exit(Fn &&fn)
     try : mExitFunction(fn), mActive(true)
     {
@@ -113,35 +109,30 @@ public:
     // NOLINTBEGIN(bugprone-forwarding-reference-overload)
 
     template <class Fn>
-        // clang-format off
-        requires (!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>
-                && std::is_constructible_v<EF, Fn>
-                && std::is_nothrow_constructible_v<EF, Fn>)
-    // clang-format on
-    scope_guard(Fn &&fn)
-    noexcept
+        requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>)
+             && std::is_constructible_v<EF, Fn>
+             && std::is_nothrow_constructible_v<EF, Fn>
+    scope_guard(Fn &&fn) noexcept
         : mExitFunction(static_cast<Fn &&>(fn))
     {
     }
     template <class Fn>
-        // clang-format off
-        requires (!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>
-                && std::is_constructible_v<EF, Fn>   
-                && !std::is_nothrow_constructible_v<EF, Fn>  
-                && std::is_nothrow_constructible_v<EF, std::remove_reference_t<Fn> &>)
-    // clang-format on
-    scope_guard(Fn &&fn)
-    noexcept
+        requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>)
+             && std::is_constructible_v<EF, Fn>
+             && (!std::is_nothrow_constructible_v<EF, Fn>)
+             && std::is_nothrow_constructible_v<EF,
+                                                std::remove_reference_t<Fn> &>
+    scope_guard(Fn &&fn) noexcept
         : mExitFunction(fn)
     {
     }
     template <class Fn>
-        // clang-format off
-        requires (!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>
-                && std::is_constructible_v<EF, Fn>
-                && !std::is_nothrow_constructible_v<EF, Fn> 
-                && !std::is_nothrow_constructible_v<EF, std::remove_reference_t<Fn> &>)
-    // clang-format on
+        requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>)
+             && std::is_constructible_v<EF, Fn>
+             && (!std::is_nothrow_constructible_v<EF, Fn>)
+             && (!std::is_nothrow_constructible_v<
+                     EF,
+                     std::remove_reference_t<Fn> &>)
     scope_guard(Fn &&fn)
     try : mExitFunction(fn)
     {

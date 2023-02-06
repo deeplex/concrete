@@ -44,9 +44,8 @@ namespace dplx::cncr
 inline constexpr struct to_underlying_fn
 {
     template <typename Enum>
-    requires std::is_enum_v<Enum> //
-            DPLX_ATTR_FORCE_INLINE constexpr auto
-            operator()(Enum value) const noexcept
+        requires std::is_enum_v<Enum> //
+    DPLX_ATTR_FORCE_INLINE constexpr auto operator()(Enum value) const noexcept
             -> std::underlying_type_t<Enum>
     {
         return static_cast<std::underlying_type_t<Enum>>(value);

@@ -287,7 +287,8 @@ public:
     ///        behaves the same as @ref reference_count and exists for
     ///        std::shared_ptr compatibility.
     [[nodiscard]] constexpr auto use_count() const noexcept ->
-            typename traits::counter_type requires inspectable_ref_counted<RC>
+            typename traits::counter_type
+        requires inspectable_ref_counted<RC>
 
     {
         return traits::reference_count(*mPtr);
@@ -296,7 +297,8 @@ public:
     ///        (approximate) number of references. The only value guaranteed to
     ///        be stable in multi-threaded environments is ``1``.
     [[nodiscard]] constexpr auto reference_count() const noexcept ->
-            typename traits::counter_type requires inspectable_ref_counted<RC>
+            typename traits::counter_type
+        requires inspectable_ref_counted<RC>
 
     {
         return traits::reference_count(*mPtr);
@@ -321,7 +323,8 @@ public:
             = default;
     [[nodiscard]] friend inline auto operator<=>(intrusive_ptr const &,
                                                  intrusive_ptr const &) noexcept
-            -> std::strong_ordering = default;
+            -> std::strong_ordering
+            = default;
 };
 
 template <>
@@ -594,8 +597,8 @@ public:
     ///        API behaves the same as @ref reference_count and exists for
     ///        std::shared_ptr compatibility.
     [[nodiscard]] constexpr auto use_count() const noexcept ->
-            typename reference_counted_traits<RC>::counter_type requires
-            inspectable_ref_counted<RC>
+            typename reference_counted_traits<RC>::counter_type
+        requires inspectable_ref_counted<RC>
 
     {
         return mHandle.use_count();
@@ -604,8 +607,8 @@ public:
     ///        (approximate) number of references. Only the value 1 is
     ///        guaranteed to be stable even in multi-threaded environments.
     [[nodiscard]] constexpr auto reference_count() const noexcept ->
-            typename reference_counted_traits<RC>::counter_type requires
-            inspectable_ref_counted<RC>
+            typename reference_counted_traits<RC>::counter_type
+        requires inspectable_ref_counted<RC>
 
     {
         return mHandle.reference_count();
