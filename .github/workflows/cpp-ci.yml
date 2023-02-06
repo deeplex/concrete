@@ -120,7 +120,7 @@ jobs:
             tidy-checks: '' # use .clang-tidy settings
             extensions: cpp,hpp
             ignore: '.github|build|external'
-            files-changed-only: false
+            files-changed-only: true
             database: build/x64-linux-ci-lint
 
       - name: Fail if issues have been raised
