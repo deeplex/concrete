@@ -53,14 +53,20 @@ struct status_enum_definition_defaults
 };
 
 template <typename Enum>
-    requires std::default_initializable<Enum> && std::movable<
-            Enum> && std::equality_comparable<Enum>
-struct status_enum_definition;
+struct status_enum_definition
+{
+};
 
 // clang-format off
 template <typename T>
 concept status_enum
-        = !system_error::is_status_code<T>::value
+        = requires {
+            typename status_enum_definition<T>::code;
+            requires std::same_as<T, typename status_enum_definition<T>::code>;
+            requires std::default_initializable<T>;
+            requires std::movable<T>;
+            requires std::equality_comparable<T>;
+        }
         && std::constructible_from<
                 std::span<status_enum_value_descriptor<T> const>,
                 decltype(status_enum_definition<T>::values)>
