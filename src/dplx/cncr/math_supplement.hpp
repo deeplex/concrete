@@ -17,8 +17,14 @@ namespace dplx::cncr
 {
 
 template <typename T>
-concept integer = std::integral<T> && none_of < std::remove_cv_t<T>,
-bool, char, wchar_t, char8_t, char16_t, char32_t > ;
+concept integer = std::integral<T>
+               && none_of<std::remove_cv_t<T>,
+                          bool,
+                          char,
+                          wchar_t,
+                          char8_t,
+                          char16_t,
+                          char32_t>;
 
 template <typename T>
 concept signed_integer = integer<T> && std::signed_integral<T>;
