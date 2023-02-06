@@ -68,6 +68,7 @@ using nth_param_t =
 
 template <std::size_t N, decltype(auto)... Vs>
 inline constexpr auto nth_param_v
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
         = detail::nth_param_value_impl<std::make_index_sequence<N>>::access(
                 static_cast<decltype(Vs) &&>(Vs)...);
 
