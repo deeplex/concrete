@@ -27,7 +27,7 @@
 #define DPLX_CNCR_NOMINMAX
 #endif
 
-#include <windows.h>
+#include <Windows.h>
 
 #ifdef DPLX_CNCR_NOMINMAX
 #undef DPLX_CNCR_NOMINMAX
