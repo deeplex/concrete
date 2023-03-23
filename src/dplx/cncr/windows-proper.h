@@ -13,12 +13,35 @@
 // _WIN32_WINNT is defined per compiler flag
 #include <SDKDDKVer.h>
 
-#define VC_EXTRALEAN        1
+#ifndef VC_EXTRALEAN
+#define VC_EXTRALEAN 1
+#define DPLX_CNCR_VC_EXTRALEAN
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN 1
+#define DPLX_CNCR_WIN32_LEAN_AND_MEAN
+#endif
 
+#ifndef NOMINMAX
 #define NOMINMAX 1
+#define DPLX_CNCR_NOMINMAX
+#endif
 
-#include <windows.h>
+#include <Windows.h>
+
+#ifdef DPLX_CNCR_NOMINMAX
+#undef DPLX_CNCR_NOMINMAX
+#undef NOMINMAX
+#endif
+
+#ifdef DPLX_CNCR_WIN32_LEAN_AND_MEAN
+#undef DPLX_CNCR_WIN32_LEAN_AND_MEAN
+#undef WIN32_LEAN_AND_MEAN
+#endif
+#ifdef DPLX_CNCR_VC_EXTRALEAN
+#undef DPLX_CNCR_VC_EXTRALEAN
+#undef VC_EXTRALEAN
+#endif
 
 #endif
 
