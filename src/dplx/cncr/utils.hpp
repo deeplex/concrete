@@ -41,10 +41,21 @@ namespace dplx::cncr
 #endif
 }
 
+/**
+ * \brief A utility type for inspection of the underlying representation via
+ * `std::bit_cast`'ing.
+ */
+template <typename T, std::size_t N, std::size_t Alignment = alignof(T)>
+    requires std::is_trivially_copyable_v<T>
+struct blob
+{
+    alignas(Alignment) T values[N];
+};
+
 inline constexpr struct to_underlying_fn
 {
     template <typename Enum>
-        requires std::is_enum_v<Enum> //
+        requires std::is_enum_v<Enum>
     DPLX_ATTR_FORCE_INLINE constexpr auto operator()(Enum value) const noexcept
             -> std::underlying_type_t<Enum>
     {
