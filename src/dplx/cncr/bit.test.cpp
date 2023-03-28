@@ -16,6 +16,7 @@
 
 #include <dplx/predef/compiler.h>
 
+#include <dplx/cncr/misc.hpp>
 #include <dplx/cncr/workaround.h>
 
 #include "range_generator.hpp"
@@ -124,6 +125,35 @@ TEMPLATE_TEST_CASE("byteswap correctly reverses integral types",
         std::ranges::swap(sample.input, sample.expected);
         CHECK(cncr::byteswap(sample.input) == sample.expected);
     }
+}
+
+TEST_CASE("endian_load correctly loads a big endian value from bytes")
+{
+    using enum std::endian;
+    auto const bytes = cncr::make_byte_array<4>({0x1f, 0x2e, 0x3d, 0x4c});
+    auto const loaded = cncr::endian_load<big, std::uint32_t>(bytes.data());
+    CHECK(loaded == 0x1f2e3d4c);
+}
+TEST_CASE("endian_load correctly loads a little endian value from bytes")
+{
+    using enum std::endian;
+    auto const bytes = cncr::make_byte_array<4>({0x4c, 0x3d, 0x2e, 0x1f});
+    auto const loaded = cncr::endian_load<little, std::uint32_t>(bytes.data());
+    CHECK(loaded == 0x1f2e3d4c);
+}
+TEST_CASE("endian_load correctly loads a big endian value from uint8s")
+{
+    using enum std::endian;
+    std::array<std::uint8_t, 4> const bytes{0x1f, 0x2e, 0x3d, 0x4c};
+    auto const loaded = cncr::endian_load<big, std::uint32_t>(bytes.data());
+    CHECK(loaded == 0x1f2e3d4c);
+}
+TEST_CASE("endian_load correctly loads a little endian value from uint8s")
+{
+    using enum std::endian;
+    std::array<std::uint8_t, 4> const bytes{0x4c, 0x3d, 0x2e, 0x1f};
+    auto const loaded = cncr::endian_load<little, std::uint32_t>(bytes.data());
+    CHECK(loaded == 0x1f2e3d4c);
 }
 
 } // namespace cncr_tests
