@@ -449,7 +449,8 @@ format_uuid_to(uuid value, OutIt out, unsigned up, bool alternateForm) -> OutIt
         value.mState[0] = cncr::byteswap(value.mState[0]);
         value.mState[1] = cncr::byteswap(value.mState[1]);
     }
-    auto const state = std::bit_cast<blob<std::uint8_t, uuid_state_size>>(value);
+    auto const state
+            = std::bit_cast<blob<std::uint8_t, uuid_state_size>>(value);
 
     if (alternateForm)
     {
@@ -489,4 +490,6 @@ consteval auto operator""_uuid(char const *chars, std::size_t len) -> uuid
     return uuid::import_string(chars, len);
 }
 
+// clang-format off
 } // namespace dplx::cncr::inline uuid_literals
+// clang-format on
