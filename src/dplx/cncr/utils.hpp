@@ -26,6 +26,14 @@
 #define DPLX_ATTR_NO_UNIQUE_ADDRESS
 #endif
 
+#if __cpp_if_consteval >= 202106L
+#define DPLX_CNCR_IF_CONSTEVAL     if consteval
+#define DPLX_CNCR_IF_NOT_CONSTEVAL if not consteval
+#else
+#define DPLX_CNCR_IF_CONSTEVAL     if (std::is_constant_evaluated())
+#define DPLX_CNCR_IF_NOT_CONSTEVAL if (not std::is_constant_evaluated())
+#endif
+
 namespace dplx::cncr
 {
 
