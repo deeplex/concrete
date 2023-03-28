@@ -53,6 +53,13 @@ set_package_properties(Catch2 PROPERTIES
     PURPOSE "Allows to build the test suite"
 )
 cmake_dependent_option(BUILD_TESTING "Build the documentation using sphinx" ON Catch2_FOUND OFF)
+if (BUILD_TESTING)
+    find_package(fmt CONFIG)
+    set_package_properties(fmt PROPERTIES
+        TYPE OPTIONAL
+        PURPOSE "Allows to build fmt stringification test cases"
+    )
+endif()
 
 find_package(Sphinx)
 set_package_properties(Sphinx PROPERTIES
@@ -107,6 +114,7 @@ if (BUILD_TESTING)
     target_link_libraries(concrete-tests PRIVATE
         Deeplex::concrete
 
+        fmt::fmt
         Catch2::Catch2 Catch2::Catch2WithMain
     )
 
