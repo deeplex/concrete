@@ -26,6 +26,14 @@
 #define DPLX_ATTR_NO_UNIQUE_ADDRESS
 #endif
 
+#if __cpp_if_consteval >= 202106L
+#define DPLX_CNCR_IF_CONSTEVAL     if consteval
+#define DPLX_CNCR_IF_NOT_CONSTEVAL if not consteval
+#else
+#define DPLX_CNCR_IF_CONSTEVAL     if (std::is_constant_evaluated())
+#define DPLX_CNCR_IF_NOT_CONSTEVAL if (not std::is_constant_evaluated())
+#endif
+
 namespace dplx::cncr
 {
 
@@ -41,10 +49,21 @@ namespace dplx::cncr
 #endif
 }
 
+/**
+ * \brief A utility type for inspection of the underlying representation via
+ * `std::bit_cast`'ing.
+ */
+template <typename T, std::size_t N, std::size_t Alignment = alignof(T)>
+    requires std::is_trivially_copyable_v<T>
+struct blob
+{
+    alignas(Alignment) T values[N];
+};
+
 inline constexpr struct to_underlying_fn
 {
     template <typename Enum>
-        requires std::is_enum_v<Enum> //
+        requires std::is_enum_v<Enum>
     DPLX_ATTR_FORCE_INLINE constexpr auto operator()(Enum value) const noexcept
             -> std::underlying_type_t<Enum>
     {

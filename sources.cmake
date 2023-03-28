@@ -4,6 +4,7 @@ dplx_target_sources(concrete
     BASE_DIR dplx
 
     PUBLIC
+        cncr/bit
         cncr/concepts
         cncr/data_defined_status_domain
         cncr/intrusive_ptr
@@ -14,6 +15,7 @@ dplx_target_sources(concrete
         cncr/tag_invoke
         cncr/type_utils
         cncr/utils
+        cncr/uuid
         overloaded
         scope_guard
 )
@@ -23,6 +25,8 @@ dplx_target_sources(concrete
     BASE_DIR dplx
 
     PRIVATE
+        cncr/uuid.fmt.hpp
+        cncr/uuid.rng.hpp
         cncr/windows-proper.h
         cncr/workaround.h
         predef/workaround.h
@@ -37,6 +41,7 @@ if (BUILD_TESTING)
         BASE_DIR cncr_tests
 
         PRIVATE
+            range_generator.hpp
             test_utils.hpp
     )
 
