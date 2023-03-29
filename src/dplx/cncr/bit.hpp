@@ -15,6 +15,7 @@
 
 #include <dplx/predef/compiler.h>
 
+#include <dplx/cncr/config.hpp>
 #include <dplx/cncr/utils.hpp>
 
 // NOLINTBEGIN(cppcoreguidelines-macro-usage)

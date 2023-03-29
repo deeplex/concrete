@@ -43,6 +43,7 @@ endif()
 
 ########################################################################
 # options
+option(DPLX_CNCR_USE_STD_BYTESWAP "Use std::byteswap() instead of the polyfill; requires C++23." OFF)
 
 ########################################################################
 # dependencies
@@ -85,6 +86,9 @@ set_target_properties(compiler_settings PROPERTIES
 )
 
 target_compile_features(compiler_settings INTERFACE cxx_std_20)
+if (DPLX_CNCR_USE_STD_BYTESWAP)
+    target_compile_features(compiler_settings INTERFACE cxx_std_23)
+endif()
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_compile_options(compiler_settings INTERFACE
         /utf-8 # all sources are utf-8 encoded
