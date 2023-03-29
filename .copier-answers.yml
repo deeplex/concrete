@@ -1,9 +1,10 @@
 # Changes here will be overwritten by Copier
-_commit: v0.2.5
+_commit: v0.2.6
 _src_path: git@github.com:deeplex/copier-cpp-library.git
 buildver: 0.0.0.6
 email: henrik@gassmann.onl
 full_name: Henrik Steffen Gaßmann
+header_config: true
 header_only: true
 namespace: cncr
 project_name: concrete
