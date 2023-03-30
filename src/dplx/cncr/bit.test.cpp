@@ -156,4 +156,45 @@ TEST_CASE("endian_load correctly loads a little endian value from uint8s")
     CHECK(loaded == 0x1f2e3d4c);
 }
 
+TEST_CASE("endian_store correctly stores a big endian value to bytes")
+{
+    using enum std::endian;
+    constexpr unsigned value = 0x1f2e3d4c;
+    auto const expected = cncr::make_byte_array<4>({0x1f, 0x2e, 0x3d, 0x4c});
+
+    std::array<std::byte, 4> stored{};
+    cncr::endian_store<std::endian::big>(stored.data(), value);
+    CHECK(std::ranges::equal(stored, expected));
+}
+TEST_CASE("endian_store correctly stores a little endian value to bytes")
+{
+    using enum std::endian;
+    constexpr unsigned value = 0x1f2e3d4c;
+    auto const expected = cncr::make_byte_array<4>({0x4c, 0x3d, 0x2e, 0x1f});
+
+    std::array<std::byte, 4> stored{};
+    cncr::endian_store<std::endian::little>(stored.data(), value);
+    CHECK(std::ranges::equal(stored, expected));
+}
+TEST_CASE("endian_store correctly stores a big endian value to uint8s")
+{
+    using enum std::endian;
+    constexpr unsigned value = 0x1f2e3d4c;
+    std::array<std::uint8_t, 4> const expected{0x1f, 0x2e, 0x3d, 0x4c};
+
+    std::array<std::uint8_t, 4> stored{};
+    cncr::endian_store<std::endian::big>(stored.data(), value);
+    CHECK(std::ranges::equal(stored, expected));
+}
+TEST_CASE("endian_store correctly stores a little endian value to uint8s")
+{
+    using enum std::endian;
+    constexpr unsigned value = 0x1f2e3d4c;
+    std::array<std::uint8_t, 4> const expected{0x4c, 0x3d, 0x2e, 0x1f};
+
+    std::array<std::uint8_t, 4> stored{};
+    cncr::endian_store<std::endian::little>(stored.data(), value);
+    CHECK(std::ranges::equal(stored, expected));
+}
+
 } // namespace cncr_tests

@@ -146,15 +146,15 @@ template <std::endian Order, typename T>
 DPLX_ATTR_FORCE_INLINE constexpr void endian_store(std::byte *dest,
                                                    T value) noexcept
 {
-    if (Order != std::endian::native)
+    if constexpr (Order != std::endian::native)
     {
         value = cncr::byteswap<T>(value);
     }
     auto const raw
             = std::bit_cast<blob<std::byte, sizeof(T), alignof(T)>>(value);
     // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    for (auto src = static_cast<std::byte *>(raw.values),
-              srcEnd = static_cast<std::byte *>(raw.values) + sizeof(T);
+    for (auto src = static_cast<std::byte const *>(raw.values),
+              srcEnd = static_cast<std::byte const *>(raw.values) + sizeof(T);
          src != srcEnd; ++src, ++dest)
     {
         *dest = *src;
@@ -166,15 +166,16 @@ template <std::endian Order, typename T>
 DPLX_ATTR_FORCE_INLINE constexpr void endian_store(std::uint8_t *dest,
                                                    T value) noexcept
 {
-    if (Order != std::endian::native)
+    if constexpr (Order != std::endian::native)
     {
         value = cncr::byteswap<T>(value);
     }
     auto const raw
             = std::bit_cast<blob<std::uint8_t, sizeof(T), alignof(T)>>(value);
     // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    for (auto src = static_cast<std::uint8_t *>(raw.values),
-              srcEnd = static_cast<std::uint8_t *>(raw.values) + sizeof(T);
+    for (auto src = static_cast<std::uint8_t const *>(raw.values),
+              srcEnd
+              = static_cast<std::uint8_t const *>(raw.values) + sizeof(T);
          src != srcEnd; ++src, ++dest)
     {
         *dest = *src;
