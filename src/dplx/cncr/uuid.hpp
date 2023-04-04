@@ -370,6 +370,8 @@ private:
 template <>
 struct std::hash<dplx::cncr::uuid>
 {
+    using is_avalanching = void;
+
     // derivative of xxHASH64
     // https://github.com/Cyan4973/xxHash/blob/2b328a10983d232364ceda15df1d33531b5f0eb5/doc/xxhash_spec.md
     constexpr auto operator()(dplx::cncr::uuid value) const -> std::size_t
