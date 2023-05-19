@@ -1,5 +1,9 @@
 # build directory as mandated by the pitchfork layout and used by CMakePresets
 build/
 
-# visual studio cmake config
+# cmake user presets
 /CMakeUserPresets.json
+
+# visual studio workspace files
+.vs
+/out
