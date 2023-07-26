@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier
-_commit: v0.2.6
-_src_path: git@github.com:deeplex/copier-cpp-library.git
+_commit: v0.3.0a1
+_src_path: git@github.com:deeplex/copier-cpp.git
 buildver: 0.0.0.6
 email: henrik@gassmann.onl
 full_name: Henrik Steffen Gaßmann
@@ -11,4 +11,3 @@ project_name: concrete
 project_slug: concrete
 semver: 0.0.0-alpha.7
 year: 2022-2023
-

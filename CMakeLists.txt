@@ -162,6 +162,11 @@ install(EXPORT concrete-targets
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/concrete"
 )
 
+export(EXPORT concrete-targets NAMESPACE Deeplex::)
+# note that you need to configure with -DCMAKE_EXPORT_PACKAGE_REGISTRY=ON
+# for this to have any effect at all
+export(PACKAGE concrete)
+
 configure_package_config_file(tools/concrete-config.cmake.in
     "${CMAKE_CURRENT_BINARY_DIR}/concrete-config.cmake"
     INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/concrete"

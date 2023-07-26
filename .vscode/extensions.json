@@ -1,5 +1,8 @@
 {
     "recommendations": [
-        "ms-vscode.cpptools-extension-pack"
+        "lextudio.restructuredtext",
+        "ms-python.python",
+        "ms-vscode.cpptools-extension-pack",
+        "trond-snekvik.simple-rst"
     ]
 }
