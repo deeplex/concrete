@@ -1,4 +1,4 @@
-# Written in 2017, 2019 by Henrik Steffen Gaßmann <henrik@gassmann.onl>
+# Written in 2017, 2019, 2022-2023 by Henrik Steffen Gaßmann <henrik@gassmann.onl>
 #
 # To the extent possible under law, the author(s) have dedicated all
 # copyright and related and neighboring rights to this software to the
@@ -10,7 +10,7 @@
 #     http://creativecommons.org/publicdomain/zero/1.0/
 #
 ########################################################################
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.22)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/tools/cmake/")
 
 ########################################################################
@@ -44,6 +44,9 @@ endif()
 ########################################################################
 # options
 option(DPLX_CNCR_USE_STD_BYTESWAP "Use std::byteswap() instead of the polyfill; requires C++23." OFF)
+
+option(DPLX_CNCR_DISABLE_WORKAROUNDS "Disable all workarounds" OFF)
+option(DPLX_CNCR_FLAG_OUTDATED_WORKAROUNDS "Emit compiler errors for workarounds which are active, but haven't been validated for this version" OFF)
 
 ########################################################################
 # dependencies
@@ -161,6 +164,11 @@ install(EXPORT concrete-targets
     NAMESPACE Deeplex::
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/concrete"
 )
+
+export(EXPORT concrete-targets NAMESPACE Deeplex::)
+# note that you need to configure with -DCMAKE_EXPORT_PACKAGE_REGISTRY=ON
+# for this to have any effect at all
+export(PACKAGE concrete)
 
 configure_package_config_file(tools/concrete-config.cmake.in
     "${CMAKE_CURRENT_BINARY_DIR}/concrete-config.cmake"

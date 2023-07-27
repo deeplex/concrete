@@ -6,7 +6,9 @@ dplx_target_sources(concrete
     PUBLIC
         cncr/bit
         cncr/concepts
+        cncr/config
         cncr/data_defined_status_domain
+        cncr/detail/workaround
         cncr/intrusive_ptr
         cncr/math_supplement
         cncr/misc
