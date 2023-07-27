@@ -1,8 +1,12 @@
 {
     "recommendations": [
+        "EditorConfig.EditorConfig",
+        "github.vscode-github-actions",
         "lextudio.restructuredtext",
         "ms-python.python",
         "ms-vscode.cpptools-extension-pack",
-        "trond-snekvik.simple-rst"
+        "ms-vscode.cmake-tools",
+        "trond-snekvik.simple-rst",
+        "twxs.cmake",
     ]
 }
