@@ -41,7 +41,7 @@ jobs:
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 71d3fa60b67540e9bf5fde2bf2188f579ff09433
+          vcpkgGitCommitId: f6a5d4e8eb7476b8d7fc12a56dff300c1c986131
           prependedCacheKey: compiler=${{ matrix.compiler }}
           #appendedCacheKey: r00
 
@@ -55,7 +55,6 @@ jobs:
           CC: ''
           CXX: ''
 
-
       - name: Build ${{ matrix.triplet }}-${{ matrix.compiler }}-release preset
         uses: lukka/run-cmake@v10
         with:
@@ -68,12 +67,6 @@ jobs:
 
       - name: Prevent uploading a corrupted vcpkg cache
         if: ${{ failure() || cancelled() }}
-        run: |
-          echo "RUNVCPKG_NO_CACHE=1" >> $GITHUB_ENV
-        shell: bash
-
-
-      - if: ${{ failure() || cancelled() }}
         run: |
           echo "RUNVCPKG_NO_CACHE=1" >> $GITHUB_ENV
         shell: bash
@@ -101,7 +94,7 @@ jobs:
         uses: lukka/run-vcpkg@v10
         with:
           vcpkgDirectory: ${{ github.workspace }}/../vcpkg
-          vcpkgGitCommitId: 71d3fa60b67540e9bf5fde2bf2188f579ff09433
+          vcpkgGitCommitId: f6a5d4e8eb7476b8d7fc12a56dff300c1c986131
           prependedCacheKey: compiler=clang-15
           #appendedCacheKey: r00
 
