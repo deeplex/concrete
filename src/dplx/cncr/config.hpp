@@ -11,3 +11,10 @@
 #if __has_include(<dplx/cncr/detail/config.hpp>)
 #include <dplx/cncr/detail/config.hpp>
 #endif
+
+#if !defined(DPLX_CNCR_DISABLE_WORKAROUNDS)
+#define DPLX_CNCR_DISABLE_WORKAROUNDS 0
+#endif
+#if !defined(DPLX_CNCR_FLAG_OUTDATED_WORKAROUNDS)
+#define DPLX_CNCR_FLAG_OUTDATED_WORKAROUNDS 0
+#endif

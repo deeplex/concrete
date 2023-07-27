@@ -12,5 +12,8 @@
 
 #cmakedefine01 DPLX_CNCR_USE_STD_BYTESWAP
 
+#cmakedefine01 DPLX_CNCR_DISABLE_WORKAROUNDS
+#cmakedefine01 DPLX_CNCR_FLAG_OUTDATED_WORKAROUNDS
+
 // NOLINTEND(cppcoreguidelines-macro-usage)
 // NOLINTEND(modernize-macro-to-enum)
