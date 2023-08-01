@@ -9,6 +9,7 @@ dplx_target_sources(concrete
         cncr/config
         cncr/data_defined_status_domain
         cncr/detail/workaround
+        cncr/disappointment
         cncr/intrusive_ptr
         cncr/math_supplement
         cncr/misc

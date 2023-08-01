@@ -1,5 +1,13 @@
 @PACKAGE_INIT@
 
+include(CMakeFindDependencyMacro)
+if (@status-code_FOUND@) # status-code_FOUND
+    find_dependency(status-code CONFIG)
+endif()
+if (@outcome_FOUND@) # outcome_FOUND
+    find_dependency(outcome CONFIG)
+endif()
+
 include("${CMAKE_CURRENT_LIST_DIR}/concrete-targets.cmake")
 
 check_required_components(concrete)
