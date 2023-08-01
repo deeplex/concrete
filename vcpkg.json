@@ -4,6 +4,7 @@
     "version-semver": "0.0.0-alpha.10",
     "homepage": "https://github.com/deeplex/concrete",
     "dependencies": [
+        "outcome",
         "status-code"
     ],
     "features": {

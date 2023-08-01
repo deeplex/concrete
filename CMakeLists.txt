@@ -51,6 +51,9 @@ option(DPLX_CNCR_FLAG_OUTDATED_WORKAROUNDS "Emit compiler errors for workarounds
 ########################################################################
 # dependencies
 
+find_package(status-code CONFIG)
+find_package(outcome CONFIG)
+
 find_package(Catch2 CONFIG)
 set_package_properties(Catch2 PROPERTIES
     TYPE OPTIONAL
@@ -106,6 +109,12 @@ add_library(concrete INTERFACE)
 add_library(Deeplex::concrete ALIAS concrete)
 
 target_link_libraries(concrete INTERFACE Deeplex::concrete_compiler_settings)
+if (status-code_FOUND)
+    target_link_libraries(concrete INTERFACE status-code::hl)
+endif()
+if (outcome_FOUND)
+    target_link_libraries(concrete INTERFACE outcome::hl)
+endif()
 
 target_include_directories(concrete INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
