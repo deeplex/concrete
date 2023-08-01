@@ -19,6 +19,7 @@ dplx_target_sources(concrete
         cncr/type_utils
         cncr/utils
         cncr/uuid
+        make
         overloaded
         scope_guard
 )
