@@ -19,6 +19,8 @@ jobs:
         exclude:
           - os: macos-13
             compiler: msvc
+          - os: macos-13
+            compiler: gcc # outcome currently fails to build
           - os: ubuntu-22.04
             compiler: msvc
           - os: windows-2022
