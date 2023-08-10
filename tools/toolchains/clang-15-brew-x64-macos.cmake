@@ -4,6 +4,7 @@ execute_process(COMMAND brew --prefix llvm@15 OUTPUT_VARIABLE BREW_LLVM_PATH OUT
 
 set(CMAKE_C_COMPILER "${BREW_LLVM_PATH}/bin/clang")
 set(CMAKE_CXX_COMPILER "${BREW_LLVM_PATH}/bin/clang++")
+set(CMAKE_OSX_SYSROOT /Applications/Xcode_14.3.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 20)
