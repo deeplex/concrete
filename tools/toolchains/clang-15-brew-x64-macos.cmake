@@ -1,0 +1,11 @@
+set(CMAKE_SYSTEM_PROCESSOR AMD64)
+
+execute_process(COMMAND brew --prefix llvm@15 OUTPUT_VARIABLE BREW_LLVM_PATH)
+
+set(CMAKE_C_COMPILER "${BREW_LLVM_PATH}/bin/clang")
+set(CMAKE_CXX_COMPILER "${BREW_LLVM_PATH}/bin/clang++")
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+
+set(CMAKE_CXX_FLAGS_INIT "-fsized-deallocation")
