@@ -224,6 +224,26 @@
             "name": "x64-linux-gcc-release",
             "inherits": "x64-linux-gcc",
             "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "x64-macos-clang",
+            "configurePreset": "x64-macos-clang",
+            "configuration": "Debug"
+        },
+        {
+            "name": "x64-macos-clang-release",
+            "inherits": "x64-macos-clang",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "x64-macos-gcc",
+            "configurePreset": "x64-macos-gcc",
+            "configuration": "Debug"
+        },
+        {
+            "name": "x64-macos-gcc-release",
+            "inherits": "x64-macos-gcc",
+            "configuration": "RelWithDebInfo"
         }
     ],
     "testPresets": [
@@ -274,6 +294,27 @@
         {
             "name": "x64-linux-gcc-release",
             "inherits": "x64-linux-gcc",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "x64-macos-clang",
+            "configurePreset": "x64-macos-clang",
+            "configuration": "Debug"
+        },
+        {
+            "name": "x64-macos-clang-release",
+            "inherits": "x64-macos-clang",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "x64-macos-gcc",
+            "inherits": "sanitizer_env",
+            "configurePreset": "x64-macos-gcc",
+            "configuration": "Debug"
+        },
+        {
+            "name": "x64-macos-gcc-release",
+            "inherits": "x64-macos-gcc",
             "configuration": "RelWithDebInfo"
         }
     ]
