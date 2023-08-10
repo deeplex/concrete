@@ -9,4 +9,4 @@ set(CMAKE_OSX_SYSROOT /Applications/Xcode_14.3.1.app/Contents/Developer/Platform
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_CXX_FLAGS_INIT "-fsized-deallocation")
+set(CMAKE_CXX_FLAGS_INIT "-fsized-deallocation -fexperimental-library")
