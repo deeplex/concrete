@@ -42,12 +42,10 @@ jobs:
           cmakeVersion: 3.22.6
 
       - name: Initialize vcpkg
-        uses: lukka/run-vcpkg@v10
+        uses: lukka/run-vcpkg@dev/vcpkgconfjson-support
         with:
           vcpkgDirectory: ${{ github.workspace }}/build/vcpkg
-          vcpkgGitCommitId: 8eb57355a4ffb410a2e94c07b4dca2dffbee8e50
-          prependedCacheKey: compiler=${{ matrix.compiler }}
-          #appendedCacheKey: r00
+          vcpkgConfigurationJsonGlob: '**/vcpkg-configuration.json'
 
       - name: Build ${{ matrix.triplet }}-${{ matrix.compiler }} preset
         uses: lukka/run-cmake@v10
@@ -95,12 +93,10 @@ jobs:
           cmakeVersion: 3.22.6
 
       - name: Initialize vcpkg
-        uses: lukka/run-vcpkg@v10
+        uses: lukka/run-vcpkg@dev/vcpkgconfjson-support
         with:
           vcpkgDirectory: ${{ github.workspace }}/../vcpkg
-          vcpkgGitCommitId: 8eb57355a4ffb410a2e94c07b4dca2dffbee8e50
-          prependedCacheKey: compiler=clang-15
-          #appendedCacheKey: r00
+          vcpkgConfigurationJsonGlob: '**/vcpkg-configuration.json'
 
       - name: Configure x64-linux-clang preset
         uses: lukka/run-cmake@v10
