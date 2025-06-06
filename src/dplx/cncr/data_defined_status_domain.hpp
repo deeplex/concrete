@@ -8,7 +8,6 @@
 #pragma once
 
 #include <concepts>
-#include <initializer_list>
 #include <span>
 #include <string_view>
 
@@ -97,6 +96,7 @@ consteval auto validate_status_enum_definition_data() noexcept -> bool
 
     // is sorted
     for (value_descriptor const *it = begin, *next = begin + 1; next != end;
+         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
          it = next++)
     {
         if (it->value > next->value)
@@ -166,6 +166,7 @@ public:
     }
 
 protected:
+// NOLINTNEXTLINE(readability-avoid-unconditional-preprocessor-if)
 #if 1
     [[nodiscard]] static constexpr auto count_success_codes() noexcept
             -> std::size_t
@@ -217,6 +218,7 @@ protected:
                 = static_cast<data_defined_status_code<Enum> const &>(code);
         auto &&value = typedCode.value();
 
+// NOLINTNEXTLINE(readability-avoid-unconditional-preprocessor-if)
 #if 1
         if constexpr (num_success_codes > 0U)
         {
@@ -358,6 +360,7 @@ inline constexpr auto data_defined_status_domain_type<Enum>::get() noexcept
     return data_defined_status_domain<Enum>;
 }
 
+// NOLINTNEXTLINE(readability-avoid-unconditional-preprocessor-if)
 #if 0
 template <status_enum Enum>
 constexpr auto make_status_code(Enum c) noexcept

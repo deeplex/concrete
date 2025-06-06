@@ -89,7 +89,7 @@ struct callable_throwing_move_with_copy
             callable_throwing_move_with_copy const &) noexcept
     {
     }
-    // NOLINTNEXTLINE(performance-noexcept-move-constructor)
+    // NOLINTNEXTLINE(performance-noexcept-move-constructor,cppcoreguidelines-noexcept-move-operations)
     callable_throwing_move_with_copy(callable_throwing_move_with_copy &&)
     {
     }
