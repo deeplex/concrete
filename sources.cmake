@@ -24,8 +24,8 @@ dplx_target_sources(concrete
         scope_guard
 )
 
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/generated/src/dplx/cncr/detail)
-configure_file(tools/config.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/generated/src/dplx/cncr/detail/config.hpp @ONLY)
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated/src/dplx/cncr/detail")
+configure_file(tools/config.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/generated/src/dplx/cncr/detail/config.hpp" @ONLY)
 target_sources(concrete PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated/src/dplx/cncr/detail/config.hpp>)
 
 dplx_target_sources(concrete
