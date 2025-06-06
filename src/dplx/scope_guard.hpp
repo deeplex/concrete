@@ -48,8 +48,8 @@ public:
 
     template <class Fn>
         requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>)
-                     && std::is_constructible_v<EF, Fn>
-                     && std::is_nothrow_constructible_v<EF, Fn>
+                        && std::is_constructible_v<EF, Fn>
+                        && std::is_nothrow_constructible_v<EF, Fn>
     scope_exit(Fn &&fn) noexcept
         : mExitFunction(static_cast<Fn &&>(fn))
         , mActive(true)
@@ -57,11 +57,11 @@ public:
     }
     template <class Fn>
         requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>)
-                     && std::is_constructible_v<EF, Fn>
-                     && (!std::is_nothrow_constructible_v<EF, Fn>)
-                     && std::is_nothrow_constructible_v<
-                             EF,
-                             std::remove_reference_t<Fn> &>
+                        && std::is_constructible_v<EF, Fn>
+                        && (!std::is_nothrow_constructible_v<EF, Fn>)
+                        && std::is_nothrow_constructible_v<
+                                EF,
+                                std::remove_reference_t<Fn> &>
     scope_exit(Fn &&fn) noexcept
         : mExitFunction(fn)
         , mActive(true)
@@ -69,13 +69,15 @@ public:
     }
     template <class Fn>
         requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_exit>)
-             && std::is_constructible_v<EF, Fn>
-             && (!std::is_nothrow_constructible_v<EF, Fn>)
-             && (!std::is_nothrow_constructible_v<
-                     EF,
-                     std::remove_reference_t<Fn> &>)
+                && std::is_constructible_v<EF, Fn>
+                && (!std::is_nothrow_constructible_v<EF, Fn>)
+                && (!std::is_nothrow_constructible_v<
+                        EF,
+                        std::remove_reference_t<Fn> &>)
     scope_exit(Fn &&fn)
-    try : mExitFunction(fn), mActive(true)
+    try
+        : mExitFunction(fn)
+        , mActive(true)
     {
     }
     catch (...)
@@ -110,31 +112,33 @@ public:
 
     template <class Fn>
         requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>)
-             && std::is_constructible_v<EF, Fn>
-             && std::is_nothrow_constructible_v<EF, Fn>
+                && std::is_constructible_v<EF, Fn>
+                && std::is_nothrow_constructible_v<EF, Fn>
     scope_guard(Fn &&fn) noexcept
         : mExitFunction(static_cast<Fn &&>(fn))
     {
     }
     template <class Fn>
         requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>)
-             && std::is_constructible_v<EF, Fn>
-             && (!std::is_nothrow_constructible_v<EF, Fn>)
-             && std::is_nothrow_constructible_v<EF,
-                                                std::remove_reference_t<Fn> &>
+                && std::is_constructible_v<EF, Fn>
+                && (!std::is_nothrow_constructible_v<EF, Fn>)
+                && std::is_nothrow_constructible_v<
+                        EF,
+                        std::remove_reference_t<Fn> &>
     scope_guard(Fn &&fn) noexcept
         : mExitFunction(fn)
     {
     }
     template <class Fn>
         requires(!std::is_same_v<std::remove_cvref_t<Fn>, scope_guard>)
-             && std::is_constructible_v<EF, Fn>
-             && (!std::is_nothrow_constructible_v<EF, Fn>)
-             && (!std::is_nothrow_constructible_v<
-                     EF,
-                     std::remove_reference_t<Fn> &>)
+                && std::is_constructible_v<EF, Fn>
+                && (!std::is_nothrow_constructible_v<EF, Fn>)
+                && (!std::is_nothrow_constructible_v<
+                        EF,
+                        std::remove_reference_t<Fn> &>)
     scope_guard(Fn &&fn)
-    try : mExitFunction(fn)
+    try
+        : mExitFunction(fn)
     {
     }
     catch (...)

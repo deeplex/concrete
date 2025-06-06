@@ -23,8 +23,7 @@ struct mp_rename
 {
 };
 template <template <typename...> typename T,
-          template <typename...>
-          typename U,
+          template <typename...> typename U,
           typename... Ts>
 struct mp_rename<T<Ts...>, U>
 {
@@ -38,8 +37,7 @@ struct mp_transform
 {
 };
 template <template <typename> typename Fn,
-          template <typename...>
-          typename L,
+          template <typename...> typename L,
           typename... TArgs>
 struct mp_transform<Fn, L<TArgs...>>
 {

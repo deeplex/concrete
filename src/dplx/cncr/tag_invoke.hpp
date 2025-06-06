@@ -17,9 +17,9 @@ struct tag_invoke_fn
 {
     template <typename T, typename... TArgs>
         requires requires(T policy, TArgs &&...args) {
-                     tag_invoke(static_cast<T &&>(policy),
-                                static_cast<TArgs &&>(args)...);
-                 }
+            tag_invoke(static_cast<T &&>(policy),
+                       static_cast<TArgs &&>(args)...);
+        }
     constexpr auto operator()(T policy, TArgs &&...args) const
             noexcept(noexcept(tag_invoke(static_cast<T &&>(policy),
                                          static_cast<TArgs &&>(args)...)))
@@ -53,9 +53,9 @@ concept tag_invocable
 template <typename Tag, typename... TArgs>
 concept nothrow_tag_invocable
         = tag_invocable<Tag, TArgs...>
-       && std::is_nothrow_invocable_v<dplx::detail::cpo::tag_invoke_fn,
-                                      Tag,
-                                      TArgs...>;
+          && std::is_nothrow_invocable_v<dplx::detail::cpo::tag_invoke_fn,
+                                         Tag,
+                                         TArgs...>;
 
 template <typename Tag, typename... TArgs>
 using tag_invoke_result

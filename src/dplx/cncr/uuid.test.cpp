@@ -113,7 +113,7 @@ TEST_CASE("a uuid is correctly stringified")
         stream << subject;
         CHECK(stream.str() == expected);
     }
-#if __cpp_lib_format >= 202106L
+#if __cpp_lib_format >= 202'106L
     SECTION("via std::format")
     {
         auto const stringified = std::format("{}", subject);

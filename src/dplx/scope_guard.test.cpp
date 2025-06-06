@@ -18,8 +18,7 @@ TEST_CASE("scope_exit is constructible from a lambda rvalue")
 {
     int called = 0;
     {
-        scope_exit subject = [&called]
-        {
+        scope_exit subject = [&called] {
             called += 1;
         };
     }
