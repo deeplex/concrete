@@ -55,7 +55,7 @@
 namespace dplx::cncr
 {
 
-static_assert(__cpp_lib_byteswap >= 202110L,
+static_assert(__cpp_lib_byteswap >= 202'110L,
               "USE_STD_BYTESWAP has been configured, but this TU isn't "
               "compiled with a sufficiently C++23 compliant compiler/mode");
 using std::byteswap;
@@ -109,8 +109,8 @@ constexpr auto byteswap(T value) noexcept -> T
         // NOLINTNEXTLINE(bugprone-signed-char-misuse)
         auto const x = static_cast<std::uint32_t>(value);
         auto const step16 = x << 16 | x >> 16;
-        return static_cast<T>(((step16 << 8) & 0xff00ff00U)
-                              | ((step16 >> 8) & 0x00ff00ffU));
+        return static_cast<T>(((step16 << 8) & 0xff00'ff00U)
+                              | ((step16 >> 8) & 0x00ff'00ffU));
     }
     else if constexpr (sizeof(T) == sizeof(std::uint64_t))
     {
@@ -122,10 +122,10 @@ constexpr auto byteswap(T value) noexcept -> T
 #endif
         auto const x = static_cast<std::uint64_t>(value);
         auto const step32 = x << 32 | x >> 32;
-        auto const step16 = (step32 & 0x0000ffff0000ffffU) << 16
-                          | (step32 & 0xffff0000ffff0000U) >> 16;
-        return static_cast<T>((step16 & 0x00ff00ff00ff00ffU) << 8
-                              | (step16 & 0xff00ff00ff00ff00U) >> 8);
+        auto const step16 = (step32 & 0x0000'ffff'0000'ffffU) << 16
+                            | (step32 & 0xffff'0000'ffff'0000U) >> 16;
+        return static_cast<T>((step16 & 0x00ff'00ff'00ff'00ffU) << 8
+                              | (step16 & 0xff00'ff00'ff00'ff00U) >> 8);
     }
     else
     {

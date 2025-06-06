@@ -91,10 +91,10 @@ public:
         // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
         // set version field to 4
         state.values[0] = (state.values[0] & 0xffff'ffff'ffff'0fffU)
-                        | 0x0000'0000'0000'4000U;
+                          | 0x0000'0000'0000'4000U;
         // set variant field to 0b10
         state.values[1] = (state.values[1] & 0x3fff'ffff'ffff'ffffU)
-                        | 0x8000'0000'0000'0000U;
+                          | 0x8000'0000'0000'0000U;
         // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
         return std::bit_cast<uuid>(state);
     }

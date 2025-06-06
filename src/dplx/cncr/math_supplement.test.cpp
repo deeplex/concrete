@@ -41,13 +41,13 @@ TEST_CASE("div_ceil/signed")
     CHECK(cncr::div_ceil(-8, -7) == 2);
 
     CHECK(cncr::div_ceil(19 * -1, 19) == -1);
-    CHECK(cncr::div_ceil(19 * -1 + 1, 19) == 0);
+    CHECK(cncr::div_ceil((19 * -1) + 1, 19) == 0);
     CHECK(cncr::div_ceil(19 * 0, 19) == 0);
-    CHECK(cncr::div_ceil(19 * 0 + 1, 19) == 1);
+    CHECK(cncr::div_ceil((19 * 0) + 1, 19) == 1);
     CHECK(cncr::div_ceil(19 * 1, 19) == 1);
-    CHECK(cncr::div_ceil(19 * 1 + 1, 19) == 2);
+    CHECK(cncr::div_ceil((19 * 1) + 1, 19) == 2);
     CHECK(cncr::div_ceil(19 * 2, 19) == 2);
-    CHECK(cncr::div_ceil(19 * 2 + 1, 19) == 3);
+    CHECK(cncr::div_ceil((19 * 2) + 1, 19) == 3);
 }
 
 TEST_CASE("div_ceil/unsigned")

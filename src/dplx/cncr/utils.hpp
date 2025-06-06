@@ -10,7 +10,7 @@
 #include <cstddef>
 #include <type_traits>
 
-#if defined(_MSC_VER) // MSVC
+#if defined(_MSC_VER)   // MSVC
 #define DPLX_ATTR_FORCE_INLINE __forceinline
 #elif defined(__GNUC__) // GCC, Clang, ICC
 #define DPLX_ATTR_FORCE_INLINE [[gnu::always_inline]] inline
@@ -26,7 +26,7 @@
 #define DPLX_ATTR_NO_UNIQUE_ADDRESS
 #endif
 
-#if __cpp_if_consteval >= 202106L
+#if __cpp_if_consteval >= 202'106L
 #define DPLX_CNCR_IF_CONSTEVAL     if consteval
 #define DPLX_CNCR_IF_NOT_CONSTEVAL if not consteval
 #else
@@ -42,7 +42,7 @@ namespace dplx::cncr
     // Uses compiler specific extensions if possible.
     // Even if no extension is used, undefined behavior is still raised by
     // an empty function body and the noreturn attribute.
-#if defined(__GNUC__) // GCC, Clang, ICC
+#if defined(__GNUC__)   // GCC, Clang, ICC
     __builtin_unreachable();
 #elif defined(_MSC_VER) // MSVC
     __assume(false);

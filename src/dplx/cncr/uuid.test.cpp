@@ -12,8 +12,10 @@
 //
 
 #include <sstream>
+#include <type_traits>
 
 #include <catch2/catch_test_macros.hpp>
+#include <fmt/format.h>
 
 #include <dplx/cncr/misc.hpp>
 
@@ -23,6 +25,10 @@
 
 namespace cncr_tests
 {
+
+#if __has_include(<fmt/base.h>)
+static_assert(std::is_constructible_v<fmt::formatter<cncr::uuid, char>>);
+#endif
 
 namespace
 {
@@ -107,7 +113,7 @@ TEST_CASE("a uuid is correctly stringified")
         stream << subject;
         CHECK(stream.str() == expected);
     }
-#if __cpp_lib_format >= 202106L
+#if __cpp_lib_format >= 202'106L
     SECTION("via std::format")
     {
         auto const stringified = std::format("{}", subject);
@@ -124,7 +130,7 @@ TEST_CASE("a uuid is correctly stringified")
         CHECK(stringified == "{47183823-2574-4BFD-B411-99ED177D3E43}"sv);
     }
 #endif
-#if __has_include(<fmt/core.h>)
+#if __has_include(<fmt/base.h>)
     SECTION("via fmt::format")
     {
         auto const stringified = fmt::format("{}", subject);

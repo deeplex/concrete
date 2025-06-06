@@ -49,10 +49,9 @@ auto endian_samples(endian_sample<T> const (&samples)[N])
     return cncr_tests::from_range(std::move(values));
 #else
     return cncr_tests::from_range(
-            samples
-            | std::views::transform(
-                    [](endian_sample<T> const &sample)
-                    { return std::bit_cast<endian_sample<R>>(sample); }));
+            samples | std::views::transform([](endian_sample<T> const &sample) {
+                return std::bit_cast<endian_sample<R>>(sample);
+            }));
 #endif
 }
 
@@ -80,16 +79,16 @@ constexpr endian_sample<std::uint16_t> byteswap_samples<T>[] = {
 template <typename T>
     requires(sizeof(T) == sizeof(std::uint32_t))
 constexpr endian_sample<std::uint32_t> byteswap_samples<T>[] = {
-        {0x1f2e3d4c, 0x4c3d2e1f},
-        {0xf1e2d3c4, 0xc4d3e2f1},
-        {0x1234abcd, 0xcdab3412},
+        {0x1f2e'3d4c, 0x4c3d'2e1f},
+        {0xf1e2'd3c4, 0xc4d3'e2f1},
+        {0x1234'abcd, 0xcdab'3412},
 };
 template <typename T>
     requires(sizeof(T) == sizeof(std::uint64_t))
 constexpr endian_sample<std::uint64_t> byteswap_samples<T>[] = {
-        {0x1f2e3d4c5b6a7988, 0x88796a5b4c3d2e1f},
-        {0xf1e2d3c4b5a69788, 0x8897a6b5c4d3e2f1},
-        {0x1234567890abcdef, 0xefcdab9078563412},
+        {0x1f2e'3d4c'5b6a'7988, 0x8879'6a5b'4c3d'2e1f},
+        {0xf1e2'd3c4'b5a6'9788, 0x8897'a6b5'c4d3'e2f1},
+        {0x1234'5678'90ab'cdef, 0xefcd'ab90'7856'3412},
 };
 
 } // namespace
@@ -132,34 +131,34 @@ TEST_CASE("endian_load correctly loads a big endian value from bytes")
     using enum std::endian;
     auto const bytes = cncr::make_byte_array<4>({0x1f, 0x2e, 0x3d, 0x4c});
     auto const loaded = cncr::endian_load<big, std::uint32_t>(bytes.data());
-    CHECK(loaded == 0x1f2e3d4c);
+    CHECK(loaded == 0x1f2e'3d4c);
 }
 TEST_CASE("endian_load correctly loads a little endian value from bytes")
 {
     using enum std::endian;
     auto const bytes = cncr::make_byte_array<4>({0x4c, 0x3d, 0x2e, 0x1f});
     auto const loaded = cncr::endian_load<little, std::uint32_t>(bytes.data());
-    CHECK(loaded == 0x1f2e3d4c);
+    CHECK(loaded == 0x1f2e'3d4c);
 }
 TEST_CASE("endian_load correctly loads a big endian value from uint8s")
 {
     using enum std::endian;
     std::array<std::uint8_t, 4> const bytes{0x1f, 0x2e, 0x3d, 0x4c};
     auto const loaded = cncr::endian_load<big, std::uint32_t>(bytes.data());
-    CHECK(loaded == 0x1f2e3d4c);
+    CHECK(loaded == 0x1f2e'3d4c);
 }
 TEST_CASE("endian_load correctly loads a little endian value from uint8s")
 {
     using enum std::endian;
     std::array<std::uint8_t, 4> const bytes{0x4c, 0x3d, 0x2e, 0x1f};
     auto const loaded = cncr::endian_load<little, std::uint32_t>(bytes.data());
-    CHECK(loaded == 0x1f2e3d4c);
+    CHECK(loaded == 0x1f2e'3d4c);
 }
 
 TEST_CASE("endian_store correctly stores a big endian value to bytes")
 {
     using enum std::endian;
-    constexpr unsigned value = 0x1f2e3d4c;
+    constexpr unsigned value = 0x1f2e'3d4c;
     auto const expected = cncr::make_byte_array<4>({0x1f, 0x2e, 0x3d, 0x4c});
 
     std::array<std::byte, 4> stored{};
@@ -169,7 +168,7 @@ TEST_CASE("endian_store correctly stores a big endian value to bytes")
 TEST_CASE("endian_store correctly stores a little endian value to bytes")
 {
     using enum std::endian;
-    constexpr unsigned value = 0x1f2e3d4c;
+    constexpr unsigned value = 0x1f2e'3d4c;
     auto const expected = cncr::make_byte_array<4>({0x4c, 0x3d, 0x2e, 0x1f});
 
     std::array<std::byte, 4> stored{};
@@ -179,7 +178,7 @@ TEST_CASE("endian_store correctly stores a little endian value to bytes")
 TEST_CASE("endian_store correctly stores a big endian value to uint8s")
 {
     using enum std::endian;
-    constexpr unsigned value = 0x1f2e3d4c;
+    constexpr unsigned value = 0x1f2e'3d4c;
     std::array<std::uint8_t, 4> const expected{0x1f, 0x2e, 0x3d, 0x4c};
 
     std::array<std::uint8_t, 4> stored{};
@@ -189,7 +188,7 @@ TEST_CASE("endian_store correctly stores a big endian value to uint8s")
 TEST_CASE("endian_store correctly stores a little endian value to uint8s")
 {
     using enum std::endian;
-    constexpr unsigned value = 0x1f2e3d4c;
+    constexpr unsigned value = 0x1f2e'3d4c;
     std::array<std::uint8_t, 4> const expected{0x4c, 0x3d, 0x2e, 0x1f};
 
     std::array<std::uint8_t, 4> stored{};

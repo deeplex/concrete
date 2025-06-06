@@ -580,12 +580,12 @@ public:
     {
         return mPtr;
     }
-    [[nodiscard]] constexpr auto get_handle() &&noexcept -> intrusive_ptr<RC>
+    [[nodiscard]] constexpr auto get_handle() && noexcept -> intrusive_ptr<RC>
     {
         mPtr = nullptr;
         return std::move(mHandle);
     }
-    [[nodiscard]] constexpr auto get_handle() const &noexcept
+    [[nodiscard]] constexpr auto get_handle() const & noexcept
             -> intrusive_ptr<RC> const &
     {
         return mHandle;

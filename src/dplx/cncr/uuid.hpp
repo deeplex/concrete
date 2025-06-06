@@ -358,9 +358,15 @@ private:
         unsigned const udigit = static_cast<unsigned char>(digit);
         unsigned const maybeDecimal = udigit - '0';
         unsigned const maybeAlpha = (udigit | 0x20U) - 'a';
-        return maybeDecimal <= 9U ? maybeDecimal
-             : maybeAlpha <= 5U   ? 0xa + maybeAlpha
-                                  : throw "illegal hex digit";
+        if (maybeDecimal <= 9U)
+        {
+            return maybeDecimal;
+        }
+        if (maybeAlpha <= 5U)
+        {
+            return 0xa + maybeAlpha;
+        }
+        throw "illegal hex digit";
         // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
     }
 };
@@ -403,11 +409,11 @@ struct std::hash<dplx::cncr::uuid>
     }
 
 private:
-    static constexpr std::uint64_t PRIME64_1 = 0x9e3779b185ebca87U;
-    static constexpr std::uint64_t PRIME64_2 = 0xc2b2ae3d27d4eb4fU;
-    static constexpr std::uint64_t PRIME64_3 = 0x165667b19e3779f9U;
-    static constexpr std::uint64_t PRIME64_4 = 0x85ebca77c2b2ae63U;
-    static constexpr std::uint64_t PRIME64_5 = 0x27d4eb2f165667c5U;
+    static constexpr std::uint64_t PRIME64_1 = 0x9e37'79b1'85eb'ca87U;
+    static constexpr std::uint64_t PRIME64_2 = 0xc2b2'ae3d'27d4'eb4fU;
+    static constexpr std::uint64_t PRIME64_3 = 0x1656'67b1'9e37'79f9U;
+    static constexpr std::uint64_t PRIME64_4 = 0x85eb'ca77'c2b2'ae63U;
+    static constexpr std::uint64_t PRIME64_5 = 0x27d4'eb2f'1656'67c5U;
 
     static constexpr auto xxHash64_round(std::uint64_t accN,
                                          std::uint64_t const laneN) noexcept

@@ -95,11 +95,11 @@ using result_value_t
 template <typename T, typename R>
 concept tryable_result
         = tryable<T>
-       && (std::is_same_v<R, result_value_t<T>> // this handles R=void
-           || requires(T rx) {
-                  detail::check_copy_initializable<R>(
-                          outcome::try_operation_extract_value(
-                                  static_cast<T &&>(rx)));
-              });
+          && (std::is_same_v<R, result_value_t<T>> // this handles R=void
+              || requires(T rx) {
+                     detail::check_copy_initializable<R>(
+                             outcome::try_operation_extract_value(
+                                     static_cast<T &&>(rx)));
+                 });
 
 } // namespace dplx::cncr

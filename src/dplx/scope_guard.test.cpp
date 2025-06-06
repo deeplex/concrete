@@ -18,8 +18,7 @@ TEST_CASE("scope_exit is constructible from a lambda rvalue")
 {
     int called = 0;
     {
-        scope_exit subject = [&called]
-        {
+        scope_exit subject = [&called] {
             called += 1;
         };
     }
@@ -90,7 +89,7 @@ struct callable_throwing_move_with_copy
             callable_throwing_move_with_copy const &) noexcept
     {
     }
-    // NOLINTNEXTLINE(performance-noexcept-move-constructor)
+    // NOLINTNEXTLINE(performance-noexcept-move-constructor,cppcoreguidelines-noexcept-move-operations)
     callable_throwing_move_with_copy(callable_throwing_move_with_copy &&)
     {
     }

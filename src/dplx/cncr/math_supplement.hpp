@@ -18,13 +18,13 @@ namespace dplx::cncr
 
 template <typename T>
 concept integer = std::integral<T>
-               && none_of<std::remove_cv_t<T>,
-                          bool,
-                          char,
-                          wchar_t,
-                          char8_t,
-                          char16_t,
-                          char32_t>;
+                  && none_of<std::remove_cv_t<T>,
+                             bool,
+                             char,
+                             wchar_t,
+                             char8_t,
+                             char16_t,
+                             char32_t>;
 
 template <typename T>
 concept signed_integer = integer<T> && std::signed_integral<T>;
@@ -58,14 +58,14 @@ constexpr auto div_ceil(T const dividend, U const divisor) noexcept
             ^ static_cast<ucommon_type>(static_cast<common_type>(divisor)));
 
     return static_cast<common_type>(
-            dividend / divisor + (signComp >= 0 && dividend % divisor != 0));
+            (dividend / divisor) + (signComp >= 0 && dividend % divisor != 0));
 }
 template <unsigned_integer T, unsigned_integer U>
 constexpr auto div_ceil(T const dividend, U const divisor) noexcept
         -> std::common_type_t<T, U>
 {
     using common_type = std::common_type_t<T, U>;
-    return static_cast<common_type>(dividend / divisor
+    return static_cast<common_type>((dividend / divisor)
                                     + (dividend % divisor != 0U));
 }
 
