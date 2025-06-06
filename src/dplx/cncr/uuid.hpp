@@ -358,9 +358,15 @@ private:
         unsigned const udigit = static_cast<unsigned char>(digit);
         unsigned const maybeDecimal = udigit - '0';
         unsigned const maybeAlpha = (udigit | 0x20U) - 'a';
-        return maybeDecimal <= 9U ? maybeDecimal
-               : maybeAlpha <= 5U ? 0xa + maybeAlpha
-                                  : throw "illegal hex digit";
+        if (maybeDecimal <= 9U)
+        {
+            return maybeDecimal;
+        }
+        if (maybeAlpha <= 5U)
+        {
+            return 0xa + maybeAlpha;
+        }
+        throw "illegal hex digit";
         // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
     }
 };
