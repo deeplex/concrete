@@ -149,20 +149,22 @@ public:
 
     static constexpr auto get() noexcept -> status_code_domain const &;
 
-    [[nodiscard]] constexpr auto name() const noexcept -> string_ref override
+    [[nodiscard]] constexpr auto
+    _do_name(_vtable_name_args &args) const noexcept -> int override
     {
         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
         constexpr std::string_view domainName{definition::domain_name};
-        return string_ref(domainName.data(), domainName.size());
+        args.ret = string_ref(domainName.data(), domainName.size());
+        return 0;
     }
 
-    [[nodiscard]] constexpr auto payload_info() const noexcept
-            -> payload_info_t override
+    constexpr void
+    _do_payload_info(_vtable_payload_info_args &args) const noexcept override
     {
         static_assert(alignof(Enum) <= alignof(status_code_domain *));
         // NOLINTNEXTLINE(bugprone-sizeof-expression)
-        return {sizeof(Enum), sizeof(status_code_domain *) + sizeof(Enum),
-                alignof(status_code_domain *)};
+        args.ret = {sizeof(Enum), sizeof(status_code_domain *) + sizeof(Enum),
+                    alignof(status_code_domain *)};
     }
 
 protected:
@@ -287,12 +289,12 @@ protected:
         return false;
     }
 
-    [[nodiscard]] DPLX_CNCR_STATUS_CONSTEXPR auto
-    _generic_code(system_error2::status_code<void> const &self) const noexcept
-            -> system_error::generic_code override
+    DPLX_CNCR_STATUS_CONSTEXPR void
+    _do_generic_code(_vtable_generic_code_args &args) const noexcept override
     {
         auto const &typedCode
-                = static_cast<data_defined_status_code<Enum> const &>(self);
+                = static_cast<data_defined_status_code<Enum> const &>(
+                        args.code);
         auto &&value = typedCode.value();
 
         // find matching descriptor
@@ -302,19 +304,20 @@ protected:
         {
             if (descriptor.value == value)
             {
-                return descriptor.equivalent;
+                args.ret = descriptor.equivalent;
+                return;
             }
         }
         // the given code can't be represented by the generic coding.
-        return system_error::errc::unknown;
+        args.ret = system_error::errc::unknown;
     }
 
     [[nodiscard]] DPLX_CNCR_STATUS_CONSTEXPR auto
-    _do_message(system_error2::status_code<void> const &self) const noexcept
-            -> string_ref override
+    _do_message(_vtable_message_args &args) const noexcept -> int override
     {
         auto const &typedCode
-                = static_cast<data_defined_status_code<Enum> const &>(self);
+                = static_cast<data_defined_status_code<Enum> const &>(
+                        args.code);
         auto &&value = typedCode.value();
         constexpr std::span<value_descriptor const> descriptors(
                 definition::values);
@@ -324,12 +327,14 @@ protected:
         {
             if (descriptor.value == value)
             {
-                return string_ref(descriptor.description.data(),
-                                  descriptor.description.size());
+                args.ret = string_ref(descriptor.description.data(),
+                                      descriptor.description.size());
+                return 0;
             }
         }
 
-        return string_ref("unknown error code value");
+        args.ret = string_ref("unknown error code value");
+        return 0;
     }
 
     [[noreturn]] void _do_throw_exception(
